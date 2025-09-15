@@ -2,83 +2,70 @@ using UnityEngine;
 
 public class E_Controller : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject enemy;
+    [Header("Prefab y jugador")]
+    [SerializeField] private GameObject enemy;
+    [SerializeField] private Transform player;
 
-    [SerializeField]
-    private Transform player;
+    [Header("Configuración spawn")]
+    [SerializeField] private float spawnRadius = 10f;
+    [SerializeField] private float minDistance = 5f;
 
-
-
-    [SerializeField]
-    private float spawnRadius = 10f;
-
-    [SerializeField]
-    private float minDistance = 5f;
-
-    [SerializeField]
-    private int round = 0;
-
+    [Header("Rondas")]
+    [SerializeField] private int round = 0;
     private int totalEnemies = 0;
 
-
-    
-    public static bool nuevaRonda = false;  
-
-    
     void Start()
     {
-
         NuevaRonda();
-        
     }
 
-    
     void Update()
     {
+        // Si no hay enemigos vivos, iniciar nueva ronda
         if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
             NuevaRonda();
         }
-        
-
     }
 
     void NuevaRonda()
     {
         round++;
-
-        
         player.position = new Vector3(0, 1.74f, 0);
-        
-        Debug.Log(player.position + "¡¡¡¡¡¡¡¡¡¡¡¡¡NUEVA RONDA!!!!!!!!!!!");
+        Debug.Log(player.position + " ¡¡¡NUEVA RONDA!!!");
+
+        int enemigosExtra;
+
         if (round <= 10)
-        {
-            int enemigosExtra = Random.Range(1, 3);
-            totalEnemies += enemigosExtra;
-            SpawnEnemies(totalEnemies);
-        }
-        else if (round >= 10)
-        {
-            int enemigosExtra = Random.Range(3, 5);
-            totalEnemies += enemigosExtra;
-            SpawnEnemies(totalEnemies);
-        }
+            enemigosExtra = Random.Range(1, 3);
+        else
+            enemigosExtra = Random.Range(3, 5);
 
-        
-        Debug.Log($"Ronda{round} - Enemigos: {totalEnemies}");
+        totalEnemies += enemigosExtra;
+        SpawnEnemies(totalEnemies);
 
-        
+        Debug.Log($"Ronda {round} - Enemigos: {totalEnemies}");
     }
 
     void SpawnEnemies(int cantidad)
     {
+        if (enemy == null)
+        {
+            Debug.LogError("Prefab de enemigo no asignado en el Inspector!");
+            return;
+        }
+
         for (int i = 0; i < cantidad; i++)
         {
             Vector3 spawnPos = GetRandomPosition();
-            Instantiate(enemy, spawnPos, Quaternion.identity);
-        }
+            GameObject nuevoEnemigo = Instantiate(enemy, spawnPos, Quaternion.identity);
 
+            EnemyFollow ef = nuevoEnemigo.GetComponent<EnemyFollow>();
+            if (ef != null)
+                ef.Objetivo = player;
+
+            nuevoEnemigo.tag = "Enemy";
+        }
     }
 
     Vector3 GetRandomPosition()
@@ -90,8 +77,7 @@ public class E_Controller : MonoBehaviour
             spawnPos = new Vector3(randomCircle.x, 0, randomCircle.y) + player.position;
         }
         while (Vector3.Distance(spawnPos, player.position) < minDistance);
-        return spawnPos;
 
+        return spawnPos;
     }
 }
-

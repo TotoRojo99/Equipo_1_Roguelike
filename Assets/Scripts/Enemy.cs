@@ -1,26 +1,49 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    [SerializeField] private NavMeshAgent Enemigo;
+    [SerializeField] private float Velocidad = 3.5f;
+    [SerializeField] private float EnRango = 10f;
 
-    }
+    public bool Persiguiendo;
+    public float DistanciaDeteccion;
+    [SerializeField] private Transform Objetivo;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        if (Enemigo == null || Objetivo == null) return;
 
-    }
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "P1")
+        DistanciaDeteccion = Vector3.Distance(transform.position, Objetivo.position);
+
+        if (DistanciaDeteccion < EnRango)
+            Persiguiendo = true;
+        else if (DistanciaDeteccion > EnRango + 3)
+            Persiguiendo = false;
+
+        if (!Persiguiendo)
         {
-            Destroy(gameObject);
-
-
+            Enemigo.isStopped = true;
+            Enemigo.ResetPath();
         }
+        else
+        {
+            Enemigo.isStopped = false;
+            Enemigo.speed = Velocidad;
+            Enemigo.SetDestination(Objetivo.position);
+        }
+    }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("P1"))
+            Destroy(gameObject);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, EnRango);
     }
 }
