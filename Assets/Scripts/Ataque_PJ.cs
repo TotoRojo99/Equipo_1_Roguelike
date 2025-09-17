@@ -5,10 +5,12 @@ public class Ataque_PJ : MonoBehaviour
 {
     private bool Pegando;
     private bool PuedePegar;
+    private bool Enfriamiento;
     void Start()
     {
         Pegando = false;
         PuedePegar = true;
+        
         GetComponent<MeshRenderer>().enabled = false; // desactiva
         GetComponent<BoxCollider>().enabled = false; // desactiva
 
@@ -17,33 +19,28 @@ public class Ataque_PJ : MonoBehaviour
     void Update()
     {
         // Si el click izquierdo está presionado
-        if (Mouse.current.leftButton.isPressed && PuedePegar == true)
+        if (PuedePegar == true && Pegando == false && Mouse.current.leftButton.wasPressedThisFrame)
         {
             Debug.Log("Entre");
             Pegando = true;
-            
             GetComponent<MeshRenderer>().enabled = true; // activa
             GetComponent<BoxCollider>().enabled = true; // activa
-            Invoke("Golpe", 0.5f);
-        }
-        else
-        {
-            GetComponent<MeshRenderer>().enabled = false; // desactiva
-            GetComponent<BoxCollider>().enabled = false; // desactiva
+            Invoke("Golpe", 1f);
         }
     }
     void Golpe()
     {
         Debug.Log("Dentro Timer");
-        Pegando = false;
+        GetComponent<MeshRenderer>().enabled = false; // desactiva
+        GetComponent<BoxCollider>().enabled = false; // desactiva
         PuedePegar = false;
-        //GetComponent<MeshRenderer>().enabled = false; // desactiva
-        // GetComponent<BoxCollider>().enabled = false; // desactiva
+        Pegando = false;
         Invoke("Cooldown", 1f);
     }
 
     void Cooldown()
     {
         PuedePegar = true;
+        
     }
 }
