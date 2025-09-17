@@ -447,7 +447,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -866,7 +866,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -930,6 +930,10 @@ PrefabInstance:
     - target: {fileID: 522876079865301099, guid: 20f7c4c1bcfa6aa47a30a21d7c7bc850, type: 3}
       propertyPath: m_Name
       value: Ataque
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140971354689328771, guid: 20f7c4c1bcfa6aa47a30a21d7c7bc850, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8820627551385098361, guid: 20f7c4c1bcfa6aa47a30a21d7c7bc850, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1136,7 +1140,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1267,10 +1271,10 @@ PrefabInstance:
       addedObject: {fileID: 1902906823}
     - targetCorrespondingSourceObject: {fileID: 5102526662208903775, guid: cbbddb69f02f714409dc17497926b0db, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1902906826}
+      addedObject: {fileID: 1902906827}
     - targetCorrespondingSourceObject: {fileID: 5102526662208903775, guid: cbbddb69f02f714409dc17497926b0db, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1902906827}
+      addedObject: {fileID: 1902906828}
   m_SourcePrefab: {fileID: 100100000, guid: cbbddb69f02f714409dc17497926b0db, type: 3}
 --- !u!1 &1902906821 stripped
 GameObject:
@@ -1364,18 +1368,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5585589831361855717, guid: cbbddb69f02f714409dc17497926b0db, type: 3}
   m_PrefabInstance: {fileID: 1902906820}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1902906826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1902906821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 150d1843cc95bc646bfc3c6446928329, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MoverObjetos1
 --- !u!114 &1902906827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1392,6 +1384,18 @@ MonoBehaviour:
   groundPlayer:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &1902906828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902906821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27771bf718448194c816e2ae3f628c37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragAndDropPlano
 --- !u!1 &1983058645
 GameObject:
   m_ObjectHideFlags: 0
