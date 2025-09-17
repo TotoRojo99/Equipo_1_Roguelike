@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-            controller = GetComponent<CharacterController>(); //Obtenemos la referencia al CharacterController
+            controller = GetComponent<CharacterController>(); //Instanciamos la referencia al CharacterController
     }
 
     public void OnMove(InputAction.CallbackContext context)     //Método para manejar la entrada de movimiento
