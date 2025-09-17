@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
 {
-    private int Vida = 5;
-    private bool golpeRecibido = false;
+    //private int Vida = 5;
+    //private bool golpeRecibido = false;
     public Transform Objetivo; // público para asignarlo desde el controlador
     [SerializeField] private float Velocidad = 3.5f;
     [SerializeField] private float EnRango = 10f;
@@ -29,27 +29,28 @@ public class EnemyFollow : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (golpeRecibido) return; // evita múltiples llamadas
+       //if (golpeRecibido) return; // evita múltiples llamadas
         if (collision.gameObject.CompareTag("P1") || collision.gameObject.CompareTag("Lanzable"))
         {
-            PerderVida();
-            golpeRecibido = true;
-            Invoke("ResetGolpe", 0.1f); // reinicia flag después de un pequeño delay
-        }
-    }
-
-    private void ResetGolpe()
-    {
-        golpeRecibido = false;
-    }
-    private void PerderVida()
-    {
-        Vida = Vida - 1;
-        if (Vida <= 0)
-        {
+            //PerderVida();
+            //golpeRecibido = true;
+            //Invoke("ResetGolpe", 0.1f); // reinicia flag después de un pequeño delay
             morir();
         }
     }
+
+    //private void ResetGolpe()
+    //{
+    //    golpeRecibido = false;
+    //}
+    //private void PerderVida()
+    //{
+     //   Vida = Vida - 1;
+       // if (Vida <= 0)
+      //  {
+      //      morir();
+      //  }
+    //}
     private void morir()
     {
         Destroy(gameObject);
