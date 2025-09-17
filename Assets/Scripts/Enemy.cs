@@ -37,8 +37,9 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("P1"))
+        if (collision.gameObject.CompareTag("P1") || collision.gameObject.CompareTag("Lanzable"))
             Destroy(gameObject);
+       
     }
 
     private void OnDrawGizmos()

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - P1
+  - Lanzable
   layers:
   - Default
   - TransparentFX
