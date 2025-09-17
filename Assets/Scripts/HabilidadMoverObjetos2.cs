@@ -1,14 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MoverObjetos1 : MonoBehaviour
+public class DragAndDropPlano : MonoBehaviour
 {
     private Camera cam;
     private GameObject objetoSeleccionado;
     private float tiempoArrastre = 0f;
-    private float tiempoMaximoArrastre = 3f;
-
-    private float distanciaCamara = 5f; // distancia inicial al objeto
+    private float tiempoMaximoArrastre = 1f;
+    private float alturaFija = 1f;
 
     void Start()
     {
@@ -17,7 +16,7 @@ public class MoverObjetos1 : MonoBehaviour
 
     void Update()
     {
-        // Seleccionar con click derecho
+        // Selección con click derecho
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -28,35 +27,31 @@ public class MoverObjetos1 : MonoBehaviour
                     objetoSeleccionado = hit.collider.gameObject;
                     tiempoArrastre = 0f;
 
-                    // Guardar distancia inicial al objeto
-                    distanciaCamara = Vector3.Distance(cam.transform.position, objetoSeleccionado.transform.position);
+                    Vector3 pos = objetoSeleccionado.transform.position;
+                    pos.y = alturaFija;
+                    objetoSeleccionado.transform.position = pos;
                 }
             }
         }
 
+        // Movimiento y soltar automático
         if (objetoSeleccionado != null)
         {
             tiempoArrastre += Time.deltaTime;
 
-            // Soltar tras el tiempo máximo
+            // Soltar automáticamente tras 3 segundos
             if (tiempoArrastre >= tiempoMaximoArrastre)
             {
                 objetoSeleccionado = null;
                 return;
             }
 
-            // Ajuste de profundidad con la rueda
-            float scroll = Mouse.current.scroll.ReadValue().y;
-            distanciaCamara += scroll * 0.5f; // sensibilidad del scroll
-            distanciaCamara = Mathf.Max(0.1f, distanciaCamara); // no dejar distancia negativa
-
-            // Crear un plano perpendicular a la cámara a la distancia actual
-            Plane plano = new Plane(-cam.transform.forward, cam.transform.position + cam.transform.forward * distanciaCamara);
-
+            // Movimiento con el mouse sobre plano a altura fija
+            Plane plano = new Plane(Vector3.up, new Vector3(0, alturaFija, 0));
             Ray rayo = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-            if (plano.Raycast(rayo, out float enter))
+            if (plano.Raycast(rayo, out float distancia))
             {
-                Vector3 punto = rayo.GetPoint(enter);
+                Vector3 punto = rayo.GetPoint(distancia);
                 objetoSeleccionado.transform.position = punto;
             }
         }
@@ -67,4 +62,5 @@ public class MoverObjetos1 : MonoBehaviour
             objetoSeleccionado = null;
         }
     }
+
 }
