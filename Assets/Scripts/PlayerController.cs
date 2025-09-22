@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
             controller = GetComponent<CharacterController>(); //Instanciamos la referencia al CharacterController
+            transform.rotation = Quaternion.Euler(0, 90, 0);
     }
 
     public void OnMove(InputAction.CallbackContext context)     //Método para manejar la entrada de movimiento
