@@ -1393,9 +1393,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1902906821}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27771bf718448194c816e2ae3f628c37, type: 3}
+  m_Script: {fileID: 11500000, guid: 301de10e2f35c6e4d80066f9d618de2a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragAndDropPlano
+  m_EditorClassIdentifier: Assembly-CSharp::HabilidadPlayer
+  armaEquipada: {fileID: 11400000, guid: eb733f476787456438c8218a87a95df3, type: 2}
 --- !u!1 &1983058645
 GameObject:
   m_ObjectHideFlags: 0

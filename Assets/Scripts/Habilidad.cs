@@ -1,5 +1,9 @@
 using UnityEngine;
-public interface IHabilidad
+
+public abstract class Habilidad : ScriptableObject
 {
-    void Activar();
+    public string nombre;
+    public Sprite icono;
+
+    public abstract void Activar(GameObject usuario); // el GameObject que usa la habilidad
 }

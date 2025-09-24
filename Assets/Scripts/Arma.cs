@@ -7,5 +7,5 @@ public class WeaponData : ScriptableObject
 {
     public string nombre;
     public Sprite icono;
-    public MonoBehaviour[] habilidades; // scripts que implementen IHabilidad
+    public Habilidad[] habilidades;
 }

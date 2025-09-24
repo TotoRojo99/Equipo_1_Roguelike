@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class HabilidadPlayer : MonoBehaviour
 {
-    public WeaponData armaEquipada; // asignada desde el inspector o WeaponSelector
+    public WeaponData armaEquipada;
 
-    void Start()
+    private void Start()
     {
         if (armaEquipada == null)
         {
@@ -14,10 +14,9 @@ public class HabilidadPlayer : MonoBehaviour
 
         foreach (var habilidad in armaEquipada.habilidades)
         {
-            IHabilidad h = habilidad as IHabilidad;
-            if (h != null)
+            if (habilidad != null)
             {
-                h.Activar(); // activa la habilidad
+                habilidad.Activar(gameObject); // pasa el jugador como referencia
             }
         }
     }
