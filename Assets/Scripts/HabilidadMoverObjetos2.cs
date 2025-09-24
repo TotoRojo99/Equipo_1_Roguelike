@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DragAndDropPlano : MonoBehaviour
+public class DragAndDropPlano : MonoBehaviour , IHabilidad
 {
     private Camera cam;
     private GameObject objetoSeleccionado;
@@ -62,5 +62,9 @@ public class DragAndDropPlano : MonoBehaviour
             objetoSeleccionado = null;
         }
     }
-
+    public void Activar()
+    {
+        // Activar la habilidad (por ejemplo, habilitar el Update)
+        enabled = true;
+    }
 }
