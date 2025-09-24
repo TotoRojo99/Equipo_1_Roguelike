@@ -4,13 +4,14 @@ public class HabilidadPlayer : MonoBehaviour
 {
     public WeaponData armaEquipada;
 
-    private void Start()
+    // Eliminamos Start(), no activamos nada automáticamente
+    // Activación se hará desde EquiparArma()
+
+    public void EquiparArma(WeaponData nuevaArma)
     {
-        if (armaEquipada == null)
-        {
-            Debug.LogWarning("No se asignó arma al jugador.");
-            return;
-        }
+        armaEquipada = nuevaArma;
+
+        if (armaEquipada == null) return;
 
         foreach (var habilidad in armaEquipada.habilidades)
         {
