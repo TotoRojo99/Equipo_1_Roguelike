@@ -8,6 +8,7 @@ public class DragAndDropPlano : MonoBehaviour
     private float tiempoArrastre = 0f;
     private float tiempoMaximoArrastre = 1f;
     private float alturaFija = 1f;
+    
 
     void Start()
     {
