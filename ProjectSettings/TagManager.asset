@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - P1
   - Lanzable
+  - Derrumbable
   layers:
   - Default
   - TransparentFX

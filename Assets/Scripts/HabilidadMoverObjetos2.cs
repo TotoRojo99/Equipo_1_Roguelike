@@ -9,6 +9,7 @@ public class HabilidadMoverObjeto : Habilidad
     private float tiempoArrastre = 0f;
     private float tiempoMaximoArrastre = 1f;
     private float alturaFija = 1f;
+    
 
     public override void Activar(GameObject usuario)
     {
