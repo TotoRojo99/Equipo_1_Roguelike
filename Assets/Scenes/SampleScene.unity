@@ -1591,6 +1591,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de6813f85e05b044be688dfab375e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ataque_PJ
+--- !u!1 &1134272762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1134272764}
+  - component: {fileID: 1134272763}
+  m_Layer: 0
+  m_Name: BulletController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1134272763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134272762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3944cb13813e1e24592992cad3b97a7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletTimeController
+  activarTecla: 1
+  duracion: 5
+  factorRalentizacion: 0.5
+  cooldown: 15
+  particles: {fileID: 1792279306}
+--- !u!4 &1134272764
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134272762}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.86204, y: 1.95152, z: -0.43274}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1373983612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1747,6 +1796,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &1792279306 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4724986698930168466, guid: cbbddb69f02f714409dc17497926b0db, type: 3}
+  m_PrefabInstance: {fileID: 1902906820}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1848748767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2075,6 +2129,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 53a06431-4332-4cac-bd88-ef0fe4d8f1ce
     m_ActionName: 'gameplay/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 12e493d1-eddd-47ec-8e06-64f196ffee65
+    m_ActionName: 'gameplay/Rotate[/Mouse/delta]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: gameplay
@@ -2383,3 +2441,4 @@ SceneRoots:
   - {fileID: 1958964228}
   - {fileID: 1494747806}
   - {fileID: 611322148}
+  - {fileID: 1134272764}
