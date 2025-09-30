@@ -6302,7 +6302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f55edff1bca745b41898b43fd515812f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HabilidadRetrocederposicion
-  teclaHabilidad: 32
+  teclaHabilidad: 99
   prefabSenal: {fileID: 0}
   tiempoMaximo: 5
 --- !u!54 &1902906830
