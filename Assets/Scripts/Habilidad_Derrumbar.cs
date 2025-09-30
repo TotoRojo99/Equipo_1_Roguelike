@@ -3,13 +3,19 @@ using UnityEngine.InputSystem;
 
 public class Habilidad_Derrumbar : MonoBehaviour
 {
-    public float rotationSpeed = 5f;
+    public float rotationSpeed = 150f;
 
     private Rigidbody grabbedRb;
     private bool isGrabbed = false;
+    
+    public Vector3 posMouse;
+    public Vector3 posPreviaMouse;
 
-
- 
+    void Start()
+    {
+        posMouse = new Vector3(Mouse.current.position.ReadValue().x, 0f, Mouse.current.position.ReadValue().y);
+        posPreviaMouse = posMouse;
+    }
 
     void Update()
     {
@@ -21,7 +27,7 @@ public class Habilidad_Derrumbar : MonoBehaviour
                 if (hit.collider.CompareTag("Derrumbable") && hit.collider.attachedRigidbody != null)
                 {
                     grabbedRb = hit.collider.attachedRigidbody;
-                    //grabbedRb.position = new Vector3(grabbedRb.position.x, 5, grabbedRb.position.z);
+                    grabbedRb.position = new Vector3(grabbedRb.position.x, 5, grabbedRb.position.z);
                     grabbedRb.useGravity = false;
                     isGrabbed = true;
                 }
@@ -40,16 +46,21 @@ public class Habilidad_Derrumbar : MonoBehaviour
     {
         if (isGrabbed && grabbedRb != null)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, Vector3.Distance(Camera.main.transform.position, grabbedRb.position)));
-            Vector3 direction = (mousePos - grabbedRb.position).normalized;
-            if (direction.sqrMagnitude > 0.01f)
+            posMouse = new Vector3(Mouse.current.position.ReadValue().x, 0f, Mouse.current.position.ReadValue().y);
+           Vector3 alterado = (posMouse - posPreviaMouse);
+            posPreviaMouse = posMouse;
+
+            if (alterado.sqrMagnitude > 0.01f)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                float sensitivity = 0.2f;
 
-                Vector3 euler = targetRotation.eulerAngles;
-                euler.z = 0f;
+                float rotX = -alterado.z * sensitivity;
+                float rotZ = -alterado.x * sensitivity;
 
-                targetRotation = Quaternion.Euler(euler);
+                Quaternion deltaRotation = Quaternion.Euler(rotX, 0f, rotZ);
+
+                
+                Quaternion targetRotation = grabbedRb.rotation * deltaRotation;
 
                 Quaternion smoothedRotation = Quaternion.Slerp(grabbedRb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
                 
