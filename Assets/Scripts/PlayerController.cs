@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
             controller = GetComponent<CharacterController>(); //Instanciamos la referencia al CharacterController
-            transform.rotation = Quaternion.Euler(0, 90, 0);
     }
 
     public void OnMove(InputAction.CallbackContext context)     //Método para manejar la entrada de movimiento
@@ -27,10 +26,10 @@ public class PlayerController : MonoBehaviour
     {
        
             Vector3 move = new Vector3(MoveInput.x, 0, MoveInput.y); //Creamos un vector3 con la entrada de movimiento
-            controller.Move(move * speed * Time.unscaledDeltaTime); //Movemos al jugador
+            controller.Move(move * speed * Time.deltaTime); //Movemos al jugador
 
-            velocity.y += gravity * Time.unscaledDeltaTime; //Aplicamos la gravedad 
-            controller.Move(velocity * Time.unscaledDeltaTime); //Movemos al jugador con la gravedad
+            velocity.y += gravity * Time.deltaTime; //Aplicamos la gravedad 
+            controller.Move(velocity * Time.deltaTime); //Movemos al jugador con la gravedad
         
         
     }
