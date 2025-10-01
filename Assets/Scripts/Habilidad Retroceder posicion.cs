@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem; // 👈 Nuevo sistema de Input
 
 public class HabilidadRetrocederposicion : MonoBehaviour
 {
-    [Header("Configuración de entrada")]
-    public KeyCode teclaHabilidad = KeyCode.C; // Tecla para activar la habilidad
+    [Header("Configuración de entrada (Input System)")]
+    public string nombreAccion = "Retroceder"; // Nombre de la acción en tu InputAction Asset
 
     [Header("Prefab de señal")]
     public GameObject prefabSenal; // Prefab del objeto que tendrá tag "Señal1"
@@ -19,6 +20,43 @@ public class HabilidadRetrocederposicion : MonoBehaviour
 
     private CharacterController controller;
     private GameObject senalInstanciada;
+
+    // Input System
+    private PlayerInput playerInput;
+    private InputAction accionRetroceder;
+
+    void Awake()
+    {
+        // Buscar PlayerInput en el mismo objeto o en el Player
+        playerInput = GetComponent<PlayerInput>();
+        if (playerInput == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                playerInput = player.GetComponent<PlayerInput>();
+        }
+
+        if (playerInput == null)
+        {
+            Debug.LogError("[HabilidadRetrocederposicion] No se encontró PlayerInput en el objeto.");
+        }
+    }
+
+    void OnEnable()
+    {
+        if (playerInput != null)
+        {
+            accionRetroceder = playerInput.actions[nombreAccion];
+            if (accionRetroceder != null)
+                accionRetroceder.performed += OnRetroceder;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (accionRetroceder != null)
+            accionRetroceder.performed -= OnRetroceder;
+    }
 
     void Start()
     {
@@ -37,7 +75,17 @@ public class HabilidadRetrocederposicion : MonoBehaviour
         }
     }
 
-    void Update()
+    private void OnRetroceder(InputAction.CallbackContext context)
+    {
+        if (player == null) return;
+
+        if (!posicionGuardada)
+            GuardarPosicion();
+        else
+            StartCoroutine(RegresarPosicion());
+    }
+
+    private void Update()
     {
         if (player == null) return;
 
@@ -49,14 +97,6 @@ public class HabilidadRetrocederposicion : MonoBehaviour
                 CancelarHabilidad();
                 return;
             }
-        }
-
-        if (Input.GetKeyDown(teclaHabilidad))
-        {
-            if (!posicionGuardada)
-                GuardarPosicion();
-            else
-                StartCoroutine(RegresarPosicion());
         }
     }
 
