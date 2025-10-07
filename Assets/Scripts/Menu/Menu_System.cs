@@ -1,18 +1,23 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 
 public class Menu_System : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Animator hatAnimation;
+    private void Start()
     {
-        
+         hatAnimation.Play("Hat_Animation");
+    }
+    public void jugar()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void salir()
     {
-        
+        Application.Quit();
     }
 }
