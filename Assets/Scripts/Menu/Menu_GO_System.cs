@@ -1,19 +1,17 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
-
-public class Menu_System : MonoBehaviour
+public class Menu_GO_System : MonoBehaviour
 {
-    public Animator hatAnimation;
-    private void Start()
+    public void volver_menu()
     {
-         hatAnimation.Play("Hat_Animation");
+        SceneManager.LoadScene("Menu_inicial");
+
     }
-    public void jugar()
+
+    public void reintentar()
     {
         SceneManager.LoadScene("SampleScene");
-
     }
 
     public void salir()

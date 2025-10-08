@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
     }
     private void morir() //Método para morir
     {
+        SceneManager.LoadScene("Menu_Game_Over");
         Destroy(gameObject); //Destruimos el jugador
         Debug.Log("Has muerto"); //Mostramos un mensaje en la consola
     }
