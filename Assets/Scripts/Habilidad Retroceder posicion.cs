@@ -144,6 +144,14 @@ public class HabilidadRetrocederposicion : MonoBehaviour
             Destroy(senalInstanciada);
             senalInstanciada = null;
         }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        // 🔥 NUEVO BLOQUE: daño al teletransportar si el bool está activo
+        if (dañoAlTeletransportar)
+        {
+            RealizarDañoEnArea();
+        }
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     private void CancelarHabilidad()
@@ -166,5 +174,34 @@ public class HabilidadRetrocederposicion : MonoBehaviour
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(posicionMarcada, 0.3f);
         }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    // 🔽 NUEVAS VARIABLES Y FUNCIÓN DE DAÑO EN ÁREA 🔽
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    [Header("Daño al Teletransportar")]
+    public bool dañoAlTeletransportar = false; // Si está activo, hace daño en el punto de llegada
+    public float radioDaño = 3f;               // Radio del daño en área
+    public int daño = 50;                      // Daño a aplicar a los enemigos
+
+    private void RealizarDañoEnArea()
+    {
+        Collider[] enemigos = Physics.OverlapSphere(posicionMarcada, radioDaño);
+        foreach (Collider enemigo in enemigos)
+        {
+            if (enemigo.CompareTag("Enemy"))
+            {
+                Debug.Log("[HabilidadRetrocederposicion] Enemigo dañado al teletransportar: " + enemigo.name);
+
+                // Si el enemigo tiene un script de vida, podrías usar:
+                // enemigo.GetComponent<EnemyVida>()?.RecibirDaño(daño);
+                // o simplemente destruirlo si no tienes ese sistema todavía:
+                Destroy(enemigo.gameObject);
+            }
+        }
+
+        // 🔵 Dibujar el área de daño por depuración
+        Debug.DrawRay(posicionMarcada, Vector3.up * 2, Color.red, 1f);
     }
 }
