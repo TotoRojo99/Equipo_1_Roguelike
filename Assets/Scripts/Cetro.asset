@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71068a9164895b4bbec02abcead1be3, type: 3}
   m_Name: Cetro
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  nombre: 
+  nombre: cetro
   icono: {fileID: 0}
-  habilidades: []
+  habilidades:
+  - {fileID: 0}
+  - {fileID: 0}

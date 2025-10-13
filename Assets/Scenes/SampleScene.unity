@@ -2485,6 +2485,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HabilidadPlayer
   armaEquipada: {fileID: 11400000, guid: eb733f476787456438c8218a87a95df3, type: 2}
+  habilidadBulletTime: {fileID: 1134272763}
+  habilidadRetroceder: {fileID: 1902906830}
+  habilidadDerrumbar: {fileID: 1902906829}
 --- !u!114 &1902906829
 MonoBehaviour:
   m_ObjectHideFlags: 0

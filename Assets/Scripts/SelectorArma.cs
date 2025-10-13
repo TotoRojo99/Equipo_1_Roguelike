@@ -18,8 +18,18 @@ public class SelectorArma : MonoBehaviour
 
     public void SeleccionarVarita()
     {
-        jugador.EquiparArma(varita);
-        TerminarSeleccion();
+
+        Debug.Log("SelectorArma: SeleccionarVarita() llamado");
+
+        if (jugador != null)
+        {
+            Debug.Log("SelectorArma: Jugador asignado correctamente");
+            jugador.EquiparArma(varita);
+        }
+        else
+        {
+            Debug.LogWarning("SelectorArma: Jugador NO asignado");
+        }
     }
 
     public void SeleccionarCetro()

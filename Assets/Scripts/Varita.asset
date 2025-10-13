@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71068a9164895b4bbec02abcead1be3, type: 3}
   m_Name: Varita
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  nombre: 
+  nombre: varita
   icono: {fileID: 0}
   habilidades:
   - {fileID: 11400000, guid: b6b86cea0d9332e48a3b836e097fedb6, type: 2}
