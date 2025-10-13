@@ -263,6 +263,66 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 84b24a59e2cca894e95189b275b9fd0b, type: 2}
   m_BuildHeightMesh: 0
+--- !u!1001 &36805519
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.5806332
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.11
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.49999997
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
+      propertyPath: m_Name
+      value: Tarjeta1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1519743659}
+  m_SourcePrefab: {fileID: 100100000, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
 --- !u!1 &80584031
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,14 +823,9 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b20f03356789a244b81c89c473bac3b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ControlTiempoNuevaRonda
+  m_EditorClassIdentifier: Assembly-CSharp::DetenerTiempoPorNuevaRonda
   pausarAlDetectar: 1
-  empezarDesdeRonda: 2
-  tarjetaPrefab: {fileID: 4077948085486180201, guid: e621a935478851b48a80edcefc14a01c, type: 3}
-  playerTransform: {fileID: 1902906825}
-  camPrincipal: {fileID: 330585545}
-  distanciaFrentePlayer: 2
-  altura: 1
+  soloUnaVez: 1
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,7 +1369,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -2302,6 +2357,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1519743658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b20158f6ec3f67c4092a60b8957604d2, type: 3}
+  m_PrefabInstance: {fileID: 36805519}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1519743659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519743658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b61745c6a68a124fb1549df1423a914, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: "Assembly-CSharp::SeleccionarHabilidadDa\xF1o"
+  player: {fileID: 1902906821}
 --- !u!198 &1792279306 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 4724986698930168466, guid: cbbddb69f02f714409dc17497926b0db, type: 3}
@@ -2741,7 +2814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HabilidadRetrocederposicion
   nombreAccion: Retroceder
-  prefabSenal: {fileID: 0}
+  prefabSenal: {fileID: 919132149155446097, guid: f97806d34eb38c1408d52d0bcd585afe, type: 3}
   tiempoMaximo: 5
   "da\xF1oAlTeletransportar": 0
   "radioDa\xF1o": 3
@@ -2822,7 +2895,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -2995,3 +3068,4 @@ SceneRoots:
   - {fileID: 407753733}
   - {fileID: 646199704}
   - {fileID: 312818488}
+  - {fileID: 36805519}
