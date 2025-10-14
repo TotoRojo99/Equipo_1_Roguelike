@@ -15,6 +15,10 @@ public class Menu_System : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
 
     }
+    public void m_Puntajes()
+    {
+        SceneManager.LoadScene("Menu_B_S");
+    }
 
     public void salir()
     {
