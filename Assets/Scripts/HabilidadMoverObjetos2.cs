@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu(fileName = "HabilidadMoverObjeto", menuName = "Juego/Habilidad/MoverObjeto")]
-public class HabilidadMoverObjeto : Habilidad
+
+public class HabilidadMoverObjeto : MonoBehaviour
 {
     private Camera cam;
     private GameObject objetoSeleccionado;
@@ -11,17 +11,25 @@ public class HabilidadMoverObjeto : Habilidad
     private float alturaFija = 1f;
     
 
+    void Start()
+    {
+
+    cam = Camera.main;
+    
+    }
+
+
+    /*
     public override void Activar(GameObject usuario)
     {
-        cam = Camera.main;
+        
         usuario.GetComponent<MonoBehaviour>().StartCoroutine(HabilidadCoroutine(usuario));
         Debug.Log("Habilidad DragAndDropPlano activada");
     }
-
-    private System.Collections.IEnumerator HabilidadCoroutine(GameObject usuario)
+    */
+    void Update()
     {
-        while (true)
-        {
+
             // Selección con click derecho
             if (Mouse.current.rightButton.wasPressedThisFrame)
             {
@@ -48,8 +56,7 @@ public class HabilidadMoverObjeto : Habilidad
                 if (tiempoArrastre >= tiempoMaximoArrastre)
                 {
                     objetoSeleccionado = null;
-                    yield return null;
-                    continue;
+
                 }
 
                 Plane plano = new Plane(Vector3.up, new Vector3(0, alturaFija, 0));
@@ -66,8 +73,6 @@ public class HabilidadMoverObjeto : Habilidad
             {
                 objetoSeleccionado = null;
             }
-
-            yield return null;
-        }
     }
+            
 }
