@@ -17,6 +17,7 @@ public class E_Controller : MonoBehaviour
     void Start()
     {
         NuevaRonda();
+        ScoreManager.Instance.ResetScore();
     }
 
     void Update()
@@ -31,6 +32,7 @@ public class E_Controller : MonoBehaviour
     void NuevaRonda()
     {
         round++;
+
         player.position = new Vector3(0, 1.74f, 0);
         Debug.Log(player.position + " ¡¡¡NUEVA RONDA!!!");
 
@@ -45,6 +47,10 @@ public class E_Controller : MonoBehaviour
         SpawnEnemies(totalEnemies);
 
         Debug.Log($"Ronda {round} - Enemigos: {totalEnemies}");
+
+        
+        if (ScoreManager.Instance != null)
+            ScoreManager.Instance.AddRoundPoints(round);
     }
 
     void SpawnEnemies(int cantidad)

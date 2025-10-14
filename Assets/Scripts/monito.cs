@@ -53,6 +53,9 @@ public class EnemyFollow : MonoBehaviour
     //}
     private void morir()
     {
+        if (ScoreManager.Instance != null)
+            ScoreManager.Instance.AddEnemyKill();
+
         Destroy(gameObject);
     }
 
