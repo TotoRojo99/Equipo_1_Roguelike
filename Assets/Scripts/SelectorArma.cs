@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SelectorArma : MonoBehaviour
 {
-    public WeaponData varita;
-    public WeaponData cetro;
+        public WeaponData varita;
+        public WeaponData cetro;
 
     public HabilidadPlayer jugador;
 
