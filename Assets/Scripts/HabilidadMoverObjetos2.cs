@@ -9,8 +9,11 @@ public class HabilidadMoverObjeto : MonoBehaviour
     private float tiempoArrastre = 0f;
     private float tiempoMaximoArrastre = 1f;
     private float alturaFija = 1f;
-    
 
+    void Start()
+    {
+        cam = Camera.main;
+    }
    
     void Update()
     {
@@ -40,6 +43,7 @@ public class HabilidadMoverObjeto : MonoBehaviour
                 if (tiempoArrastre >= tiempoMaximoArrastre)
                 {
                     objetoSeleccionado = null;
+                    return;
                 }
 
                 Plane plano = new Plane(Vector3.up, new Vector3(0, alturaFija, 0));
