@@ -3374,6 +3374,9 @@ RectTransform:
 =======
   m_EditorClassIdentifier: Assembly-CSharp::Habilidad_Derrumbar
   rotationSpeed: 5
+<<<<<<< HEAD
+>>>>>>> parent of c1b96c0 (Finalizado Listo para la Review)
+=======
 >>>>>>> parent of c1b96c0 (Finalizado Listo para la Review)
 --- !u!1 &1983058645
 GameObject:
