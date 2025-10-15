@@ -14,6 +14,8 @@ public class Derrumbe_objeto: MonoBehaviour
 
     bool collapsed = false;
 
+    private Rigidbody[] fragmentos;
+
     void Update()
     {
         mousePos = Mouse.current.position.ReadValue();
@@ -58,9 +60,9 @@ public class Derrumbe_objeto: MonoBehaviour
             collapsed = true;
 
         // Itera todos los hijos que tienen Rigidbody (fragmentos)
-        Rigidbody[] rbs = GetComponentsInChildren<Rigidbody>(includeInactive: true);
+        fragmentos = GetComponentsInChildren<Rigidbody>(includeInactive: true);
 
-        foreach (Rigidbody rb in rbs)
+        foreach (Rigidbody rb in fragmentos)
         {
             
             // Habilitar física
@@ -79,10 +81,27 @@ public class Derrumbe_objeto: MonoBehaviour
             if (detachChildren)
             {
                 rb.transform.parent = null;
-                //rb.gameObject.tag = "Lanzable";
+                rb.gameObject.tag = "P1";
             }
         }
-     }
+        Invoke("DestruirFragmentos", 5f); // Destruye los fragmentos después de 5 segundos
+    }
+        void DestruirFragmentos()
+        {
+            if (fragmentos == null) return;
+
+            foreach (Rigidbody rb in fragmentos)
+            {
+                MeshRenderer mr = rb.gameObject.GetComponent<MeshRenderer>();
+                if (mr != null)
+                    mr.enabled = false;
+
+                Collider col = rb.gameObject.GetComponent<Collider>();
+                if (col != null)
+                    col.enabled = false;
+            }
+        }
+    
 }
 
 

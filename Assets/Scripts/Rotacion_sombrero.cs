@@ -25,6 +25,9 @@ public class Rotacion_sombrero : MonoBehaviour
 
             Vector3 direction = targetPosition - transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
+            Vector3 euler = rotation.eulerAngles;
+            euler.y += 80f; // restamos 80° en Y
+            rotation = Quaternion.Euler(euler);
             transform.rotation = rotation;
         }
     }
