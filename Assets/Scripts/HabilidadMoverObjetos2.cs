@@ -1,36 +1,33 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu(fileName = "HabilidadMoverObjeto", menuName = "Juego/Habilidad/MoverObjeto")]
-public class HabilidadMoverObjeto : Habilidad
+
+public class HabilidadMoverObjeto : MonoBehaviour
 {
     private Camera cam;
     private GameObject objetoSeleccionado;
     private float tiempoArrastre = 0f;
     private float tiempoMaximoArrastre = 1f;
     private float alturaFija = 1f;
-    
+    private 
 
-    public override void Activar(GameObject usuario)
+    void Start()
     {
         cam = Camera.main;
-        usuario.GetComponent<MonoBehaviour>().StartCoroutine(HabilidadCoroutine(usuario));
-        Debug.Log("Habilidad DragAndDropPlano activada");
     }
-
-    private System.Collections.IEnumerator HabilidadCoroutine(GameObject usuario)
+   
+    void Update()
     {
-        while (true)
-        {
             // Selección con click derecho
             if (Mouse.current.rightButton.wasPressedThisFrame)
             {
                 Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    if (hit.collider.CompareTag("Lanzable"))
+                    if (hit.collider.CompareTag("Lanzable") || hit.collider.CompareTag("Activo"))
                     {
                         objetoSeleccionado = hit.collider.gameObject;
+                        hit.collider.gameObject.tag = "Activo";
                         tiempoArrastre = 0f;
 
                         Vector3 pos = objetoSeleccionado.transform.position;
@@ -47,9 +44,12 @@ public class HabilidadMoverObjeto : Habilidad
 
                 if (tiempoArrastre >= tiempoMaximoArrastre)
                 {
-                    objetoSeleccionado = null;
-                    yield return null;
-                    continue;
+                if (objetoSeleccionado != null)
+                {
+                    objetoSeleccionado.gameObject.tag = "Lanzable";
+                }
+                objetoSeleccionado = null;    
+                return;
                 }
 
                 Plane plano = new Plane(Vector3.up, new Vector3(0, alturaFija, 0));
@@ -64,10 +64,14 @@ public class HabilidadMoverObjeto : Habilidad
             // Soltar con click derecho
             if (Mouse.current.rightButton.wasReleasedThisFrame)
             {
+                if (objetoSeleccionado != null)
+                { 
+                    objetoSeleccionado.gameObject.tag = "Lanzable";
+                }
                 objetoSeleccionado = null;
-            }
-
-            yield return null;
+            
         }
+
+        
     }
 }

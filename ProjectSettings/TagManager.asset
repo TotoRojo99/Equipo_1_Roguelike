@@ -8,6 +8,7 @@ TagManager:
   - P1
   - Lanzable
   - Derrumbable
+  - Activo
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Inactivo
+  - Activo
   - 
   - 
   - Ground

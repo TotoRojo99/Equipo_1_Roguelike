@@ -7,16 +7,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5.0f;        //Definimos la velocidad del jugador
     [SerializeField] private float gravity = -9.81f;    //Definimos la gravedad
 
+    public static CharacterController controller;       //Referencia al CharacterController
+
+    private Vector3 MoveInput;                          //Vector3 para almacenar la entrada de movimiento
     private int vida = 3;                               //Vida del jugador
     private bool golpeRecibido = false;                 //Chequeamos si el jugador ha recibido un golpe
-
-    public static CharacterController controller;       //Referencia al CharacterController
-    private Vector3 MoveInput;                          //Vector3 para almacenar la entrada de movimiento
+    
     public static Vector3 velocity;                     //Vector3 para almacenar la velocidad del jugador
+    public bool habilitado;                            //Verificamos si el jugador está habilitado para moverse
 
     void Start()
     {
-            controller = GetComponent<CharacterController>(); //Instanciamos la referencia al CharacterController
+        habilitado = true; //Al iniciar el juego, el jugador está habilitado
+        controller = GetComponent<CharacterController>(); //Instanciamos la referencia al CharacterController
     }
 
     public void OnMove(InputAction.CallbackContext context)     //Método para manejar la entrada de movimiento
@@ -25,8 +28,9 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-       
-            Vector3 move = new Vector3(MoveInput.x, 0, MoveInput.y); //Creamos un vector3 con la entrada de movimiento
+       if(!habilitado) return; //Si el jugador no está habilitado, no hacemos nada
+
+        Vector3 move = new Vector3(MoveInput.x, 0, MoveInput.y); //Creamos un vector3 con la entrada de movimiento
             controller.Move(move * speed * Time.deltaTime); //Movemos al jugador
 
             velocity.y += gravity * Time.deltaTime; //Aplicamos la gravedad 
