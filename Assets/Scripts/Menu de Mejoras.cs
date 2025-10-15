@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class ControlTiempoNuevaRonda : MonoBehaviour
 {
@@ -8,22 +9,24 @@ public class ControlTiempoNuevaRonda : MonoBehaviour
     public int empezarDesdeRonda = 2;
 
     [Header("Prefab de la tarjeta")]
-    public GameObject tarjetaPrefab; // Tarjeta Retroceder Posicion
+    public GameObject tarjetaPrefab;
+    public float altura = 1.5f;
 
     [Header("Referencias")]
-    public Transform playerTransform;  // Transform del player
-    public Camera camPrincipal;        // Cámara principal
-    public float distanciaFrentePlayer = 2f; // Qué tan lejos aparece la tarjeta delante del player
-    public float altura = 1f; // Altura relativa al player
+    public Transform playerTransform;
+    public Camera camPrincipal;
 
-    private int contadorRondas = 0;
+    [Header("Rotación personalizada")]
+    [Tooltip("Rotación adicional aplicada después de mirar hacia la cámara (en grados)")]
+    public Vector3 rotacionExtra = Vector3.zero;
+
+    private GameObject tarjetaInstanciada;
     private bool yaPausado = false;
     private float tiempoEscalaOriginal = 1f;
     private float fixedDeltaOriginal = 0.02f;
+    private int contadorRondas = 0;
 
-    private GameObject tarjetaInstanciada;
-
-    void Awake()
+    private void Awake()
     {
         tiempoEscalaOriginal = Time.timeScale;
         fixedDeltaOriginal = Time.fixedDeltaTime;
@@ -32,29 +35,29 @@ public class ControlTiempoNuevaRonda : MonoBehaviour
             camPrincipal = Camera.main;
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         Application.logMessageReceived += DetectarNuevaRonda;
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         Application.logMessageReceived -= DetectarNuevaRonda;
     }
 
-    void Update()
+    private void Update()
     {
-        if (yaPausado && tarjetaInstanciada != null)
+        // Permitir clic solo cuando el juego esté pausado y la tarjeta exista
+        if (yaPausado && tarjetaInstanciada != null && Mouse.current != null)
         {
-            // Detectar clic izquierdo del mouse
-            if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+            if (Mouse.current.leftButton.wasPressedThisFrame)
             {
                 Ray ray = camPrincipal.ScreenPointToRay(Mouse.current.position.ReadValue());
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
                     if (hit.collider.gameObject == tarjetaInstanciada)
                     {
-                        Debug.Log("[ControlTiempoNuevaRonda] Tarjeta seleccionada: " + tarjetaInstanciada.name);
+                        Debug.Log("[ControlTiempoNuevaRonda] Tarjeta seleccionada por el jugador.");
                         ReanudarJuego();
                     }
                 }
@@ -67,12 +70,10 @@ public class ControlTiempoNuevaRonda : MonoBehaviour
         if (logString.Contains("¡¡¡NUEVA RONDA!!!"))
         {
             contadorRondas++;
-            Debug.Log("[ControlTiempoNuevaRonda] Detectado nueva ronda. Número: " + contadorRondas);
+            Debug.Log($"[ControlTiempoNuevaRonda] Detectada nueva ronda #{contadorRondas}");
 
             if (pausarAlDetectar && contadorRondas >= empezarDesdeRonda)
-            {
                 PausarJuego();
-            }
         }
     }
 
@@ -80,63 +81,66 @@ public class ControlTiempoNuevaRonda : MonoBehaviour
     {
         if (yaPausado) return;
 
-        // Guardar tiempo original
+        // Guardar tiempos
         tiempoEscalaOriginal = Time.timeScale;
         fixedDeltaOriginal = Time.fixedDeltaTime;
 
-        // Pausar juego
+        // Pausar el juego
         Time.timeScale = 0f;
         Time.fixedDeltaTime = 0f;
         yaPausado = true;
 
         // Pausar animaciones
-        Animator[] animators = FindObjectsOfType<Animator>();
-        foreach (Animator anim in animators)
-        {
+        foreach (Animator anim in FindObjectsOfType<Animator>())
             anim.updateMode = AnimatorUpdateMode.Normal;
-        }
 
-        // Instanciar la tarjeta frente al player
-        if (tarjetaPrefab != null && playerTransform != null)
+        // Crear la tarjeta en el siguiente frame
+        StartCoroutine(GenerarTarjetaEnSiguienteFrame());
+    }
+
+    private IEnumerator GenerarTarjetaEnSiguienteFrame()
+    {
+        yield return new WaitForEndOfFrame();
+
+        if (tarjetaPrefab == null || playerTransform == null || camPrincipal == null)
         {
-            Vector3 direccionFrente = playerTransform.forward;
-            Vector3 posicion = playerTransform.position + direccionFrente * distanciaFrentePlayer;
-            posicion.y += altura;
-
-            tarjetaInstanciada = Instantiate(tarjetaPrefab, posicion, Quaternion.identity);
-
-            // Asegurarse de que tenga collider para clickeable
-            if (tarjetaInstanciada.GetComponent<Collider>() == null)
-            {
-                tarjetaInstanciada.AddComponent<BoxCollider>();
-            }
-
-            // Hacer que mire a la cámara
-            if (camPrincipal != null)
-            {
-                tarjetaInstanciada.transform.LookAt(camPrincipal.transform);
-                tarjetaInstanciada.transform.Rotate(0, 180f, 0); // Ajustar según el prefab
-            }
+            Debug.LogWarning("[ControlTiempoNuevaRonda] Faltan referencias para generar la tarjeta.");
+            yield break;
         }
 
-        Debug.Log("[ControlTiempoNuevaRonda] ⏸ Juego pausado y tarjeta mostrada.");
+        Vector3 posPlayer = playerTransform.position;
+        Vector3 posCam = camPrincipal.transform.position;
+
+        // Calcular posición intermedia real entre player y cámara
+        Vector3 worldPos = Vector3.Lerp(posPlayer, posCam, 0.5f);
+        worldPos.y = posPlayer.y + altura;
+
+        // Instanciar la tarjeta
+        tarjetaInstanciada = Instantiate(tarjetaPrefab, worldPos, Quaternion.identity);
+
+        // Asegurar que tenga collider para clics
+        if (tarjetaInstanciada.GetComponent<Collider>() == null)
+            tarjetaInstanciada.AddComponent<BoxCollider>();
+
+        // Hacer que mire hacia la cámara
+        tarjetaInstanciada.transform.LookAt(camPrincipal.transform);
+        tarjetaInstanciada.transform.Rotate(rotacionExtra, Space.Self);
+
+        Debug.Log($"[ControlTiempoNuevaRonda] Tarjeta generada entre player y cámara, lista para clic.");
     }
 
     public void ReanudarJuego()
     {
         if (!yaPausado) return;
 
-        // Restaurar tiempo
+        // Restaurar tiempos
         Time.timeScale = tiempoEscalaOriginal > 0 ? tiempoEscalaOriginal : 1f;
         Time.fixedDeltaTime = fixedDeltaOriginal > 0 ? fixedDeltaOriginal : 0.02f;
         yaPausado = false;
 
         // Restaurar animaciones
-        Animator[] animators = FindObjectsOfType<Animator>();
-        foreach (Animator anim in animators)
-        {
+        foreach (Animator anim in FindObjectsOfType<Animator>())
             anim.updateMode = AnimatorUpdateMode.Normal;
-        }
 
         // Destruir tarjeta
         if (tarjetaInstanciada != null)
@@ -145,7 +149,6 @@ public class ControlTiempoNuevaRonda : MonoBehaviour
             tarjetaInstanciada = null;
         }
 
-        Debug.Log("[ControlTiempoNuevaRonda] ▶ Juego reanudado después de seleccionar la tarjeta.");
+        Debug.Log("[ControlTiempoNuevaRonda] ▶ Juego reanudado correctamente.");
     }
 }
-

@@ -182,7 +182,7 @@ public class HabilidadRetrocederposicion : MonoBehaviour
 
     [Header("Daño al Teletransportar")]
     public bool dañoAlTeletransportar = false; // Si está activo, hace daño en el punto de llegada
-    public float radioDaño = 3f;               // Radio del daño en área
+    public float radioDaño = 10f;               // Radio del daño en área
     public int daño = 50;                      // Daño a aplicar a los enemigos
 
     private void RealizarDañoEnArea()

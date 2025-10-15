@@ -32,7 +32,7 @@ public class E_Controller : MonoBehaviour
     {
         round++;
         player.position = new Vector3(0, 1.74f, 0);
-        Debug.Log(player.position + " ¡¡¡NUEVA RONDA!!!");
+        Debug.Log(player.position + "¡¡¡NUEVA RONDA!!!");
 
         int enemigosExtra;
 
