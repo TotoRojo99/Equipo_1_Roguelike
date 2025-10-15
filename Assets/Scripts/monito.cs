@@ -30,7 +30,7 @@ public class EnemyFollow : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
        //if (golpeRecibido) return; // evita múltiples llamadas
-        if (collision.gameObject.CompareTag("P1") || collision.gameObject.CompareTag("Lanzable") || collision.gameObject.CompareTag("Derrumbable"))
+        if (collision.gameObject.CompareTag("P1") || collision.gameObject.CompareTag("Lanzable"))
         {
             //PerderVida();
             //golpeRecibido = true;
