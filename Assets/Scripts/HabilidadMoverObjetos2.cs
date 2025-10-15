@@ -9,6 +9,7 @@ public class HabilidadMoverObjeto : MonoBehaviour
     private float tiempoArrastre = 0f;
     private float tiempoMaximoArrastre = 1f;
     private float alturaFija = 1f;
+    private 
 
     void Start()
     {
@@ -23,9 +24,10 @@ public class HabilidadMoverObjeto : MonoBehaviour
                 Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    if (hit.collider.CompareTag("Lanzable"))
+                    if (hit.collider.CompareTag("Lanzable") || hit.collider.CompareTag("Activo"))
                     {
                         objetoSeleccionado = hit.collider.gameObject;
+                        hit.collider.gameObject.tag = "Activo";
                         tiempoArrastre = 0f;
 
                         Vector3 pos = objetoSeleccionado.transform.position;
@@ -42,8 +44,12 @@ public class HabilidadMoverObjeto : MonoBehaviour
 
                 if (tiempoArrastre >= tiempoMaximoArrastre)
                 {
-                    objetoSeleccionado = null;
-                    return;
+                if (objetoSeleccionado != null)
+                {
+                    objetoSeleccionado.gameObject.tag = "Lanzable";
+                }
+                objetoSeleccionado = null;    
+                return;
                 }
 
                 Plane plano = new Plane(Vector3.up, new Vector3(0, alturaFija, 0));
@@ -58,8 +64,13 @@ public class HabilidadMoverObjeto : MonoBehaviour
             // Soltar con click derecho
             if (Mouse.current.rightButton.wasReleasedThisFrame)
             {
+                if (objetoSeleccionado != null)
+                { 
+                    objetoSeleccionado.gameObject.tag = "Lanzable";
+                }
                 objetoSeleccionado = null;
-            }
+            
+        }
 
         
     }

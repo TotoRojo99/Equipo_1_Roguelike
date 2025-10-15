@@ -15,6 +15,7 @@ public class HabilidadRetrocederposicion : MonoBehaviour
 
     private GameObject player;
     private Vector3 posicionMarcada;
+    private PlayerController pController;
     private bool posicionGuardada = false;
     private float tiempoGuardado;
 
@@ -60,6 +61,7 @@ public class HabilidadRetrocederposicion : MonoBehaviour
 
     void Start()
     {
+
         // Buscar automáticamente el Player por Tag
         player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
@@ -123,8 +125,14 @@ public class HabilidadRetrocederposicion : MonoBehaviour
     {
         if (player == null) yield break;
 
+        //Desactivar el movimiento del jugador
+        pController = player.GetComponent<PlayerController>();
+        pController.habilitado = false;
+
         // Desactivar CharacterController temporalmente
         if (controller != null) controller.enabled = false;
+
+        yield return null; // Esperar un frame para evitar problemas de colisión
 
         // Teletransportar
         player.transform.position = posicionMarcada;
@@ -133,6 +141,10 @@ public class HabilidadRetrocederposicion : MonoBehaviour
         // Esperar un frame
         yield return null;
 
+        // Rehabilitar el movimiento del jugador
+        pController.habilitado = true;
+
+        // Rehabilitar CharacterController
         if (controller != null) controller.enabled = true;
 
         // Reset de estado

@@ -420,7 +420,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195874206}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f399c616dc0b817439c4d505027e3866, type: 3}
   m_Name: 
@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 224556082}
   - component: {fileID: 224556081}
   - component: {fileID: 224556085}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Lanzable
   m_Icon: {fileID: 0}
@@ -1198,7 +1198,7 @@ GameObject:
   - component: {fileID: 678828950}
   - component: {fileID: 678828949}
   - component: {fileID: 678828953}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Lanzable
   m_Icon: {fileID: 0}
@@ -2608,7 +2608,7 @@ GameObject:
   - component: {fileID: 1848748769}
   - component: {fileID: 1848748768}
   - component: {fileID: 1848748772}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Lanzable
   m_Icon: {fileID: 0}
