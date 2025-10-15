@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SelectorArma : MonoBehaviour
 {
-        public WeaponData varita;
-        public WeaponData cetro;
+        private int varita = 0;
+        private int cetro = 1;
 
     public HabilidadPlayer jugador;
 
@@ -14,6 +14,7 @@ public class SelectorArma : MonoBehaviour
         // Pausa el juego hasta elegir un arma
         Time.timeScale = 0f;
         // Aquí podés mostrar UI de selección (botones) 
+        
     }
 
     public void SeleccionarVarita()

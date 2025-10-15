@@ -1168,8 +1168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12c6da5653f675c4ea8caee692aecf2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectorArma
-  varita: {fileID: 11400000, guid: eb733f476787456438c8218a87a95df3, type: 2}
-  cetro: {fileID: 11400000, guid: 9363cae8179d32045be362889c564d2b, type: 2}
   jugador: {fileID: 1902906828}
   panelSeleccion: {fileID: 1373983612}
 --- !u!4 &611322148
@@ -1326,6 +1324,49 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &696317962 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a4e69fefecf4c24c8244db47a3dbd2f, type: 3}
+  m_PrefabInstance: {fileID: 1294566592}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &696317964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696317962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aaedd3ef8e9ceb4891504d32ba319f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Derrumbe_objeto
+  explosionForce: 20
+  explosionRadius: 3
+  randomTorque: 10
+  detachChildren: 1
+  oneTimeCollapse: 1
+--- !u!65 &696317965
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696317962}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &714154086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1485,7 +1526,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1533,7 +1574,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2070,6 +2111,12 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a4e69fefecf4c24c8244db47a3dbd2f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 696317965}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a4e69fefecf4c24c8244db47a3dbd2f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 696317964}
     - targetCorrespondingSourceObject: {fileID: -516098083770646512, guid: 4a4e69fefecf4c24c8244db47a3dbd2f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1294566606}
@@ -2182,7 +2229,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2230,7 +2277,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2278,7 +2325,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2482,7 +2529,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2784,10 +2831,10 @@ PrefabInstance:
       addedObject: {fileID: 1902906828}
     - targetCorrespondingSourceObject: {fileID: 5102526662208903775, guid: cbbddb69f02f714409dc17497926b0db, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1902906829}
+      addedObject: {fileID: 1902906830}
     - targetCorrespondingSourceObject: {fileID: 5102526662208903775, guid: cbbddb69f02f714409dc17497926b0db, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1902906830}
+      addedObject: {fileID: 1902906831}
   m_SourcePrefab: {fileID: 100100000, guid: cbbddb69f02f714409dc17497926b0db, type: 3}
 --- !u!1 &1902906821 stripped
 GameObject:
@@ -2917,22 +2964,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 301de10e2f35c6e4d80066f9d618de2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HabilidadPlayer
-  armaEquipada: {fileID: 11400000, guid: eb733f476787456438c8218a87a95df3, type: 2}
---- !u!114 &1902906829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1902906821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32b74b70626d8684ba3eade826a01149, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Habilidad_Derrumbar
-  rotationSpeed: 150
-  posMouse: {x: 0, y: 0, z: 0}
-  posPreviaMouse: {x: 0, y: 0, z: 0}
+  TBala: {fileID: 1134272762}
+  Derr_objeto: {fileID: 696317962}
+  hab_MovObj: {fileID: 1902906831}
+  hab_RetroPos: {fileID: 1902906830}
 --- !u!114 &1902906830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2948,6 +2983,18 @@ MonoBehaviour:
   nombreAccion: Retroceder
   prefabSenal: {fileID: 0}
   tiempoMaximo: 5
+--- !u!114 &1902906831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902906821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27771bf718448194c816e2ae3f628c37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HabilidadMoverObjeto
 --- !u!54 &1919941563
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2971,7 +3018,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -3246,7 +3293,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

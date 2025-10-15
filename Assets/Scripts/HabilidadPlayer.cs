@@ -2,23 +2,42 @@ using UnityEngine;
 
 public class HabilidadPlayer : MonoBehaviour
 {
-    public WeaponData armaEquipada;
+    public GameObject TBala;
+    public GameObject Derr_objeto;
+    public HabilidadMoverObjeto hab_MovObj;
+    public HabilidadRetrocederposicion hab_RetroPos;
 
-    // Eliminamos Start(), no activamos nada automáticamente
-    // Activación se hará desde EquiparArma()
+    private BulletTimeController tb;
+    private Derrumbe_objeto der_obj;
 
-    public void EquiparArma(WeaponData nuevaArma)
+
+    private void IniciarMetodo()
     {
-        armaEquipada = nuevaArma;
-
-        if (armaEquipada == null) return;
-
-        foreach (var habilidad in armaEquipada.habilidades)
+        tb = TBala.GetComponent<BulletTimeController>();
+        der_obj = Derr_objeto.GetComponent<Derrumbe_objeto>();
+    }
+    public void EquiparArma(int nuevaArma)
+    {
+        if (nuevaArma == 0)
         {
-            if (habilidad != null)
-            {
-                habilidad.Activar(gameObject); // pasa el jugador como referencia
-            }
+            Debug.Log("Varita equipada");
+            IniciarMetodo();
+            tb.enabled = true;
+            hab_MovObj.enabled = true;
+
+            der_obj.enabled = false;
+            hab_RetroPos.enabled = false;
+        }
+
+        else if (nuevaArma == 1)
+        {
+            Debug.Log("Cetro equipado");
+            IniciarMetodo();
+            tb.enabled = false;
+            hab_MovObj.enabled = false;
+        
+            der_obj.enabled = true;
+            hab_RetroPos.enabled = true;
         }
     }
 }
