@@ -184,7 +184,11 @@ public class HabilidadRetrocederposicion : MonoBehaviour
     public bool dañoAlTeletransportar = false; // Si está activo, hace daño en el punto de llegada
     public float radioDaño = 10f;               // Radio del daño en área
     public int daño = 50;                      // Daño a aplicar a los enemigos
-
+    public void Activarbool() 
+    {
+        dañoAlTeletransportar = true;
+    }
+        
     private void RealizarDañoEnArea()
     {
         Collider[] enemigos = Physics.OverlapSphere(posicionMarcada, radioDaño);

@@ -15,6 +15,7 @@ public class ControlTiempoNuevaRonda : MonoBehaviour
     [Header("Referencias")]
     public Transform playerTransform;
     public Camera camPrincipal;
+    public GameObject Player;
 
     [Header("Rotación personalizada")]
     [Tooltip("Rotación adicional aplicada después de mirar hacia la cámara (en grados)")]
@@ -43,6 +44,14 @@ public class ControlTiempoNuevaRonda : MonoBehaviour
     private void OnDisable()
     {
         Application.logMessageReceived -= DetectarNuevaRonda;
+    }
+
+
+
+    public void Active() 
+    {
+        jugador = Player.GetComponent<HabilidadRetrocederposicion>();
+        jugador.Activarbool();
     }
 
     private void Update()
