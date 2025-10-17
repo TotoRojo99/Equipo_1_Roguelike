@@ -2602,9 +2602,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HabilidadRetrocederposicion
   nombreAccion: Retroceder
-  prefabSenal: {fileID: 0}
+  prefabSenal: {fileID: 919132149155446097, guid: 97231c0844f364e4e9a3a0e39d10aa35, type: 3}
   tiempoMaximo: 5
-  "da\xF1oAlTeletransportar": 0
+  "da\xF1oAlTeletransportar": 1
   "radioDa\xF1o": 3
   "da\xF1o": 50
 --- !u!1 &1958964224
