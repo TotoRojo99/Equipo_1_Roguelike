@@ -5,6 +5,8 @@ public class EnemyFollow : MonoBehaviour
     //private int Vida = 5;
     //private bool golpeRecibido = false;
     public Transform Objetivo; // público para asignarlo desde el controlador
+    public ParticleSystem particula_sangre;
+    public ParticleSystem particula_sangre_f;
     [SerializeField] private float Velocidad = 3.5f;
     [SerializeField] private float EnRango = 10f;
 
@@ -55,6 +57,11 @@ public class EnemyFollow : MonoBehaviour
     {
         if (ScoreManager.Instance != null)
             ScoreManager.Instance.AddEnemyKill();
+
+        Vector3 spawnPos = transform.position + new Vector3(0, 1f, 0);
+
+        Instantiate(particula_sangre, spawnPos, transform.rotation);
+        Instantiate(particula_sangre_f, spawnPos, transform.rotation);
 
         Destroy(gameObject);
     }
