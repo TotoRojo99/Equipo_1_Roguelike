@@ -8,6 +8,7 @@ TagManager:
   - P1
   - Lanzable
   - Derrumbable
+  - "Se\xF1al1"
   layers:
   - Default
   - TransparentFX
