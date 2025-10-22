@@ -22,6 +22,7 @@ public class Derrumbe_objeto : MonoBehaviour
 
     private Rigidbody[] fragmentos;
 
+
     void Update()
     {
         mousePos = Mouse.current.position.ReadValue();

@@ -7,6 +7,7 @@ public class HabilidadPlayer : MonoBehaviour
     public HabilidadMoverObjeto hab_MovObj;
     public HabilidadRetrocederposicion hab_RetroPos;
 
+
     private BulletTimeController tb;
     private Derrumbe_objeto der_obj;
 
@@ -24,6 +25,7 @@ public class HabilidadPlayer : MonoBehaviour
             IniciarMetodo();
             tb.enabled = true;
             hab_MovObj.enabled = true;
+            
 
             der_obj.enabled = false;
             hab_RetroPos.enabled = false;
@@ -35,7 +37,8 @@ public class HabilidadPlayer : MonoBehaviour
             IniciarMetodo();
             tb.enabled = false;
             hab_MovObj.enabled = false;
-        
+
+
             der_obj.enabled = true;
             hab_RetroPos.enabled = true;
         }
