@@ -627,11 +627,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ControlTiempoNuevaRonda
   pausarAlDetectar: 1
   empezarDesdeRonda: 2
-  tarjetaPrefab: {fileID: 4077948085486180201, guid: e621a935478851b48a80edcefc14a01c, type: 3}
-  altura: 1
+  tarjetaPrefab: {fileID: 352092382}
+  altura: 1.5
   playerTransform: {fileID: 1902906825}
   camPrincipal: {fileID: 330585545}
-  rotacionExtra: {x: 0, y: 90, z: 0}
+  Player: {fileID: 1724982162}
+  rotacionExtra: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,7 +721,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42530325, y: -0, z: -0, w: 0.90505093}
-  m_LocalPosition: {x: 2.0161715, y: 3.1148543, z: -7.449041}
+  m_LocalPosition: {x: 2.0161715, y: 9.59, z: -12.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -785,6 +786,11 @@ MonoBehaviour:
   player: {fileID: 1902906825}
   offset: {x: 0, y: 8, z: -8}
   smoothSpeed: 0.5
+--- !u!1 &352092382 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4077948085486180201, guid: e621a935478851b48a80edcefc14a01c, type: 3}
+  m_PrefabInstance: {fileID: 1976828463}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &407753729
 GameObject:
   m_ObjectHideFlags: 0
@@ -2077,6 +2083,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1724982162 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5921028908918203544, guid: b97370b4c1215784dab008798369561b, type: 3}
+  m_PrefabInstance: {fileID: 7864962543242667225}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1848748767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,7 +2237,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1979079989319334537, guid: b97370b4c1215784dab008798369561b, type: 3}
   m_PrefabInstance: {fileID: 7864962543242667225}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1724982162}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 301de10e2f35c6e4d80066f9d618de2a, type: 3}
@@ -2345,6 +2356,10 @@ PrefabInstance:
     - target: {fileID: -3789273333887870947, guid: e621a935478851b48a80edcefc14a01c, type: 3}
       propertyPath: player
       value: 
+      objectReference: {fileID: 1724982162}
+    - target: {fileID: -3789273333887870947, guid: e621a935478851b48a80edcefc14a01c, type: 3}
+      propertyPath: controlador
+      value: 
       objectReference: {fileID: 312818487}
     - target: {fileID: 3864951668128445312, guid: e621a935478851b48a80edcefc14a01c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2389,6 +2404,14 @@ PrefabInstance:
     - target: {fileID: 4077948085486180201, guid: e621a935478851b48a80edcefc14a01c, type: 3}
       propertyPath: m_Name
       value: Tarjeta Retroceder Posicion
+      objectReference: {fileID: 0}
+    - target: {fileID: 4077948085486180201, guid: e621a935478851b48a80edcefc14a01c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4077948085486180201, guid: e621a935478851b48a80edcefc14a01c, type: 3}
+      propertyPath: m_TagString
+      value: Tarjeta
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

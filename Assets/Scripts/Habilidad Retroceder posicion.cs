@@ -13,17 +13,28 @@ public class HabilidadRetrocederposicion : MonoBehaviour
     [Header("Tiempo para teletransportarse")]
     public float tiempoMaximo = 5f; // segundos que dura válida la posición guardada
 
+    [Header("Daño al Teletransportar")]
+    public bool dañoAlTeletransportar = false; // Si está activo, hace daño en el punto de llegada
+    public float radioDaño = 10f;               // Radio del daño en área
+    public int daño = 50;                      // Daño a aplicar a los enemigos
+
     private GameObject player;
     private Vector3 posicionMarcada;
     private bool posicionGuardada = false;
     private float tiempoGuardado;
 
+    private PlayerController pController;
     private CharacterController controller;
     private GameObject senalInstanciada;
 
     // Input System
     private PlayerInput playerInput;
     private InputAction accionRetroceder;
+
+    public void Activarbool()
+    {
+        dañoAlTeletransportar = true;
+    }
 
     void Awake()
     {
@@ -121,10 +132,16 @@ public class HabilidadRetrocederposicion : MonoBehaviour
 
     private IEnumerator RegresarPosicion()
     {
-        if (player == null) yield break;
+         if (player == null) yield break;
+
+        //Desactivar el movimiento del jugador
+        pController = player.GetComponent<PlayerController>();
+        pController.habilitado = false;
 
         // Desactivar CharacterController temporalmente
         if (controller != null) controller.enabled = false;
+
+        yield return null; // Esperar un frame para evitar problemas de colisión
 
         // Teletransportar
         player.transform.position = posicionMarcada;
@@ -133,6 +150,10 @@ public class HabilidadRetrocederposicion : MonoBehaviour
         // Esperar un frame
         yield return null;
 
+        // Rehabilitar el movimiento del jugador
+        pController.habilitado = true;
+
+        // Rehabilitar CharacterController
         if (controller != null) controller.enabled = true;
 
         // Reset de estado
@@ -144,6 +165,7 @@ public class HabilidadRetrocederposicion : MonoBehaviour
             Destroy(senalInstanciada);
             senalInstanciada = null;
         }
+
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////
         // 🔥 NUEVO BLOQUE: daño al teletransportar si el bool está activo
@@ -180,14 +202,6 @@ public class HabilidadRetrocederposicion : MonoBehaviour
     // 🔽 NUEVAS VARIABLES Y FUNCIÓN DE DAÑO EN ÁREA 🔽
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    [Header("Daño al Teletransportar")]
-    public bool dañoAlTeletransportar = false; // Si está activo, hace daño en el punto de llegada
-    public float radioDaño = 10f;               // Radio del daño en área
-    public int daño = 50;                      // Daño a aplicar a los enemigos
-    public void Activarbool() 
-    {
-        dañoAlTeletransportar = true;
-    }
         
     private void RealizarDañoEnArea()
     {

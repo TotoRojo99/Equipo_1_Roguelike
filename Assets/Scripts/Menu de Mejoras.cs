@@ -48,11 +48,7 @@ public class ControlTiempoNuevaRonda : MonoBehaviour
 
 
 
-    public void Active() 
-    {
-        jugador = Player.GetComponent<HabilidadRetrocederposicion>();
-        jugador.Activarbool();
-    }
+   
 
     private void Update()
     {
