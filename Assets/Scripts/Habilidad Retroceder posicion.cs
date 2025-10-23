@@ -4,6 +4,9 @@ using UnityEngine.InputSystem; // 👈 Nuevo sistema de Input
 
 public class HabilidadRetrocederposicion : MonoBehaviour
 {
+   
+
+
     [Header("Configuración de entrada (Input System)")]
     public string nombreAccion = "Retroceder"; // Nombre de la acción en tu InputAction Asset
 
@@ -80,6 +83,9 @@ public class HabilidadRetrocederposicion : MonoBehaviour
     private void OnRetroceder(InputAction.CallbackContext context)
     {
         if (player == null) return;
+
+        //Prueba de metricas
+        Metricas.Instance.RegistrarEvento("Rposicion", 1);
 
         if (!posicionGuardada)
             GuardarPosicion();

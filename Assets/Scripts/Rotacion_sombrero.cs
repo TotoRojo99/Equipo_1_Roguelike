@@ -6,6 +6,12 @@ public class Rotacion_sombrero : MonoBehaviour
     public Camera MainCamara;
     public LayerMask groundPlayer;
 
+    // Prueba de metrica
+    void Start()
+    {
+        Metricas.Instance.IniciarSesion("Sesion_001");
+    }
+
 
     // Update is called once per frame
     void Update()

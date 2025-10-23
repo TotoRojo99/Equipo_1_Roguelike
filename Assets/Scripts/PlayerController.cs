@@ -83,6 +83,8 @@ public class PlayerController : MonoBehaviour
     }
     private void morir() //Método para morir
     {
+        //prueba de metricas
+        Metricas.Instance.Guardar();
 
         SceneManager.LoadScene("Menu_Game_Over");
         Destroy(gameObject); //Destruimos el jugador

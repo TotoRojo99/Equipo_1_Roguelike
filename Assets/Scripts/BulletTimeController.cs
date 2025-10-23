@@ -52,6 +52,12 @@ public class BulletTimeController : MonoBehaviour
         enBulletTime = true;
         proximoUso = Time.time + cooldown;
 
+        //prueba de metricas
+        if (Metricas.Instance != null)
+        {
+            Metricas.Instance.RegistrarEvento("BulletTime_Usos", 1);
+        }
+
         // Activamos partículas durante el cooldown
         if (particles != null)
         {
