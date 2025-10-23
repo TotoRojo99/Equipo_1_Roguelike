@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public static CharacterController controller;       //Referencia al CharacterController
 
     private Vector3 MoveInput;                          //Vector3 para almacenar la entrada de movimiento
-    private int vida = 3;                               //Vida del jugador
+    private int vida = 5;                               //Vida del jugador
     private bool golpeRecibido = false;                 //Chequeamos si el jugador ha recibido un golpe
     
     public static Vector3 velocity;                     //Vector3 para almacenar la velocidad del jugador
