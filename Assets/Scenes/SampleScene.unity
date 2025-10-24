@@ -460,7 +460,7 @@ GameObject:
   - component: {fileID: 224556082}
   - component: {fileID: 224556081}
   - component: {fileID: 224556085}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Lanzable
   m_Icon: {fileID: 0}
@@ -1381,7 +1381,7 @@ GameObject:
   - component: {fileID: 678828950}
   - component: {fileID: 678828949}
   - component: {fileID: 678828953}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Lanzable
   m_Icon: {fileID: 0}
@@ -1528,6 +1528,10 @@ MonoBehaviour:
   explosionRadius: 3
   randomTorque: 10
   detachChildren: 1
+  DisUI:
+    serializedVersion: 2
+    m_Bits: 64
+  cursorMod: {fileID: 2800000, guid: e01ee40e30b12cf4bbc867747d6fadf5, type: 3}
   oneTimeCollapse: 1
 --- !u!65 &696317965
 BoxCollider:
@@ -1548,8 +1552,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.6933405, y: 7.495981, z: 1}
+  m_Center: {x: -0.036705136, y: -0.017023087, z: 0}
 --- !u!1 &714154086
 GameObject:
   m_ObjectHideFlags: 0
@@ -2135,6 +2139,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ataque
       objectReference: {fileID: 0}
+    - target: {fileID: 7228718282274491097, guid: 20f7c4c1bcfa6aa47a30a21d7c7bc850, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c87288ec9df57d54fa69331a46f1d2f6, type: 2}
     - target: {fileID: 8140971354689328771, guid: 20f7c4c1bcfa6aa47a30a21d7c7bc850, type: 3}
       propertyPath: m_IsTrigger
       value: 0
@@ -2368,6 +2376,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4a4e69fefecf4c24c8244db47a3dbd2f, type: 3}
       propertyPath: m_Name
       value: ColumnaDerrumbar
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4a4e69fefecf4c24c8244db47a3dbd2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8416272007918961125, guid: 4a4e69fefecf4c24c8244db47a3dbd2f, type: 3}
       propertyPath: m_TagString
@@ -3701,7 +3713,7 @@ GameObject:
   - component: {fileID: 1848748769}
   - component: {fileID: 1848748768}
   - component: {fileID: 1848748772}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Cube (2)
   m_TagString: Lanzable
   m_Icon: {fileID: 0}
@@ -4124,6 +4136,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27771bf718448194c816e2ae3f628c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HabilidadMoverObjeto
+  DisUI:
+    serializedVersion: 2
+    m_Bits: 128
+  manito: {fileID: 2800000, guid: c170cf49c42663349adb75cd54024692, type: 3}
+  normal: {fileID: 2100000, guid: d641f7abe450baf48a7f7f32f5c2477e, type: 2}
+  brillo: {fileID: 2100000, guid: b33163e5e2e547e45a3cfb5436009ae3, type: 2}
 --- !u!54 &1919941563
 Rigidbody:
   m_ObjectHideFlags: 0
