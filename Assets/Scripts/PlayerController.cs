@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem particula_sangre;
     public ParticleSystem particula_sangre_f;
     public static CharacterController controller;       //Referencia al CharacterController
+    
 
     private Vector3 MoveInput;                          //Vector3 para almacenar la entrada de movimiento
     private int vida = 5;                               //Vida del jugador
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
                 coloresOriginales[rend][i] = rend.materials[i].color;
             }
         }
+       
     }
 
     public void OnMove(InputAction.CallbackContext context)     //Método para manejar la entrada de movimiento
