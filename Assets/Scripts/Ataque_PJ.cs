@@ -33,7 +33,7 @@ public class Ataque_PJ : MonoBehaviour
                 if (anim != null)
                 {
                     Debug.Log("Animation encontrada");
-                    anim.Play("ataque_2");
+                    anim.Play("ataque_3");
                 }
                 else Debug.Log("No hay componente Animation en la lengua");
             }
