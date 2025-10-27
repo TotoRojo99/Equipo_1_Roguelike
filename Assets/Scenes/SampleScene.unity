@@ -1524,6 +1524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aaedd3ef8e9ceb4891504d32ba319f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Derrumbe_objeto
+  sombrero: {fileID: 1902906821}
   explosionForce: 20
   explosionRadius: 3
   randomTorque: 10
@@ -4124,6 +4125,7 @@ MonoBehaviour:
   nombreAccion: Retroceder
   prefabSenal: {fileID: 0}
   tiempoMaximo: 5
+  tiempoCooldown: 5
 --- !u!114 &1902906831
 MonoBehaviour:
   m_ObjectHideFlags: 0

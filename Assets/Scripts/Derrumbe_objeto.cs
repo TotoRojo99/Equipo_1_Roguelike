@@ -4,24 +4,24 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Derrumbe_objeto : MonoBehaviour
 {
+    public GameObject sombrero;
     public float explosionForce = 300f;
     public float explosionRadius = 3f;
     public float randomTorque = 10f;
     public bool detachChildren = true;
     public LayerMask DisUI;
+    public float tiempoCooldown = 10f;
+
 
     public Texture2D cursorMod;
     Vector2 mousePos;
-
-
-
 
     public bool oneTimeCollapse = true;
 
     bool collapsed = false;
 
     private Rigidbody[] fragmentos;
-
+    private PlayerController Pcontroller;
 
     void Update()
     {
@@ -29,10 +29,11 @@ public class Derrumbe_objeto : MonoBehaviour
 
         DetectarColumna();
 
-
+        Pcontroller = sombrero.GetComponent<PlayerController>();
         // Detecta click derecho
-        if (Mouse.current.rightButton.wasReleasedThisFrame)
+        if (cooldown_Derrumbar == false && Mouse.current.rightButton.wasReleasedThisFrame)
         {
+            cooldown_Derrumbar = true;
             CrearRayCast();
         }
 
@@ -131,10 +132,16 @@ public class Derrumbe_objeto : MonoBehaviour
             if (col != null)
                 col.enabled = false;
             Invoke("DestruirFragmentos", 5f); // Destruye los fragmentos después de 5 segundos
+            invoke("Cooldown", tiempoCooldown);
 
 
         }
 
+    }
+
+    void Cooldown()
+    {
+        cooldown_Derrumbar = false;
     }
 
     void DestruirFragmentos()

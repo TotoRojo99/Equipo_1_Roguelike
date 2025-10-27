@@ -13,6 +13,9 @@ public class HabilidadRetrocederposicion : MonoBehaviour
     [Header("Tiempo para teletransportarse")]
     public float tiempoMaximo = 5f; // segundos que dura válida la posición guardada
 
+    [Header("Tiempo de Cooldown de la habilidad")]
+    public float tiempoCooldown = 5f;
+
     private GameObject player;
     private Vector3 posicionMarcada;
     private PlayerController pController;
@@ -118,46 +121,57 @@ public class HabilidadRetrocederposicion : MonoBehaviour
 
             senalInstanciada = Instantiate(prefabSenal, posicionMarcada, Quaternion.identity);
             senalInstanciada.tag = "Señal1";
-        }
+        }   
     }
 
     private IEnumerator RegresarPosicion()
     {
         if (player == null) yield break;
 
-        //Desactivar el movimiento del jugador
+        
+        
         pController = player.GetComponent<PlayerController>();
-        pController.habilitado = false;
-
-        // Desactivar CharacterController temporalmente
-        if (controller != null) controller.enabled = false;
-
-        yield return null; // Esperar un frame para evitar problemas de colisión
-
-        // Teletransportar
-        player.transform.position = posicionMarcada;
-        Debug.Log("[HabilidadRetrocederposicion] Teletransporte realizado a: " + posicionMarcada);
-
-        // Esperar un frame
-        yield return null;
-
-        // Rehabilitar el movimiento del jugador
-        pController.habilitado = true;
-
-        // Rehabilitar CharacterController
-        if (controller != null) controller.enabled = true;
-
-        // Reset de estado
-        posicionGuardada = false;
-
-        // Destruir la señal
-        if (senalInstanciada != null)
+        if (pController.cooldown_Retroceder == false)
         {
-            Destroy(senalInstanciada);
-            senalInstanciada = null;
+            pController.cooldown_Retroceder = true;
+            pController.habilitado = false; //Desactivar el movimiento del jugador
+
+            // Desactivar CharacterController temporalmente
+            if (controller != null) controller.enabled = false;
+
+            yield return null; // Esperar un frame para evitar problemas de colisión
+
+            // Teletransportar
+            player.transform.position = posicionMarcada;
+            Debug.Log("[HabilidadRetrocederposicion] Teletransporte realizado a: " + posicionMarcada);
+
+            // Esperar un frame
+            yield return null;
+
+            // Rehabilitar el movimiento del jugador
+            pController.habilitado = true;
+
+            // Rehabilitar CharacterController
+            if (controller != null) controller.enabled = true;
+
+            // Reset de estado
+            posicionGuardada = false;
+
+            // Destruir la señal
+            if (senalInstanciada != null)
+            {
+                Destroy(senalInstanciada);
+                senalInstanciada = null;
+            }
+            Invoke("Cooldown", tiempoCooldown);
         }
+        
     }
 
+    void Cooldown()
+    {
+        pController.cooldown_Retroceder = false;
+    }
     private void CancelarHabilidad()
     {
         Debug.Log("[HabilidadRetrocederposicion] Tiempo expirado. Posición guardada cancelada.");
