@@ -6,7 +6,6 @@ public class Ataque_PJ : MonoBehaviour
     private bool Pegando;
     private bool PuedePegar;
     private bool Enfriamiento;
-    public GameObject lengua;
     void Start()
     {
         Pegando = false;
@@ -24,23 +23,15 @@ public class Ataque_PJ : MonoBehaviour
         {
             Debug.Log("Entre");
             Pegando = true;
-            
+            GetComponent<MeshRenderer>().enabled = true; // activa
             GetComponent<BoxCollider>().enabled = true; // activa
-            if (lengua != null)
-            {
-                var anim = lengua.GetComponent<Animation>();
-                if (anim != null)
-                {
-                    anim.Play("Ataque");
-                }
-            }
             Invoke("Golpe", 1f);
         }
     }
     void Golpe()
     {
         Debug.Log("Dentro Timer");
-        
+        GetComponent<MeshRenderer>().enabled = false; // desactiva
         GetComponent<BoxCollider>().enabled = false; // desactiva
         PuedePegar = false;
         Pegando = false;

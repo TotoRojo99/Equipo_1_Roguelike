@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour
                 coloresOriginales[rend][i] = rend.materials[i].color;
             }
         }
-       
     }
 
     public void OnMove(InputAction.CallbackContext context)     //Método para manejar la entrada de movimiento
