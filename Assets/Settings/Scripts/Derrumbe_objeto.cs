@@ -19,6 +19,7 @@ public class Derrumbe_objeto : MonoBehaviour
     public bool oneTimeCollapse = true;
 
     bool collapsed = false;
+    private bool cooldown_Derrumbar = false;
 
     private Rigidbody[] fragmentos;
     private PlayerController Pcontroller;
@@ -132,7 +133,7 @@ public class Derrumbe_objeto : MonoBehaviour
             if (col != null)
                 col.enabled = false;
             Invoke("DestruirFragmentos", 5f); // Destruye los fragmentos después de 5 segundos
-            invoke("Cooldown", tiempoCooldown);
+            Invoke("Cooldown", tiempoCooldown);
 
 
         }
