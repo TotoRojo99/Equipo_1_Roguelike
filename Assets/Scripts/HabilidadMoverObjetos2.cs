@@ -53,7 +53,7 @@ public class HabilidadMoverObjeto : MonoBehaviour
             }
             ultimoObjeto = objetoactual; //Actualizamos el ultimo objeto
         }
-        else
+            else
         {
 
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);

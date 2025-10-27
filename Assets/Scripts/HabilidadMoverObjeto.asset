@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27771bf718448194c816e2ae3f628c37, type: 3}
   m_Name: HabilidadMoverObjeto
   m_EditorClassIdentifier: Assembly-CSharp::HabilidadMoverObjeto
-  nombre: MoverObjeto
-  icono: {fileID: 0}
+  DisUI:
+    serializedVersion: 2
+    m_Bits: 0
+  manito: {fileID: 0}
+  normal: {fileID: 0}
+  brillo: {fileID: 0}
