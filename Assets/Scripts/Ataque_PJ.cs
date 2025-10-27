@@ -28,12 +28,16 @@ public class Ataque_PJ : MonoBehaviour
             GetComponent<BoxCollider>().enabled = true; // activa
             if (lengua != null)
             {
+                Debug.Log("Lengua encontrada");
                 var anim = lengua.GetComponent<Animation>();
                 if (anim != null)
                 {
-                    anim.Play("Ataque");
+                    Debug.Log("Animation encontrada");
+                    anim.Play("ataque_2");
                 }
+                else Debug.Log("No hay componente Animation en la lengua");
             }
+            else Debug.Log("Lengua es null");
             Invoke("Golpe", 1f);
         }
     }
