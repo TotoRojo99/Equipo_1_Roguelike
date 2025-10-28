@@ -4921,9 +4921,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u2660 Click izquierdo ataque a melee.\n\u2660 Click derecho en columnas
-    para derrumbarlas.\n\u2660 Espacio para marcar posicion. \nvolver a precionar
-    para volver a esa posicion"
+  m_text: "\u2660 Click izquierdo ataque a melee. \n\u2660 Click derecho sobre cajas
+    para moverlas. \n\u2660 Espacio para tiempo bala."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4870f0c239bb1834fbdd05253e7d6340, type: 2}
   m_sharedMaterial: {fileID: -1305769900722652242, guid: 4870f0c239bb1834fbdd05253e7d6340, type: 2}
@@ -5983,14 +5982,14 @@ RectTransform:
   m_GameObject: {fileID: 1795506583}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2.243332, z: 1}
+  m_LocalScale: {x: 1, y: 3.255252, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 80584032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -48.7}
+  m_AnchoredPosition: {x: 0, y: -61.3}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1795506585
@@ -6115,14 +6114,14 @@ RectTransform:
   m_GameObject: {fileID: 1828292232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 3.2862363, z: 1}
+  m_LocalScale: {x: 1, y: 2.2081683, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 876223502}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -61.8}
+  m_AnchoredPosition: {x: 0, y: -47.1}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1828292234
@@ -7230,7 +7229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 26.4, y: -42.9}
+  m_AnchoredPosition: {x: 26.4, y: -40.2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2108350427
@@ -7253,8 +7252,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u2660 Click izquierdo ataque a melee.\n\u2660 Click derecho sobre cajas
-    para moverlas.\n\u2660 Espacio para tiempo bala."
+  m_text: "\u2660 Click izquierdo ataque a melee.\n\u2660 Click derecho en columnas
+    para derrumbarlas.\n\u2660 Espacio para marcar posicion. \nvolver a precionar
+    para volver a esa posicion"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4870f0c239bb1834fbdd05253e7d6340, type: 2}
   m_sharedMaterial: {fileID: -1305769900722652242, guid: 4870f0c239bb1834fbdd05253e7d6340, type: 2}
