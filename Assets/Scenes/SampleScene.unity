@@ -588,8 +588,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::E_Controller
   enemy: {fileID: 2860773731343372271, guid: 94a8be0f35be2794fad0c18bc7333715, type: 3}
   player: {fileID: 1902906825}
-  spawnRadius: 15
-  minDistance: 5
+  spawnRadius: 20
+  minDistance: 7
+  maxNavMeshSampleDistance: 3
   round: 0
 --- !u!4 &195874208
 Transform:
