@@ -78,25 +78,25 @@ public class HabilidadMoverObjeto : MonoBehaviour
 
         // Selección con click derecho
         if (Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, DisUI))
             {
-                Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-                if (Physics.Raycast(ray, out RaycastHit hit))
+                if (hit.collider.CompareTag("Lanzable") || hit.collider.CompareTag("Activo"))
                 {
-                    if (hit.collider.CompareTag("Lanzable") || hit.collider.CompareTag("Activo"))
-                    {
-                        objetoSeleccionado = hit.collider.gameObject;
-                        hit.collider.gameObject.tag = "Activo";
-                        tiempoArrastre = 0f;
+                    objetoSeleccionado = hit.collider.gameObject;
+                    hit.collider.gameObject.tag = "Activo";
+                    tiempoArrastre = 0f;
 
-                        Vector3 pos = objetoSeleccionado.transform.position;
-                        pos.y = alturaFija;
-                        objetoSeleccionado.transform.position = pos;
-                    }
+                    Vector3 pos = objetoSeleccionado.transform.position;
+                    pos.y = alturaFija;
+                    objetoSeleccionado.transform.position = pos;
                 }
             }
+        }
 
-            // Movimiento y soltar automático
-            if (objetoSeleccionado != null)
+        // Movimiento y soltar automático
+        if (objetoSeleccionado != null)
             {
                 tiempoArrastre += Time.deltaTime;
 
