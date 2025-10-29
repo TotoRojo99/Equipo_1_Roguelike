@@ -1,7 +1,10 @@
 using UnityEngine;
 
 public class HabilidadPlayer : MonoBehaviour
+    
 {
+    public int ArmaElegida;
+
     public GameObject TBala;
     public GameObject Derr_objeto;
     public GameObject Derr_objeto1;
@@ -27,7 +30,8 @@ public class HabilidadPlayer : MonoBehaviour
     }
     public void EquiparArma(int nuevaArma)
     {
-        if (nuevaArma == 0)
+        ArmaElegida = nuevaArma;
+    if (nuevaArma == 0)
         {
             Debug.Log("Varita equipada");
             IniciarMetodo();
