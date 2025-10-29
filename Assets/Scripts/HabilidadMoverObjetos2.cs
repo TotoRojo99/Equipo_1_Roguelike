@@ -82,13 +82,14 @@ public class HabilidadMoverObjeto : MonoBehaviour
         // Selección con click derecho
         if (Mouse.current.rightButton.wasPressedThisFrame && pj.cooldown_Mover_objeto == false)
         {
-            pj.cooldown_Mover_objeto = true;
+            
             Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
             
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, DisUI))
             {
                 if (hit.collider.CompareTag("Lanzable") || hit.collider.CompareTag("Activo"))
                 {
+                    pj.cooldown_Mover_objeto = true;
                     objetoSeleccionado = hit.collider.gameObject;
                     hit.collider.gameObject.tag = "Activo";
                     tiempoArrastre = 0f;
@@ -132,10 +133,11 @@ public class HabilidadMoverObjeto : MonoBehaviour
                 if (objetoSeleccionado != null)
                 { 
                     objetoSeleccionado.gameObject.tag = "Lanzable";
+                    Invoke("cooldown", 5f);
                 }
                 objetoSeleccionado = null;
-
-                Invoke("cooldown", 5f);
+            
+                
             }
 
             if (pj.vida <= 0)
