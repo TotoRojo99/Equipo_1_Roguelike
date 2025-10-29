@@ -10,7 +10,7 @@ public class Derrumbe_objeto : MonoBehaviour
     public float randomTorque = 10f;
     public bool detachChildren = true;
     public LayerMask DisUI;
-    public float tiempoCooldown = 10f;
+    public float tiempoCooldown = 1f;
 
 
     public Texture2D cursorMod;
@@ -132,11 +132,11 @@ public class Derrumbe_objeto : MonoBehaviour
             Collider col = GetComponent<Collider>();
             if (col != null)
                 col.enabled = false;
-            Invoke("DestruirFragmentos", 5f); // Destruye los fragmentos después de 5 segundos
-            Invoke("Cooldown", tiempoCooldown);
-
+            
 
         }
+        Invoke("DestruirFragmentos", 5f); // Destruye los fragmentos después de 5 segundos
+        Invoke("Cooldown", tiempoCooldown);
 
     }
 
