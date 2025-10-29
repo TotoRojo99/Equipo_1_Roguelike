@@ -9,11 +9,14 @@ public class LanzableManager : MonoBehaviour
         public GameObject obj;
         public int vidas = 3; // Cada lanzable tiene 3 vidas
         public float ultimoImpacto = -Mathf.Infinity; // tiempo del último impacto
+        
+        
+        
     }
 
     private List<ObjetoLanzable> lanzables = new List<ObjetoLanzable>();
     public float cooldownImpacto = 1f; // 1 segundo de cooldown
-
+    public int cubos_restantes = 16;
     void Start()
     {
         // Buscar todos los objetos con tag "Lanzable"
@@ -58,6 +61,7 @@ public class LanzableManager : MonoBehaviour
                         {
                             Destroy(l.obj);
                             lanzables.Remove(l);
+                            cubos_restantes = cubos_restantes - 1;
                             break; // salir del loop de enemigos
                         }
                     }

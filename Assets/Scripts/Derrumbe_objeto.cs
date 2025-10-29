@@ -11,6 +11,7 @@ public class Derrumbe_objeto : MonoBehaviour
     public bool detachChildren = true;
     public LayerMask DisUI;
     public float tiempoCooldown = 1f;
+    public int columnas_restantes;
 
 
     public Texture2D cursorMod;
@@ -23,6 +24,11 @@ public class Derrumbe_objeto : MonoBehaviour
 
     private Rigidbody[] fragmentos;
     private PlayerController Pcontroller;
+
+    void Start()
+    {
+     columnas_restantes = 4;
+    }
 
     void Update()
     {
@@ -102,6 +108,9 @@ public class Derrumbe_objeto : MonoBehaviour
             // Pregunta si ya se derrumbo
             if (collapsed && oneTimeCollapse) return;
             collapsed = true;
+            columnas_restantes = columnas_restantes - 1;
+            Debug.Log("Columnas restantes: " + columnas_restantes);
+
 
 
             // Itera todos los hijos que tienen Rigidbody (fragmentos)
