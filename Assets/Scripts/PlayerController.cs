@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     public bool cooldown_Derrumbar = false;
     public bool cooldown_Retroceder = false;
+    public bool cooldown_Mover_objeto = false;
 
     public ParticleSystem particula_sangre;
     public ParticleSystem particula_sangre_f;

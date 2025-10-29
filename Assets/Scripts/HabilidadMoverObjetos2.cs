@@ -24,6 +24,7 @@ public class HabilidadMoverObjeto : MonoBehaviour
     {
         pj = sombrero.GetComponent<PlayerController>();
         cam = Camera.main;
+
     }
 
     void CambiarCursor()
@@ -79,9 +80,11 @@ public class HabilidadMoverObjeto : MonoBehaviour
         CambiarCursor();
 
         // Selección con click derecho
-        if (Mouse.current.rightButton.wasPressedThisFrame)
+        if (Mouse.current.rightButton.wasPressedThisFrame && pj.cooldown_Mover_objeto == false)
         {
+            pj.cooldown_Mover_objeto = true;
             Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+            
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, DisUI))
             {
                 if (hit.collider.CompareTag("Lanzable") || hit.collider.CompareTag("Activo"))
@@ -93,8 +96,10 @@ public class HabilidadMoverObjeto : MonoBehaviour
                     Vector3 pos = objetoSeleccionado.transform.position;
                     pos.y = alturaFija;
                     objetoSeleccionado.transform.position = pos;
+                    
                 }
             }
+
         }
 
         // Movimiento y soltar automático
@@ -129,7 +134,8 @@ public class HabilidadMoverObjeto : MonoBehaviour
                     objetoSeleccionado.gameObject.tag = "Lanzable";
                 }
                 objetoSeleccionado = null;
-            
+
+                Invoke("cooldown", 5f);
             }
 
             if (pj.vida <= 0)
@@ -137,6 +143,13 @@ public class HabilidadMoverObjeto : MonoBehaviour
             objetoSeleccionado = null;
         }
 
+        
+
+
+    }
+    private void cooldown()
+    {
+        pj.cooldown_Mover_objeto = false;
 
     }
 }
