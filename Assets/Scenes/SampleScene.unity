@@ -906,7 +906,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195874206}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f399c616dc0b817439c4d505027e3866, type: 3}
   m_Name: 
@@ -7753,6 +7753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27771bf718448194c816e2ae3f628c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HabilidadMoverObjeto
+  sombrero: {fileID: 1902906821}
   DisUI:
     serializedVersion: 2
     m_Bits: 128

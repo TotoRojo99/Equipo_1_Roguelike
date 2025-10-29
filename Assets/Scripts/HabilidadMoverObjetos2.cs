@@ -9,8 +9,9 @@ public class HabilidadMoverObjeto : MonoBehaviour
     private float tiempoArrastre = 0f;
     private float tiempoMaximoArrastre = 1f;
     private float alturaFija = 1f;
+    private PlayerController pj;
 
-
+    public GameObject sombrero;
     public LayerMask DisUI;
     public Texture2D manito;
     public Material normal;
@@ -21,6 +22,7 @@ public class HabilidadMoverObjeto : MonoBehaviour
 
     void Start()
     {
+        pj = sombrero.GetComponent<PlayerController>();
         cam = Camera.main;
     }
 
@@ -128,8 +130,13 @@ public class HabilidadMoverObjeto : MonoBehaviour
                 }
                 objetoSeleccionado = null;
             
+            }
+
+            if (pj.vida <= 0)
+        {
+            objetoSeleccionado = null;
         }
 
-        
+
     }
 }
