@@ -5,29 +5,32 @@ using UnityEngine;
 public class Derrumbe_objeto : MonoBehaviour
 {
     public GameObject sombrero;
+    public GameObject con_Spawn;
     public float explosionForce = 300f;
     public float explosionRadius = 3f;
     public float randomTorque = 10f;
     public bool detachChildren = true;
     public LayerMask DisUI;
     public float tiempoCooldown = 1f;
-    public int columnas_restantes;
-
-
     public Texture2D cursorMod;
+    
     Vector2 mousePos;
+
+
 
     public bool oneTimeCollapse = true;
 
     bool collapsed = false;
     private bool cooldown_Derrumbar = false;
+    private Respawn_columna resC;
 
     private Rigidbody[] fragmentos;
     private PlayerController Pcontroller;
 
     void Start()
     {
-     columnas_restantes = 4;
+     
+        resC = con_Spawn.GetComponent<Respawn_columna>();
     }
 
     void Update()
@@ -108,8 +111,8 @@ public class Derrumbe_objeto : MonoBehaviour
             // Pregunta si ya se derrumbo
             if (collapsed && oneTimeCollapse) return;
             collapsed = true;
-            columnas_restantes = columnas_restantes - 1;
-            Debug.Log("Columnas restantes: " + columnas_restantes);
+            resC.columnas_restantes = resC.columnas_restantes - 1;
+            Debug.Log("Columnas restantes: " + resC.columnas_restantes);
 
 
 

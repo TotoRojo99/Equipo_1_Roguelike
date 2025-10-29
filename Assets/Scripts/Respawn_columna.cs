@@ -8,15 +8,16 @@ public class Respawn_columna : MonoBehaviour
     public Transform Spawn4;
     public GameObject columnaprefab;
     public GameObject sombrero;
-    public GameObject Derrumbe;
-
+    
+    public int columnas_restantes;
 
     private HabilidadPlayer hPlay;
-    private Derrumbe_objeto columna;
+    private bool yasecreo;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        columna = Derrumbe.GetComponent<Derrumbe_objeto>();
+        yasecreo = false;
+        columnas_restantes = 4;
         hPlay = sombrero.GetComponent<HabilidadPlayer>();
         
     }
@@ -26,20 +27,33 @@ public class Respawn_columna : MonoBehaviour
     {
         if (hPlay.ArmaElegida == 1)
         {
-            respawnColumna();
+           
+            if (columnas_restantes <= 0 && yasecreo == false)
+            {
+                yasecreo = true;
+                Debug.Log("Arma elegida: " + hPlay.ArmaElegida);
+                Invoke("InstanciarColumna", 5f);
+                
+            }
         }
     }
 
     void respawnColumna()
     {
-        if (columna.columnas_restantes <= 3)
-        {
+        
+        
             Instantiate(columnaprefab, Spawn1.position, Spawn1.rotation);
             Instantiate(columnaprefab, Spawn2.position, Spawn2.rotation);
             Instantiate(columnaprefab, Spawn3.position, Spawn3.rotation);
             Instantiate(columnaprefab, Spawn4.position, Spawn4.rotation);
 
-            columna.columnas_restantes = columna.columnas_restantes + 4;
-        }
+            columnas_restantes = columnas_restantes + 4;
+
+    }
+
+    void InstanciarColumna()
+    {
+        respawnColumna();
+        yasecreo = false;
     }
 }
