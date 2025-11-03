@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // para usar Mouse.current
+using UnityEngine.InputSystem;
 
 public class HabilidadAgujeroNegro : MonoBehaviour
 {
     [Header("Referencias")]
-    [SerializeField] private Camera cam; // tu cámara principal
-    [SerializeField] private LayerMask layerEnemigos; // capa de enemigos para el Raycast
+    [SerializeField] private Camera cam;
+    [SerializeField] private LayerMask layerEnemigos;
 
     [Header("Configuración del agujero negro")]
     [SerializeField] private float radioAtraccion = 8f;
@@ -14,6 +14,18 @@ public class HabilidadAgujeroNegro : MonoBehaviour
     [Header("Cooldown")]
     [SerializeField] private float cooldown = 10f;
     private bool enCooldown = false;
+
+    [Header("Partículas")]
+    [SerializeField] private ParticleSystem agujeroNegroParticles;
+
+    private void Start()
+    {
+        // Desactivar las partículas al inicio
+        if (agujeroNegroParticles != null)
+        {
+            agujeroNegroParticles.Stop();
+        }
+    }
 
     private void Update()
     {
@@ -55,6 +67,12 @@ public class HabilidadAgujeroNegro : MonoBehaviour
             }
         }
 
+        // Activar las partículas
+        if (agujeroNegroParticles != null)
+        {
+            agujeroNegroParticles.Play();
+        }
+
         Debug.Log($"Agujero negro activado en {punto}, atrayendo enemigos por {duracionAtraccion} segundos.");
     }
 
@@ -69,13 +87,13 @@ public class HabilidadAgujeroNegro : MonoBehaviour
         enCooldown = false;
     }
 
-    // Visualizar el radio del agujero negro en el editor
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.magenta;
         if (cam != null && Mouse.current != null)
         {
             Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerEnemigos))
             {
                 Gizmos.DrawWireSphere(hit.point, radioAtraccion);

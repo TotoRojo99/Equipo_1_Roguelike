@@ -6490,6 +6490,7 @@ MonoBehaviour:
   layerEnemigos:
     serializedVersion: 2
     m_Bits: 8
+  particleSystem: {fileID: 2759499657568862857, guid: aaf017b5745e95546b7949cd3cacd723, type: 3}
   radioAtraccion: 8
   duracionAtraccion: 5
   cooldown: 10
