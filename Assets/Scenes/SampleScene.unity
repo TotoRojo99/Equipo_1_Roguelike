@@ -6490,10 +6490,10 @@ MonoBehaviour:
   layerEnemigos:
     serializedVersion: 2
     m_Bits: 8
-  particleSystem: {fileID: 2759499657568862857, guid: aaf017b5745e95546b7949cd3cacd723, type: 3}
   radioAtraccion: 8
-  duracionAtraccion: 5
+  duracionAtraccion: 4
   cooldown: 10
+  agujeroNegroParticles: {fileID: 2759499657568862857, guid: aaf017b5745e95546b7949cd3cacd723, type: 3}
 --- !u!1 &1600744751 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7640558969779515294, guid: 4a4e69fefecf4c24c8244db47a3dbd2f, type: 3}

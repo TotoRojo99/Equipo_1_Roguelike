@@ -316,6 +316,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System_enemigo
       objectReference: {fileID: 0}
+    - target: {fileID: 2759499657568862857, guid: aaf017b5745e95546b7949cd3cacd723, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2759499657568862857, guid: aaf017b5745e95546b7949cd3cacd723, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2759499657568862857, guid: aaf017b5745e95546b7949cd3cacd723, type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5904153804292967413, guid: aaf017b5745e95546b7949cd3cacd723, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -20,11 +20,7 @@ public class HabilidadAgujeroNegro : MonoBehaviour
 
     private void Start()
     {
-        // Desactivar las partículas al inicio
-        if (agujeroNegroParticles != null)
-        {
-            agujeroNegroParticles.Stop();
-        }
+        
     }
 
     private void Update()
@@ -67,11 +63,8 @@ public class HabilidadAgujeroNegro : MonoBehaviour
             }
         }
 
-        // Activar las partículas
-        if (agujeroNegroParticles != null)
-        {
-            agujeroNegroParticles.Play();
-        }
+        Vector3 spawnPos = punto + new Vector3(0, 1f, 0);
+        Instantiate(agujeroNegroParticles, spawnPos, Quaternion.identity);
 
         Debug.Log($"Agujero negro activado en {punto}, atrayendo enemigos por {duracionAtraccion} segundos.");
     }
