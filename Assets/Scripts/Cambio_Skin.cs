@@ -5,6 +5,7 @@ using System.Collections;
 public class Cambio_Skin : MonoBehaviour
 {
     public GameObject esqueleto;
+    public RayoLaser rayo;
     public Key tecla = Key.E;
 
     public Vector3 PosicionEsqueleto;
@@ -18,6 +19,7 @@ public class Cambio_Skin : MonoBehaviour
     private MeshCollider meshCollider;
     private GameObject Nuevo_Enemigo;
     private GameObject Enemigo_Anterior;
+    
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,7 +38,7 @@ public class Cambio_Skin : MonoBehaviour
         if (Keyboard.current[tecla].wasPressedThisFrame && EnCooldown == false)
         {
             EnCooldown = true;
-            meshRenderer.enabled = true;
+            // meshRenderer.enabled = true;
             meshCollider.enabled = true;
             Invoke("DesactivarCollider", 0.5f);
         }
@@ -45,7 +47,7 @@ public class Cambio_Skin : MonoBehaviour
 
     private void DesactivarCollider()
     {
-        meshRenderer.enabled = false;
+       // meshRenderer.enabled = false;
         meshCollider.enabled = false;
         Invoke("QuitarCooldown", tiempo);
     }
