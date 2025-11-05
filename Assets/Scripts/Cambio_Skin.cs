@@ -9,12 +9,13 @@ public class Cambio_Skin : MonoBehaviour
 
     public Vector3 PosicionEsqueleto;
     public Quaternion RotacionEsqueleto;
+    public bool EnCooldown;
+    public float tiempo = 15f;
+
     private EnemyFollow Enemigo;
     private GameObject EsqueletoInstanciado;
-
     private MeshRenderer meshRenderer;
     private MeshCollider meshCollider;
-    private bool enemigo_Murio;
     private GameObject Nuevo_Enemigo;
     private GameObject Enemigo_Anterior;
 
@@ -32,17 +33,26 @@ public class Cambio_Skin : MonoBehaviour
     // Utpdate is called once per frame
     void Update()
     {
-        if (Keyboard.current[tecla].isPressed)
+        if (Keyboard.current[tecla].wasPressedThisFrame && EnCooldown == false)
         {
-           // meshRenderer.enabled = true;
+            EnCooldown = true;
+            meshRenderer.enabled = true;
             meshCollider.enabled = true;
-        }
-        else
-        {
-            //meshRenderer.enabled = false;
-            meshCollider.enabled = false;
+            Invoke("DesactivarCollider", 0.5f);
         }
 
+    }
+
+    private void DesactivarCollider()
+    {
+        meshRenderer.enabled = false;
+        meshCollider.enabled = false;
+        Invoke("QuitarCooldown", tiempo);
+    }
+    
+    private void QuitarCooldown()
+    {
+        EnCooldown = false;
     }
 
     private void OnTriggerEnter(Collider collision)

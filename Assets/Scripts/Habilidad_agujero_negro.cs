@@ -28,6 +28,7 @@ public class HabilidadAgujeroNegro : MonoBehaviour
         // Detectar clic derecho
         if (Mouse.current.rightButton.wasPressedThisFrame && !enCooldown)
         {
+
             DetectarClickDerecho();
         }
     }

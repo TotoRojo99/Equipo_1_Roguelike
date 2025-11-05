@@ -19,16 +19,9 @@ public class EnemyFollow : MonoBehaviour
     public GameObject posEsqueleto;
     public GameObject esqueleto;
 
-    //private int Vida = 5;
-    //private bool golpeRecibido = false;
-    public Transform Objetivo; // p�blico para asignarlo desde el controlador
-    public ParticleSystem particula_sangre;
-    public ParticleSystem particula_sangre_f;
 
     private GameObject EsqueletoInstanciado;
     private Cambio_Skin cambioSkin;
-    [SerializeField] private float Velocidad = 3.5f;
-    [SerializeField] private float EnRango = 10f;
 
     public void AsignarCambioSkin(Cambio_Skin cambio)
     {
