@@ -9,11 +9,12 @@ TagManager:
   - Lanzable
   - Derrumbable
   - Activo
+  - Rayito
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - capaEnemigos
   - Water
   - UI
   - Columna
