@@ -10,11 +10,30 @@ public class EnemyFollow : MonoBehaviour
     [SerializeField] private float Velocidad = 3.5f;
     [SerializeField] private float EnRango = 10f;
 
-    [Header("Atracción (agujero negro)")]
-    [SerializeField] private float velocidadAtraccion = 8f; // velocidad de succión
+    [Header("Atracciï¿½n (agujero negro)")]
+    [SerializeField] private float velocidadAtraccion = 8f; // velocidad de succiï¿½n
     private bool siendoAtraido = false;
     private Vector3 puntoAtraccion;
     private float tiempoAtraccionRestante = 0f;
+
+    public GameObject posEsqueleto;
+    public GameObject esqueleto;
+
+    //private int Vida = 5;
+    //private bool golpeRecibido = false;
+    public Transform Objetivo; // pï¿½blico para asignarlo desde el controlador
+    public ParticleSystem particula_sangre;
+    public ParticleSystem particula_sangre_f;
+
+    private GameObject EsqueletoInstanciado;
+    private Cambio_Skin cambioSkin;
+    [SerializeField] private float Velocidad = 3.5f;
+    [SerializeField] private float EnRango = 10f;
+
+    public void AsignarCambioSkin(Cambio_Skin cambio)
+    {
+        cambioSkin = cambio;
+    }
 
     private void Update()
     {
@@ -68,6 +87,8 @@ public class EnemyFollow : MonoBehaviour
         {
             morir();
         }
+
+
     }
 
     private void morir()
@@ -88,4 +109,23 @@ public class EnemyFollow : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, EnRango);
     }
+
+    public void morirRayito()
+    {
+        Vector3 pos = cambioSkin.PosicionEsqueleto;
+        Quaternion rot = cambioSkin.RotacionEsqueleto;
+        
+        morir();
+        InstanciarEsqueleto();
+        
+    }
+
+    private void InstanciarEsqueleto()
+    {
+
+        EsqueletoInstanciado = Instantiate(esqueleto, cambioSkin.PosicionEsqueleto, cambioSkin.RotacionEsqueleto);
+
+        Destroy(EsqueletoInstanciado, 3f);
+    }
+
 }

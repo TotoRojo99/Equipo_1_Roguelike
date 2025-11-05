@@ -9,6 +9,7 @@ TagManager:
   - Lanzable
   - Derrumbable
   - Activo
+  - Rayito
   layers:
   - Default
   - TransparentFX
