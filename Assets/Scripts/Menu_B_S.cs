@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class Menu_B_S : MonoBehaviour
 {
@@ -9,26 +8,19 @@ public class Menu_B_S : MonoBehaviour
     public TextMeshProUGUI bestScore1;
     public TextMeshProUGUI bestScore2;
     public TextMeshProUGUI bestScore3;
-    
 
     void Start()
     {
-        // Cargar y mostrar los tres mejores puntajes
-        int score1 = PlayerPrefs.GetInt("HighScore1", 0);
-        int score2 = PlayerPrefs.GetInt("HighScore2", 0);
-        int score3 = PlayerPrefs.GetInt("HighScore3", 0);
+        int[] scores = ScoreManager.Instance.GetHighScores();
+        string[] names = ScoreManager.Instance.GetHighScoreNames();
 
-        bestScore1.text = score1.ToString();
-        bestScore2.text = score2.ToString();
-        bestScore3.text = score3.ToString();
-
-        
+        bestScore1.text = $"{names[0]} - {scores[0]}";
+        bestScore2.text = $"{names[1]} - {scores[1]}";
+        bestScore3.text = $"{names[2]} - {scores[2]}";
     }
 
-    // Botón para volver al menú principal
     public void VolverAlMenu()
     {
-        
         if (ScoreManager.Instance != null)
             ScoreManager.Instance.ResetScore();
 

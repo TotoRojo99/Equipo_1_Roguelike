@@ -6,20 +6,20 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance;
 
     [Header("Puntaje actual")]
-    public string playerName;
     public int currentScore = 0;
     public int enemiesKilled = 0;
     public int currentRound = 0;
 
-   
+    [Header("Nombre del jugador actual")]
+    public string currentPlayerName = "---";
+
     private void Awake()
     {
-        
-        // Singleton: sólo puede haber uno
+        // Singleton
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // No se destruye al cambiar de escena
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -35,9 +35,7 @@ public class ScoreManager : MonoBehaviour
         float multiplier = 1f;
 
         if (ComboManager.Instance != null)
-        {
             multiplier = ComboManager.Instance.GetComboMultiplier();
-        }
 
         currentScore += Mathf.RoundToInt(basePoints * multiplier);
     }
@@ -45,27 +43,47 @@ public class ScoreManager : MonoBehaviour
     public void AddRoundPoints(int round)
     {
         currentRound = round;
-        currentScore += round * 100; // Ronda multiplicada por 100
+        currentScore += round * 100;
     }
 
     public void SaveHighScore()
     {
-        // Guardar los tres mejores puntajes en PlayerPrefs
+        // Cargar los tres mejores puntajes y nombres
         int[] highscores = new int[3];
-        highscores[0] = PlayerPrefs.GetInt("HighScore1", 0);
-        highscores[1] = PlayerPrefs.GetInt("HighScore2", 0);
-        highscores[2] = PlayerPrefs.GetInt("HighScore3", 0);
+        string[] names = new string[3];
 
-        // Agregar el puntaje actual al array y ordenarlo
+        for (int i = 0; i < 3; i++)
+        {
+            highscores[i] = PlayerPrefs.GetInt($"HighScore{i + 1}", 0);
+            names[i] = PlayerPrefs.GetString($"HighScoreName{i + 1}", "---");
+        }
+
+        // Agregar el nuevo puntaje
         System.Array.Resize(ref highscores, 4);
+        System.Array.Resize(ref names, 4);
+
         highscores[3] = currentScore;
-        System.Array.Sort(highscores);
-        System.Array.Reverse(highscores);
+        names[3] = currentPlayerName;
+
+        // Ordenar por puntaje descendente
+        for (int i = 0; i < highscores.Length - 1; i++)
+        {
+            for (int j = i + 1; j < highscores.Length; j++)
+            {
+                if (highscores[j] > highscores[i])
+                {
+                    (highscores[i], highscores[j]) = (highscores[j], highscores[i]);
+                    (names[i], names[j]) = (names[j], names[i]);
+                }
+            }
+        }
 
         // Guardar los tres más altos
-        PlayerPrefs.SetInt("HighScore1", highscores[0]);
-        PlayerPrefs.SetInt("HighScore2", highscores[1]);
-        PlayerPrefs.SetInt("HighScore3", highscores[2]);
+        for (int i = 0; i < 3; i++)
+        {
+            PlayerPrefs.SetInt($"HighScore{i + 1}", highscores[i]);
+            PlayerPrefs.SetString($"HighScoreName{i + 1}", names[i]);
+        }
 
         PlayerPrefs.Save();
     }
@@ -80,11 +98,22 @@ public class ScoreManager : MonoBehaviour
         };
     }
 
+    public string[] GetHighScoreNames()
+    {
+        return new string[]
+        {
+            PlayerPrefs.GetString("HighScoreName1", "---"),
+            PlayerPrefs.GetString("HighScoreName2", "---"),
+            PlayerPrefs.GetString("HighScoreName3", "---")
+        };
+    }
+
     public void ResetScore()
     {
         currentScore = 0;
         enemiesKilled = 0;
         currentRound = 0;
-        Debug.Log($"Ronda {currentScore} - Enemigos: {enemiesKilled}");
+        currentPlayerName = "---";
+        Debug.Log($"Ronda {currentRound} - Enemigos: {enemiesKilled}");
     }
 }
