@@ -5057,10 +5057,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ae9c96d94cdf44a85776bc36cc5d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
-  playerName: 
   currentScore: 0
   enemiesKilled: 0
   currentRound: 0
+  currentPlayerName: ---
 --- !u!4 &1313524628
 Transform:
   m_ObjectHideFlags: 0
@@ -8154,6 +8154,7 @@ MonoBehaviour:
   ArmaElegida: 0
   TBala: {fileID: 1134272762}
   Rayo: {fileID: 1421453288}
+  CambioSkin: {fileID: 1421453288}
   Agujero: {fileID: 1559120146}
   hab_MovObj: {fileID: 1902906831}
 --- !u!114 &1902906830
@@ -8163,7 +8164,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1902906821}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f55edff1bca745b41898b43fd515812f, type: 3}
   m_Name: 
