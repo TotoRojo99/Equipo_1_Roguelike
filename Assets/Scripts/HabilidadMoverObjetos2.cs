@@ -56,7 +56,7 @@ public class HabilidadMoverObjeto : MonoBehaviour
             }
             ultimoObjeto = objetoactual; //Actualizamos el ultimo objeto
         }
-            else
+        else
         {
 
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
@@ -82,9 +82,9 @@ public class HabilidadMoverObjeto : MonoBehaviour
         // Selección con click derecho
         if (Mouse.current.rightButton.wasPressedThisFrame && pj.cooldown_Mover_objeto == false)
         {
-            
+
             Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-            
+
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, DisUI))
             {
                 if (hit.collider.CompareTag("Lanzable") || hit.collider.CompareTag("Activo"))
@@ -97,7 +97,7 @@ public class HabilidadMoverObjeto : MonoBehaviour
                     Vector3 pos = objetoSeleccionado.transform.position;
                     pos.y = alturaFija;
                     objetoSeleccionado.transform.position = pos;
-                    
+
                 }
             }
 
@@ -105,47 +105,49 @@ public class HabilidadMoverObjeto : MonoBehaviour
 
         // Movimiento y soltar automático
         if (objetoSeleccionado != null)
-            {
-                tiempoArrastre += Time.deltaTime;
+        {
+            Invoke("cooldown", 5f);
+            tiempoArrastre += Time.deltaTime;
 
-                if (tiempoArrastre >= tiempoMaximoArrastre)
-                {
+            if (tiempoArrastre >= tiempoMaximoArrastre)
+            {
                 if (objetoSeleccionado != null)
                 {
                     objetoSeleccionado.gameObject.tag = "Lanzable";
-                }
-                objetoSeleccionado = null;    
-                return;
-                }
 
-                Plane plano = new Plane(Vector3.up, new Vector3(0, alturaFija, 0));
-                Ray rayo = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-                if (plano.Raycast(rayo, out float distancia))
-                {
-                    Vector3 punto = rayo.GetPoint(distancia);
-                    objetoSeleccionado.transform.position = punto;
-                }
-            }
-
-            // Soltar con click derecho
-            if (Mouse.current.rightButton.wasReleasedThisFrame)
-            {
-                if (objetoSeleccionado != null)
-                { 
-                    objetoSeleccionado.gameObject.tag = "Lanzable";
-                    Invoke("cooldown", 5f);
                 }
                 objetoSeleccionado = null;
-            
-                
+                return;
             }
 
-            if (pj.vida <= 0)
+            Plane plano = new Plane(Vector3.up, new Vector3(0, alturaFija, 0));
+            Ray rayo = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+            if (plano.Raycast(rayo, out float distancia))
+            {
+                Vector3 punto = rayo.GetPoint(distancia);
+                objetoSeleccionado.transform.position = punto;
+            }
+        }
+
+        // Soltar con click derecho
+        if (Mouse.current.rightButton.wasReleasedThisFrame)
+        {
+            if (objetoSeleccionado != null)
+            {
+                objetoSeleccionado.gameObject.tag = "Lanzable";
+                Invoke("cooldown", 5f);
+            }
+            objetoSeleccionado = null;
+
+
+        }
+
+        if (pj.vida <= 0)
         {
             objetoSeleccionado = null;
         }
 
-        
+
 
 
     }

@@ -6,7 +6,7 @@ public class Cambio_Skin : MonoBehaviour
 {
     public GameObject esqueleto;
     public RayoLaser rayo;
-    public Key tecla = Key.E;
+    public Key tecla = Key.Space;
 
     public Vector3 PosicionEsqueleto;
     public Quaternion RotacionEsqueleto;
