@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using System.Collections.Generic;
 
 public class HabilidadMoverObjeto : MonoBehaviour
 {
@@ -10,69 +10,58 @@ public class HabilidadMoverObjeto : MonoBehaviour
     private float tiempoMaximoArrastre = 1f;
     private float alturaFija = 1f;
     private PlayerController pj;
+    private GameObject objetoactual;
 
     public GameObject sombrero;
     public LayerMask DisUI;
     public Texture2D manito;
-    public Material normal;
     public Material brillo;
 
     private GameObject ultimoObjeto;
 
+    
+    private Dictionary<GameObject, Material> materialesOriginales = new Dictionary<GameObject, Material>();
 
     void Start()
     {
         pj = sombrero.GetComponent<PlayerController>();
         cam = Camera.main;
-
     }
 
     void CambiarCursor()
     {
-
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, DisUI))
         {
-            GameObject objetoactual = hit.collider.gameObject;
+            objetoactual = hit.collider.gameObject;
+
+            // Guardar material original si aún no lo tenemos
+            if (!materialesOriginales.ContainsKey(objetoactual))
+                materialesOriginales[objetoactual] = objetoactual.GetComponent<Renderer>().material;
+
             Cursor.SetCursor(manito, Vector2.zero, CursorMode.Auto);
 
-            //Apagamos el brillo del ultimo objeto si es diferente al actual
+            // Si cambiamos de objeto, restauramos el anterior
             if (objetoactual != ultimoObjeto)
             {
-                if (ultimoObjeto != null)
-                {
-                    Renderer rendUltimo = ultimoObjeto.GetComponent<Renderer>(); // referencia al renderer del último objeto
-                    if (rendUltimo != null)
-                    {
-                        rendUltimo.material = normal; //Apaga el brillo
-                    }
-                }
+                if (ultimoObjeto != null && materialesOriginales.ContainsKey(ultimoObjeto))
+                    ultimoObjeto.GetComponent<Renderer>().material = materialesOriginales[ultimoObjeto];
+
+                objetoactual.GetComponent<Renderer>().material = brillo;
             }
-            //Aplicamos brillo al objeto actual
-            Renderer RendActual = objetoactual.GetComponent<Renderer>();
-            if (RendActual != null)
-            {
-                RendActual.material = brillo; //Aplica el brillo
-            }
-            ultimoObjeto = objetoactual; //Actualizamos el ultimo objeto
+
+            ultimoObjeto = objetoactual;
         }
         else
         {
-
-            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-
-            if (ultimoObjeto != null)
+            // Si salimos de cualquier objeto
+            if (ultimoObjeto != null && materialesOriginales.ContainsKey(ultimoObjeto))
             {
-                Renderer rendUltimo = ultimoObjeto.GetComponent<Renderer>(); // referencia al renderer del último objeto
-                if (rendUltimo != null)
-                {
-                    rendUltimo.material = normal; //Apaga el brillo
-                }
+                ultimoObjeto.GetComponent<Renderer>().material = materialesOriginales[ultimoObjeto];
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                ultimoObjeto = null;
             }
-
         }
-
-
     }
 
     void Update()
@@ -80,9 +69,8 @@ public class HabilidadMoverObjeto : MonoBehaviour
         CambiarCursor();
 
         // Selección con click derecho
-        if (Mouse.current.rightButton.wasPressedThisFrame && pj.cooldown_Mover_objeto == false)
+        if (Mouse.current.rightButton.wasPressedThisFrame && !pj.cooldown_Mover_objeto)
         {
-
             Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
 
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, DisUI))
@@ -97,10 +85,8 @@ public class HabilidadMoverObjeto : MonoBehaviour
                     Vector3 pos = objetoSeleccionado.transform.position;
                     pos.y = alturaFija;
                     objetoSeleccionado.transform.position = pos;
-
                 }
             }
-
         }
 
         // Movimiento y soltar automático
@@ -111,11 +97,7 @@ public class HabilidadMoverObjeto : MonoBehaviour
 
             if (tiempoArrastre >= tiempoMaximoArrastre)
             {
-                if (objetoSeleccionado != null)
-                {
-                    objetoSeleccionado.gameObject.tag = "Lanzable";
-
-                }
+                objetoSeleccionado.gameObject.tag = "Lanzable";
                 objetoSeleccionado = null;
                 return;
             }
@@ -138,22 +120,14 @@ public class HabilidadMoverObjeto : MonoBehaviour
                 Invoke("cooldown", 5f);
             }
             objetoSeleccionado = null;
-
-
         }
 
         if (pj.vida <= 0)
-        {
             objetoSeleccionado = null;
-        }
-
-
-
-
     }
+
     private void cooldown()
     {
         pj.cooldown_Mover_objeto = false;
-
     }
 }

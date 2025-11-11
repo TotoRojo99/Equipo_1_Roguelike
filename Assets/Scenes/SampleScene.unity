@@ -5057,6 +5057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ae9c96d94cdf44a85776bc36cc5d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
+  playerName: 
   currentScore: 0
   enemiesKilled: 0
   currentRound: 0
@@ -5518,6 +5519,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arenamodificada9
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c5c4e6273ad349bb4ce89eede1223, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1081988553475299477, guid: 214c5c4e6273ad349bb4ce89eede1223, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -5578,6 +5583,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 9e119910909e2c34dbeea3f4c9e50c53, type: 2}
+    - target: {fileID: 6136552278619299441, guid: 214c5c4e6273ad349bb4ce89eede1223, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6136552278619299441, guid: 214c5c4e6273ad349bb4ce89eede1223, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -8180,7 +8189,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   manito: {fileID: 2800000, guid: c170cf49c42663349adb75cd54024692, type: 3}
-  normal: {fileID: 2100000, guid: 5661dbff31d0b1b4c83c6a4e237905f5, type: 2}
   brillo: {fileID: 2100000, guid: b33163e5e2e547e45a3cfb5436009ae3, type: 2}
 --- !u!54 &1919941563
 Rigidbody:

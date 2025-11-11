@@ -6,6 +6,7 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance;
 
     [Header("Puntaje actual")]
+    public string playerName;
     public int currentScore = 0;
     public int enemiesKilled = 0;
     public int currentRound = 0;
