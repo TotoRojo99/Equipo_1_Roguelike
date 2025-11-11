@@ -29,7 +29,16 @@ public class ScoreManager : MonoBehaviour
     public void AddEnemyKill()
     {
         enemiesKilled++;
-        currentScore += 25; // Cada enemigo vale 25 puntos
+
+        int basePoints = 25;
+        float multiplier = 1f;
+
+        if (ComboManager.Instance != null)
+        {
+            multiplier = ComboManager.Instance.GetComboMultiplier();
+        }
+
+        currentScore += Mathf.RoundToInt(basePoints * multiplier);
     }
 
     public void AddRoundPoints(int round)

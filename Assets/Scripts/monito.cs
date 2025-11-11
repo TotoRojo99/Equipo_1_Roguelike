@@ -86,8 +86,8 @@ public class EnemyFollow : MonoBehaviour
 
     private void morir()
     {
-        if (ScoreManager.Instance != null)
-            ScoreManager.Instance.AddEnemyKill();
+        if (ComboManager.Instance != null)
+            ComboManager.Instance.RegistrarKill();
 
         Vector3 spawnPos = transform.position + new Vector3(0, 1f, 0);
 
