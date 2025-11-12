@@ -12,6 +12,7 @@ public class RayoLaser : MonoBehaviour
     public float TCooldown = 15f;
     public Key tecla = Key.E;
 
+
     void Start()
     {
         lr = GetComponent<LineRenderer>();
@@ -22,6 +23,7 @@ public class RayoLaser : MonoBehaviour
         lr.material.color = Color.cyan;
         lr.enabled = false;
         EnCooldown = false;
+
     }
 
     void Update()
@@ -39,6 +41,7 @@ public class RayoLaser : MonoBehaviour
     {
         lr.enabled = false;
         Invoke("Cooldown", TCooldown);
+       
     }
 
     void Cooldown()
@@ -55,5 +58,6 @@ public class RayoLaser : MonoBehaviour
         lr.SetPosition(0, origen.position);
         lr.SetPosition(1, medio);
         lr.SetPosition(2, destino.position);
+      
     }
 }

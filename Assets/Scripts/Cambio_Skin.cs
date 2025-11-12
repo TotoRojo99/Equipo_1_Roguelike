@@ -12,6 +12,7 @@ public class Cambio_Skin : MonoBehaviour
     public Quaternion RotacionEsqueleto;
     public bool EnCooldown;
     public float tiempo = 15f;
+    public ParticleSystem rayoparti;
 
     private EnemyFollow Enemigo;
     private GameObject EsqueletoInstanciado;
@@ -30,6 +31,7 @@ public class Cambio_Skin : MonoBehaviour
 
         meshRenderer.enabled = false;
         meshCollider.enabled = false;
+        rayoparti.Stop();
     }
 
     // Utpdate is called once per frame
@@ -39,6 +41,7 @@ public class Cambio_Skin : MonoBehaviour
         {
             EnCooldown = true;
             // meshRenderer.enabled = true;
+            rayoparti.Play();
             meshCollider.enabled = true;
             Invoke("DesactivarCollider", 0.5f);
         }
@@ -50,6 +53,7 @@ public class Cambio_Skin : MonoBehaviour
        // meshRenderer.enabled = false;
         meshCollider.enabled = false;
         Invoke("QuitarCooldown", tiempo);
+        rayoparti.Stop();
     }
     
     private void QuitarCooldown()
