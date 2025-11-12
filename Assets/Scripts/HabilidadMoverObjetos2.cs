@@ -19,7 +19,9 @@ public class HabilidadMoverObjeto : MonoBehaviour
 
     private GameObject ultimoObjeto;
 
-    
+    public AudioSource audio_habilidad;
+
+
     private Dictionary<GameObject, Material> materialesOriginales = new Dictionary<GameObject, Material>();
 
     void Start()
@@ -77,6 +79,7 @@ public class HabilidadMoverObjeto : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Lanzable") || hit.collider.CompareTag("Activo"))
                 {
+                    audio_habilidad.Play();
                     pj.cooldown_Mover_objeto = true;
                     objetoSeleccionado = hit.collider.gameObject;
                     hit.collider.gameObject.tag = "Activo";
@@ -123,7 +126,11 @@ public class HabilidadMoverObjeto : MonoBehaviour
         }
 
         if (pj.vida <= 0)
+        {
             objetoSeleccionado = null;
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        }
+            
     }
 
     private void cooldown()

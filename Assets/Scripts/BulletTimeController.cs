@@ -12,6 +12,7 @@ public class BulletTimeController : MonoBehaviour
 
     private bool enBulletTime = false;
     private float proximoUso = 0f;
+    public AudioSource tictac;
 
     [Header("Partículas")]
     public ParticleSystem particles;
@@ -44,6 +45,8 @@ public class BulletTimeController : MonoBehaviour
         if (!enBulletTime && Time.time >= proximoUso)
         {
             StartCoroutine(ActivarBulletTime());
+            
+            tictac.Play();
         }
     }
 
@@ -52,11 +55,14 @@ public class BulletTimeController : MonoBehaviour
         enBulletTime = true;
         proximoUso = Time.time + cooldown;
 
-        // Activamos partículas durante el cooldown
         if (particles != null)
         {
             particles.Play();
         }
+
+        
+        // Activamos partículas durante el cooldown
+
 
         // Activamos bullet time
         Time.timeScale = factorRalentizacion;
@@ -68,15 +74,16 @@ public class BulletTimeController : MonoBehaviour
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
         enBulletTime = false;
-
+        tictac.Stop();
+        if (particles != null)
+        {
+            particles.Stop();
+        }
         // Esperamos el resto del cooldown para apagar partículas
         float tiempoRestante = proximoUso - Time.time;
         if (tiempoRestante > 0)
             yield return new WaitForSeconds(tiempoRestante);
 
-        if (particles != null)
-        {
-            particles.Stop();
-        }
+        
     }
 }

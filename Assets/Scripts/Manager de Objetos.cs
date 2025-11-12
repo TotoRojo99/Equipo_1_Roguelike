@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class LanzableManager : MonoBehaviour
 {
+    
     [System.Serializable]
     public class ObjetoLanzable
     {
@@ -10,13 +11,14 @@ public class LanzableManager : MonoBehaviour
         public int vidas = 3; // Cada lanzable tiene 3 vidas
         public float ultimoImpacto = -Mathf.Infinity; // tiempo del último impacto
         
-        
-        
+
+
     }
 
     private List<ObjetoLanzable> lanzables = new List<ObjetoLanzable>();
     public float cooldownImpacto = 1f; // 1 segundo de cooldown
     public int cubos_restantes = 16;
+    public AudioSource audio_caja;
     void Start()
     {
         // Buscar todos los objetos con tag "Lanzable"
@@ -59,7 +61,8 @@ public class LanzableManager : MonoBehaviour
                         // Si las vidas llegan a 0, destruir el lanzable
                         if (l.vidas <= 0)
                         {
-                            Destroy(l.obj);
+                            audio_caja.Play();
+                            Destroy(l.obj, audio_caja.clip.length);
                             lanzables.Remove(l);
                             cubos_restantes = cubos_restantes - 1;
                             break; // salir del loop de enemigos

@@ -17,6 +17,8 @@ public class HabilidadAgujeroNegro : MonoBehaviour
 
     [Header("Partículas")]
     [SerializeField] private ParticleSystem agujeroNegroParticles;
+    public AudioSource aspiradora;
+
 
     private void Start()
     {
@@ -44,6 +46,7 @@ public class HabilidadAgujeroNegro : MonoBehaviour
                 Vector3 puntoAtraccion = hit.collider.transform.position;
                 ActivarAgujeroNegro(puntoAtraccion);
                 IniciarCooldown();
+                aspiradora.Play();
             }
         }
     }
