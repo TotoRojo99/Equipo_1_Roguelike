@@ -5,7 +5,7 @@ public class EnemigoZonaTrigger : MonoBehaviour
 {
     [Header("Referencias")]
     public Animator animator; // Asigná el Animator del enemigo
-    public string[] animacionesAtaque = { "rig|Ataque G" };
+    public string[] animacionesAtaque = { "rig|Ataque R, rig|Ataque G, rig|Ataque L, rig|Ataque X" };
 
     [Header("Opciones")]
     public string tagJugador = "Player";
