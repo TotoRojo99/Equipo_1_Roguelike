@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyThrower : MonoBehaviour
+public class Enemigo2 : MonoBehaviour
 {
-    [Header("Referencias")]
-    [SerializeField] private Transform player;
+    [Header("Referencias automáticas")]
+    private Transform player;               // Se encuentra por tag automáticamente
     [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform throwPoint; // Lugar desde donde se lanza el proyectil
     [SerializeField] private Animator animator;
 
     [Header("Movimiento")]
@@ -18,8 +17,8 @@ public class EnemyThrower : MonoBehaviour
 
     [Header("Ataque")]
     [SerializeField] private float attackCooldown = 5f;     // Tiempo entre ataques
-    [SerializeField] private float projectileForce = 8f;    // Fuerza con la que lanza el proyectil
-    [SerializeField] private float projectileUpForce = 5f;  // Impulso vertical del proyectil
+    [SerializeField] private float projectileForce = 8f;    // Fuerza horizontal del proyectil
+    [SerializeField] private float projectileUpForce = 5f;  // Impulso vertical
     private float attackTimer;
 
     private bool isAttacking = false;
@@ -30,8 +29,12 @@ public class EnemyThrower : MonoBehaviour
         wanderTimer = wanderInterval;
         attackTimer = attackCooldown;
 
-        if (player == null)
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+        // Buscar player automáticamente
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+            player = playerObj.transform;
+        else
+            Debug.LogWarning("No se encontró ningún objeto con tag 'Player' en la escena.");
 
         if (animator == null)
             animator = GetComponent<Animator>();
@@ -44,10 +47,9 @@ public class EnemyThrower : MonoBehaviour
         wanderTimer += Time.deltaTime;
         attackTimer += Time.deltaTime;
 
-        // Si el enemigo no está atacando, puede moverse
+        // Movimiento aleatorio lejos del jugador
         if (!isAttacking)
         {
-            // Buscar un nuevo punto aleatorio cada cierto tiempo
             if (wanderTimer >= wanderInterval)
             {
                 Vector3 newPos = GetRandomPointAwayFromPlayer();
@@ -72,7 +74,6 @@ public class EnemyThrower : MonoBehaviour
         Vector3 randomOffset = Random.insideUnitSphere * wanderRadius;
         randomOffset.y = 0;
 
-        // Alejarse del jugador en una dirección aleatoria
         Vector3 candidate = transform.position + dirFromPlayer * Random.Range(3f, wanderRadius) + randomOffset;
 
         NavMeshHit hit;
@@ -89,12 +90,11 @@ public class EnemyThrower : MonoBehaviour
         animator.SetBool("Run", false);
         animator.SetTrigger("Attack");
 
-        // Esperar un poco antes de lanzar (sincronizar con animación)
+        // Esperar un poco para sincronizar con la animación
         yield return new WaitForSeconds(0.6f);
 
         LaunchProjectile();
 
-        // Esperar a que termine animación
         yield return new WaitForSeconds(0.8f);
 
         agent.isStopped = false;
@@ -103,18 +103,21 @@ public class EnemyThrower : MonoBehaviour
 
     private void LaunchProjectile()
     {
-        if (projectilePrefab == null || throwPoint == null)
+        if (projectilePrefab == null)
         {
-            Debug.LogWarning("Faltan referencias al proyectil o throwPoint.");
+            Debug.LogWarning("No se asignó un prefab de proyectil.");
             return;
         }
 
-        GameObject projectile = Instantiate(projectilePrefab, throwPoint.position, Quaternion.identity);
+        // Usar la posición actual del enemigo como throw point
+        Vector3 throwPos = transform.position + Vector3.up * 1.5f; // pequeño offset vertical
+
+        GameObject projectile = Instantiate(projectilePrefab, throwPos, Quaternion.identity);
 
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
-        if (rb != null)
+        if (rb != null && player != null)
         {
-            Vector3 dir = (player.position - throwPoint.position).normalized;
+            Vector3 dir = (player.position - throwPos).normalized;
             Vector3 force = dir * projectileForce + Vector3.up * projectileUpForce;
             rb.AddForce(force, ForceMode.VelocityChange);
         }
