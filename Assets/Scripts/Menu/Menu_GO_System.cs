@@ -1,12 +1,14 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class Menu_GO_System : MonoBehaviour
 {
     [Header("Referencias UI")]
     public TextMeshProUGUI scoreText;
     public TMP_InputField nombreInput; // campo donde el jugador escribe su nombre
+    public AudioSource audio_button;
 
     private void Start()
     {
@@ -28,18 +30,39 @@ public class Menu_GO_System : MonoBehaviour
     public void volver_menu()
     {
         GuardarPuntajeConNombre();
-        SceneManager.LoadScene("Menu_inicial");
+        StartCoroutine(PlaySoundAndChangeScene("Menu_inicial"));
     }
 
     public void reintentar()
     {
         GuardarPuntajeConNombre();
-        SceneManager.LoadScene("SampleScene");
+        StartCoroutine(PlaySoundAndChangeScene("SampleScene"));
     }
 
     public void salir()
     {
         GuardarPuntajeConNombre();
+        StartCoroutine(PlaySoundAndQuit());
+    }
+
+    private IEnumerator PlaySoundAndChangeScene(string sceneName)
+    {
+        if (audio_button != null)
+            audio_button.Play();
+
+        // Espera hasta que termine el sonido
+        yield return new WaitForSeconds(audio_button.clip.length);
+
+        SceneManager.LoadScene(sceneName);
+    }
+
+    private IEnumerator PlaySoundAndQuit()
+    {
+        if (audio_button != null)
+            audio_button.Play();
+
+        yield return new WaitForSeconds(audio_button.clip.length);
+
         Application.Quit();
     }
 }
