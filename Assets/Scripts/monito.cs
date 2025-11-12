@@ -103,8 +103,8 @@ public class EnemyFollow : MonoBehaviour
 
         Instantiate(particula_sangre, spawnPos, transform.rotation);
         Instantiate(particula_sangre_f, spawnPos, transform.rotation);
-        
-        Destroy(gameObject);
+
+        Destroy(gameObject, muerte_audio.clip.length);
     }
 
     private void OnDrawGizmos()
