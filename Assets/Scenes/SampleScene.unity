@@ -912,7 +912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f399c616dc0b817439c4d505027e3866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Controller
-  enemy: {fileID: 2860773731343372271, guid: 94a8be0f35be2794fad0c18bc7333715, type: 3}
+  enemy: {fileID: 739074154627573134, guid: 05b89f81753fe9e41b333578ee57c84c, type: 3}
   player: {fileID: 1902906825}
   spawnRadius: 20
   minDistance: 7
