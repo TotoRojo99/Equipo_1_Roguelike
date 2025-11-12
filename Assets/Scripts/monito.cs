@@ -23,9 +23,16 @@ public class EnemyFollow : MonoBehaviour
     private GameObject EsqueletoInstanciado;
     private Cambio_Skin cambioSkin;
 
+    public AudioSource muerte_audio;
+
+  
     public void AsignarCambioSkin(Cambio_Skin cambio)
     {
         cambioSkin = cambio;
+    }
+    private void Start()
+    {
+        
     }
 
     private void Update()
@@ -79,6 +86,7 @@ public class EnemyFollow : MonoBehaviour
         if (collision.gameObject.CompareTag("P1") || collision.gameObject.CompareTag("Activo"))
         {
             morir();
+            
         }
 
 
@@ -86,6 +94,8 @@ public class EnemyFollow : MonoBehaviour
 
     private void morir()
     {
+        muerte_audio.Play();
+
         if (ComboManager.Instance != null)
             ComboManager.Instance.RegistrarKill();
 
@@ -93,7 +103,7 @@ public class EnemyFollow : MonoBehaviour
 
         Instantiate(particula_sangre, spawnPos, transform.rotation);
         Instantiate(particula_sangre_f, spawnPos, transform.rotation);
-
+        
         Destroy(gameObject);
     }
 

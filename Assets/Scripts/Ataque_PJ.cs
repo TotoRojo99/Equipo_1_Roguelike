@@ -7,6 +7,9 @@ public class Ataque_PJ : MonoBehaviour
     private bool PuedePegar;
     private bool Enfriamiento;
     public GameObject lengua;
+    public AudioSource sonidolengua1;
+    public AudioSource sonidolengua2;
+    private int random;
     void Start()
     {
         Pegando = false;
@@ -14,6 +17,10 @@ public class Ataque_PJ : MonoBehaviour
         
         GetComponent<MeshRenderer>().enabled = false; // desactiva
         GetComponent<BoxCollider>().enabled = false; // desactiva
+        sonidolengua2.Stop();
+        sonidolengua1.Stop();
+
+        
 
     }
 
@@ -26,6 +33,8 @@ public class Ataque_PJ : MonoBehaviour
             Pegando = true;
             
             GetComponent<BoxCollider>().enabled = true; // activa
+            Rep_sonido();
+
             if (lengua != null)
             {
                 Debug.Log("Lengua encontrada");
@@ -39,6 +48,20 @@ public class Ataque_PJ : MonoBehaviour
             }
             else Debug.Log("Lengua es null");
             Invoke("Golpe", 1f);
+        }
+    }
+
+    void Rep_sonido()
+    {
+        random = Random.Range(0, 2);
+        Debug.Log(random);
+        if (random == 0)
+        {
+            sonidolengua2.Play();
+        }
+        else
+        {
+            sonidolengua1.Play();
         }
     }
     void Golpe()

@@ -58,7 +58,7 @@ public class Cambio_Skin : MonoBehaviour
         meshCollider.enabled = false;
         Invoke("QuitarCooldown", tiempo);
         rayoparti.Stop();
-        sonidorayo.Stop();
+        
     }
     
     private void QuitarCooldown()
