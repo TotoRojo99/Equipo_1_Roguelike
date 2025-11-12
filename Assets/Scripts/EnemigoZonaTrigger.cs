@@ -19,12 +19,15 @@ public class EnemigoZonaTrigger : MonoBehaviour
 
         if (other.CompareTag(tagJugador))
         {
+            
+
             // Elegir una animación aleatoria
             int index = Random.Range(0, animacionesAtaque.Length);
             string animSeleccionada = animacionesAtaque[index];
 
             // Ejecutar animación
             animator.Play(animSeleccionada);
+            
 
             // Evitar múltiples activaciones seguidas
             puedeAtacar = false;

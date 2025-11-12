@@ -140,6 +140,30 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8272592811157255725, guid: 51f4c526268252145832ea675c60435f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8272592811157255725, guid: 51f4c526268252145832ea675c60435f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8272592811157255725, guid: 51f4c526268252145832ea675c60435f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8272592811157255725, guid: 51f4c526268252145832ea675c60435f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8272592811157255725, guid: 51f4c526268252145832ea675c60435f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8272592811157255725, guid: 51f4c526268252145832ea675c60435f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -156,6 +180,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51f4c526268252145832ea675c60435f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7925509249189081595}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51f4c526268252145832ea675c60435f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8071553073304993044}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51f4c526268252145832ea675c60435f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1135847386160812211}
@@ -256,7 +283,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 739074154627573134}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65ef1dcd1a29bc94aaa9e556a036532f, type: 3}
   m_Name: 
@@ -264,6 +291,27 @@ MonoBehaviour:
   Objetivo: {fileID: 0}
   particula_sangre: {fileID: 1962953232784315439, guid: b22f5fab132fc8f4a8f3e1f46c929bc6, type: 3}
   particula_sangre_f: {fileID: 641071966675143974, guid: d448e494b1229064dbfda4b79bdcc92b, type: 3}
+  Velocidad: 3.5
+  EnRango: 50
+  velocidadAtraccion: 8
+  posEsqueleto: {fileID: 5169197261716763102, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
+  esqueleto: {fileID: 1128078038460493500, guid: 14325bb64668b6342a51a13a17b38efb, type: 3}
+--- !u!114 &8071553073304993044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739074154627573134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b63af5926621624194bdaee1301b12f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  Objetivo: {fileID: 0}
+  particula_sangre: {fileID: 1962953232784315439, guid: b22f5fab132fc8f4a8f3e1f46c929bc6, type: 3}
+  particula_sangre_f: {fileID: 641071966675143974, guid: d448e494b1229064dbfda4b79bdcc92b, type: 3}
+  modeloVisual: {fileID: 8380906995549007602}
   Velocidad: 3.5
   EnRango: 50
   velocidadAtraccion: 8
@@ -384,3 +432,8 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.007901503, y: 0.013990309, z: 0.012317527}
   m_Center: {x: -0.005714106, y: 0.0070840935, z: -0.001158868}
+--- !u!4 &8380906995549007602 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8272592811157255725, guid: 51f4c526268252145832ea675c60435f, type: 3}
+  m_PrefabInstance: {fileID: 468605081608165599}
+  m_PrefabAsset: {fileID: 0}
