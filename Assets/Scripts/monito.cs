@@ -2,27 +2,28 @@ using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
 {
-    public Transform Objetivo; // objetivo principal (jugador)
-    public ParticleSystem particula_sangre;
-    public ParticleSystem particula_sangre_f;
+    [Header("Objetivo y efectos")]
+    public Transform Objetivo;                      // Jugador
+    public ParticleSystem particula_sangre;         // Sangre normal
+    public ParticleSystem particula_sangre_f;       // Sangre alternativa
 
     [Header("Movimiento")]
     [SerializeField] private float Velocidad = 3.5f;
     [SerializeField] private float EnRango = 10f;
 
     [Header("Atracción (agujero negro)")]
-    [SerializeField] private float velocidadAtraccion = 8f; // velocidad de succión
+    [SerializeField] private float velocidadAtraccion = 8f;
     private bool siendoAtraido = false;
     private Vector3 puntoAtraccion;
     private float tiempoAtraccionRestante = 0f;
 
+    [Header("Esqueleto y cambio de skin")]
     public GameObject posEsqueleto;
     public GameObject esqueleto;
-
     private GameObject EsqueletoInstanciado;
     private Cambio_Skin cambioSkin;
 
-    // 🔹 Referencia al Animator (puede estar en el mismo objeto o en un hijo)
+    // Animator del enemigo (buscado automáticamente)
     private Animator animator;
 
     public void AsignarCambioSkin(Cambio_Skin cambio)
@@ -32,12 +33,13 @@ public class EnemyFollow : MonoBehaviour
 
     private void Start()
     {
-        // Buscar el Animator automáticamente (en este GameObject o sus hijos)
+        // Buscar automáticamente un Animator en este objeto o sus hijos
         animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
+        // Si está siendo atraído, no seguir al jugador
         if (siendoAtraido)
         {
             ActualizarAtraccion();
@@ -50,18 +52,25 @@ public class EnemyFollow : MonoBehaviour
 
         if (distancia <= EnRango)
         {
-            // Moverse hacia el jugador
-            transform.position = Vector3.MoveTowards(transform.position, Objetivo.position, Velocidad * Time.deltaTime);
+            // 🔹 Movimiento hacia el jugador
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                Objetivo.position,
+                Velocidad * Time.deltaTime
+            );
 
-            // Calcular dirección hacia el jugador
+            // 🔹 Rotación hacia el jugador
             Vector3 direccion = (Objetivo.position - transform.position).normalized;
-            direccion.y = 0;
+            direccion.y = 0; // evita rotar en vertical
 
-            // Rotar en sentido contrario (mirando al lado opuesto del jugador)
             if (direccion != Vector3.zero)
             {
-                Quaternion rotacionContraria = Quaternion.LookRotation(-direccion);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotacionContraria, Time.deltaTime * 5f);
+                Quaternion rotacionHaciaJugador = Quaternion.LookRotation(direccion);
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
+                    rotacionHaciaJugador,
+                    Time.deltaTime * 5f
+                );
             }
 
             // 🔹 Activar animación de caminar
@@ -70,17 +79,22 @@ public class EnemyFollow : MonoBehaviour
         }
         else
         {
-            // 🔹 Detener animación si no está en rango
+            // 🔹 Detener animación si está fuera de rango
             if (animator != null)
                 animator.SetBool("Caminar", false);
         }
     }
 
+    // 🔸 Lógica de atracción (agujero negro)
     private void ActualizarAtraccion()
     {
         if (tiempoAtraccionRestante > 0f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, puntoAtraccion, velocidadAtraccion * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                puntoAtraccion,
+                velocidadAtraccion * Time.deltaTime
+            );
             tiempoAtraccionRestante -= Time.deltaTime;
         }
         else
@@ -89,7 +103,6 @@ public class EnemyFollow : MonoBehaviour
         }
     }
 
-    // Llamada desde el script de habilidad (HabilidadAgujeroNegro)
     public void ActivarAtraccion(Vector3 punto, float duracion)
     {
         siendoAtraido = true;
@@ -97,6 +110,7 @@ public class EnemyFollow : MonoBehaviour
         tiempoAtraccionRestante = duracion;
     }
 
+    // 🔸 Muerte por colisión
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("P1") || collision.gameObject.CompareTag("Activo"))
@@ -118,24 +132,29 @@ public class EnemyFollow : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, EnRango);
-    }
-
+    // 🔸 Muerte específica por rayo
     public void morirRayito()
     {
-        Vector3 pos = cambioSkin.PosicionEsqueleto;
-        Quaternion rot = cambioSkin.RotacionEsqueleto;
-
         morir();
         InstanciarEsqueleto();
     }
 
     private void InstanciarEsqueleto()
     {
-        EsqueletoInstanciado = Instantiate(esqueleto, cambioSkin.PosicionEsqueleto, cambioSkin.RotacionEsqueleto);
+        if (cambioSkin == null) return;
+
+        EsqueletoInstanciado = Instantiate(
+            esqueleto,
+            cambioSkin.PosicionEsqueleto,
+            cambioSkin.RotacionEsqueleto
+        );
         Destroy(EsqueletoInstanciado, 3f);
+    }
+
+    // 🔸 Gizmo visual del rango
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, EnRango);
     }
 }
