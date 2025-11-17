@@ -13,6 +13,12 @@ public class UI_InGame : MonoBehaviour
     [Header("Cooldown UI")]
     public Image habilidad1_CD;
     public Image habilidad2_CD;
+    public Image habilidad1_V_icono;
+    public Image habilidad2_V_icono;
+    public Image habilidad1_C_icono;
+    public Image habilidad2_C_icono;
+
+    public static UI_InGame instance;
 
 
     private PlayerController playerController;
@@ -37,6 +43,20 @@ public class UI_InGame : MonoBehaviour
 
     void Update()
     {
+        if (ScoreManager.Instance.icono_ingame == false)
+        {
+            habilidad1_V_icono.gameObject.SetActive(true);
+            habilidad2_V_icono.gameObject.SetActive(true);
+            habilidad1_C_icono.gameObject.SetActive(false);
+            habilidad2_C_icono.gameObject.SetActive(false);
+        }
+        else
+        {
+            habilidad1_V_icono.gameObject.SetActive(false);
+            habilidad2_V_icono.gameObject.SetActive(false);
+            habilidad1_C_icono.gameObject.SetActive(true);
+            habilidad2_C_icono.gameObject.SetActive(true);
+        }
         if (ScoreManager.Instance != null && playerController != null)
         {
             scoreText.text = "Score: " + ScoreManager.Instance.currentScore.ToString();

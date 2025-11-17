@@ -12,6 +12,7 @@ public class ScoreManager : MonoBehaviour
 
     [Header("Nombre del jugador actual")]
     public string currentPlayerName = "---";
+    public bool icono_ingame = false;
 
     private void Awake()
     {

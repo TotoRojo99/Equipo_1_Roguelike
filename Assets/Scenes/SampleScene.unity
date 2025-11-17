@@ -10498,6 +10498,7 @@ MonoBehaviour:
   enemiesKilled: 0
   currentRound: 0
   currentPlayerName: ---
+  icono_ingame: 0
 --- !u!4 &1313524628
 Transform:
   m_ObjectHideFlags: 0
@@ -10774,6 +10775,10 @@ MonoBehaviour:
   player: {fileID: 1902906821}
   habilidad1_CD: {fileID: 1999218386}
   habilidad2_CD: {fileID: 615412297}
+  habilidad1_V_icono: {fileID: 379682161}
+  habilidad2_V_icono: {fileID: 32734136}
+  habilidad1_C_icono: {fileID: 541253178}
+  habilidad2_C_icono: {fileID: 369367599}
 --- !u!1001 &1369206752
 PrefabInstance:
   m_ObjectHideFlags: 0
