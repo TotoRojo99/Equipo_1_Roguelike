@@ -1,40 +1,46 @@
-using UnityEngine;
-using UnityEngine.AI;
+ï»¿using UnityEngine;
 
 public class Enemigo2 : MonoBehaviour
 {
-    [Header("Referencias automáticas")]
-    private Transform player;               // Se encuentra por tag automáticamente
-    [SerializeField] private GameObject projectilePrefab;
+    [Header("Referencias")]
+    private Transform player;
+
+    [SerializeField] private Transform puntoDisparo;
     [SerializeField] private Animator animator;
 
-    [Header("Movimiento")]
-    [SerializeField] private float safeDistance = 10f;      // Distancia ideal a mantener del player
-    [SerializeField] private float wanderRadius = 8f;       // Qué tan lejos puede moverse aleatoriamente
-    [SerializeField] private float wanderInterval = 3f;     // Cada cuánto busca un nuevo punto
-    private NavMeshAgent agent;
-    private float wanderTimer;
+    [Header("Disparo")]
+    [SerializeField] private GameObject proyectilPrefab;
 
-    [Header("Ataque")]
-    [SerializeField] private float attackCooldown = 5f;     // Tiempo entre ataques
-    [SerializeField] private float projectileForce = 8f;    // Fuerza horizontal del proyectil
-    [SerializeField] private float projectileUpForce = 5f;  // Impulso vertical
-    private float attackTimer;
+    [Header("Fuerza dinÃ¡mica")]
+    [SerializeField] private float fuerzaMin = 8f;
+    [SerializeField] private float fuerzaMax = 20f;
 
-    private bool isAttacking = false;
+    [SerializeField] private float arcoMin = 2f;
+    [SerializeField] private float arcoMax = 8f;
+
+    [SerializeField] private float distanciaMaxima = 25f;
+
+    [Header("Cadencia")]
+    [SerializeField] private float tiempoEntreDisparos = 2f;
+
+    [Header("Seguridad")]
+    [SerializeField] private float destruirDespuesDe = 6f;
+
+    [Header("Comportamiento")]
+    [SerializeField] private float distanciaHuida = 4f;
+    [SerializeField] private float distanciaSegura = 6f;
+    [SerializeField] private float velocidadHuida = 3f;
+
+    private float cooldown = 0f;
+    private bool huyendo = false;
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        wanderTimer = wanderInterval;
-        attackTimer = attackCooldown;
+        GameObject p = GameObject.FindGameObjectWithTag("Player");
+        if (p != null) player = p.transform;
 
-        // Buscar player automáticamente
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-            player = playerObj.transform;
-        else
-            Debug.LogWarning("No se encontró ningún objeto con tag 'Player' en la escena.");
+        if (puntoDisparo == null)
+            puntoDisparo = transform;
 
         if (animator == null)
             animator = GetComponent<Animator>();
@@ -44,82 +50,112 @@ public class Enemigo2 : MonoBehaviour
     {
         if (player == null) return;
 
-        wanderTimer += Time.deltaTime;
-        attackTimer += Time.deltaTime;
+        float distancia = Vector3.Distance(transform.position, player.position);
 
-        // Movimiento aleatorio lejos del jugador
-        if (!isAttacking)
+        // ---------------------------------------------------
+        //   SISTEMA DE HUIDA
+        // ---------------------------------------------------
+        if (!huyendo && distancia < distanciaHuida)
         {
-            if (wanderTimer >= wanderInterval)
-            {
-                Vector3 newPos = GetRandomPointAwayFromPlayer();
-                agent.SetDestination(newPos);
-                wanderTimer = 0f;
-            }
-
-            animator.SetBool("Run", agent.velocity.magnitude > 0.1f);
+            huyendo = true;
+        }
+        else if (huyendo && distancia > distanciaSegura)
+        {
+            huyendo = false;
         }
 
-        // Ataque
-        if (attackTimer >= attackCooldown)
+        // ------------------------------
+        //     MODO HUIDA ACTIVADO
+        // ------------------------------
+        if (huyendo)
         {
-            StartCoroutine(Attack());
-            attackTimer = 0f;
-        }
-    }
+            // DirecciÃ³n contraria al jugador
+            Vector3 away = (transform.position - player.position).normalized;
+            away.y = 0;
 
-    private Vector3 GetRandomPointAwayFromPlayer()
-    {
-        Vector3 dirFromPlayer = (transform.position - player.position).normalized;
-        Vector3 randomOffset = Random.insideUnitSphere * wanderRadius;
-        randomOffset.y = 0;
+            // Mover enemigo
+            transform.position += away * velocidadHuida * Time.deltaTime;
 
-        Vector3 candidate = transform.position + dirFromPlayer * Random.Range(3f, wanderRadius) + randomOffset;
+            // AnimaciÃ³n opcional
+            if (animator != null)
+                animator.SetBool("Huir", true);
 
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(candidate, out hit, 3f, NavMesh.AllAreas))
-            return hit.position;
-
-        return transform.position; // fallback
-    }
-
-    private System.Collections.IEnumerator Attack()
-    {
-        isAttacking = true;
-        agent.isStopped = true;
-        animator.SetBool("Run", false);
-        animator.SetTrigger("Attack");
-
-        // Esperar un poco para sincronizar con la animación
-        yield return new WaitForSeconds(0.6f);
-
-        LaunchProjectile();
-
-        yield return new WaitForSeconds(0.8f);
-
-        agent.isStopped = false;
-        isAttacking = false;
-    }
-
-    private void LaunchProjectile()
-    {
-        if (projectilePrefab == null)
-        {
-            Debug.LogWarning("No se asignó un prefab de proyectil.");
+            // No atacar mientras huye
             return;
         }
 
-        // Usar la posición actual del enemigo como throw point
-        Vector3 throwPos = transform.position + Vector3.up * 1.5f; // pequeño offset vertical
+        // Desactivar animaciÃ³n de huida
+        if (animator != null)
+            animator.SetBool("Huir", false);
 
-        GameObject projectile = Instantiate(projectilePrefab, throwPos, Quaternion.identity);
+        // ---------------------------------------------------
+        //       ATAQUE NORMAL
+        // ---------------------------------------------------
 
-        Rigidbody rb = projectile.GetComponent<Rigidbody>();
-        if (rb != null && player != null)
+        // Mirar al jugador
+        Vector3 mirar = player.position;
+        mirar.y = transform.position.y;
+        transform.LookAt(mirar);
+
+        // Disparo
+        cooldown -= Time.deltaTime;
+
+        if (cooldown <= 0f)
         {
-            Vector3 dir = (player.position - throwPos).normalized;
-            Vector3 force = dir * projectileForce + Vector3.up * projectileUpForce;
-            rb.AddForce(force, ForceMode.VelocityChange);
+            if (animator != null)
+                animator.SetTrigger("Ataque");
+
+            Disparar();
+            cooldown = tiempoEntreDisparos;
+        }
+    }
+
+    void Disparar()
+    {
+        if (proyectilPrefab == null || player == null) return;
+
+        GameObject botella = Instantiate(
+            proyectilPrefab,
+            puntoDisparo.position,
+            Quaternion.identity
+        );
+
+        Rigidbody rb = botella.GetComponent<Rigidbody>();
+        Collider colProyectil = botella.GetComponent<Collider>();
+        Collider colEnemigo = GetComponent<Collider>();
+
+        if (!rb)
+        {
+            Debug.LogError("El proyectil necesita un Rigidbody.");
+            return;
+        }
+
+        // Evitar colisiÃ³n inmediata
+        if (colProyectil != null && colEnemigo != null)
+        {
+            Physics.IgnoreCollision(colProyectil, colEnemigo);
+        }
+
+        float distancia = Vector3.Distance(transform.position, player.position);
+        float t = Mathf.Clamp01(distancia / distanciaMaxima);
+
+        float fuerzaAjustada = Mathf.Lerp(fuerzaMin, fuerzaMax, t);
+        float arcoAjustado = Mathf.Lerp(arcoMin, arcoMax, t);
+
+        Vector3 dir = (player.position - puntoDisparo.position);
+        dir.y += arcoAjustado;
+        dir = dir.normalized;
+
+        rb.AddForce(dir * fuerzaAjustada, ForceMode.VelocityChange);
+
+        Destroy(botella, destruirDespuesDe);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("P1"))
+        {
+            Destroy(gameObject);
         }
     }
 }

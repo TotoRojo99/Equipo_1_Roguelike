@@ -1,109 +1,95 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.AI;
 
 public class E_Controller2 : MonoBehaviour
 {
-    [Header("Prefab y jugador")]
-    [SerializeField] private GameObject enemy;
+    [Header("Prefab y Jugador")]
+    [SerializeField] private GameObject prefabEnemigo;
     [SerializeField] private Transform player;
 
-    [Header("Configuración spawn")]
-    [SerializeField] private float spawnRadius = 10f;
-    [SerializeField] private float minDistance = 5f;
-    [SerializeField] private float maxNavMeshSampleDistance = 3f; // radio de búsqueda para NavMesh
+    [Header("ConfiguraciÃ³n Spawn")]
+    [SerializeField] private float spawnRadius = 12f;
+    [SerializeField] private float minDistance = 4f;
+    [SerializeField] private float navMeshMaxDistance = 3f;
 
-    [Header("Rondas")]
-    [SerializeField] private int round = 0;
-    private int totalEnemies = 0;
+    [Header("Control de Rondas")]
+    [SerializeField] private int rondaInicial = 1;
+    [SerializeField] private int intervaloSinSpawn = 0;
+    /*
+        intervaloSinSpawn = 0 â†’ nunca se saltea rondas
+        intervaloSinSpawn = 3 â†’ no spawnea en ronda 3, 6, 9...
+        intervaloSinSpawn = 5 â†’ no spawnea en ronda 5, 10, 15...
+    */
 
-    void Start()
+    [Header("Cantidad de Enemigos")]
+    [SerializeField] private int minPorRonda = 1;
+    [SerializeField] private int maxPorRonda = 4;
+
+    private int rondaActual;
+
+    // --------------------------------------------------------------------
+    public void SetRonda(int rondaNueva)
     {
-        NuevaRonda();
-        ScoreManager.Instance.ResetScore();
-    }
+        rondaActual = rondaNueva;
 
-    void Update()
-    {
-        // Si no hay enemigos vivos, iniciar nueva ronda
-        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        // si la ronda es menor al inicio â†’ no hace nada
+        if (rondaActual < rondaInicial)
         {
-            NuevaRonda();
-        }
-    }
-
-    void NuevaRonda()
-    {
-        round++;
-
-        Debug.Log($"--- NUEVA RONDA {round} ---");
-
-        // Solo generar enemigos cada 3 rondas (3, 6, 9, etc.)
-        if (round % 3 == 0)
-        {
-            int enemigosExtra = (round <= 10) ? Random.Range(1, 3) : Random.Range(3, 5);
-            totalEnemies += enemigosExtra;
-
-            SpawnEnemies(totalEnemies);
-            Debug.Log($"[SPAWN] Ronda {round} - Enemigos generados: {totalEnemies}");
-        }
-        else
-        {
-            Debug.Log($"[SIN SPAWN] Ronda {round} - No se generan enemigos esta ronda.");
+            Debug.Log($"[Especial] Ronda {rondaActual} < {rondaInicial} â†’ NO genera todavÃ­a.");
+            return;
         }
 
-        // Registrar puntos de ronda en el ScoreManager si existe
-        if (ScoreManager.Instance != null)
-            ScoreManager.Instance.AddRoundPoints(round);
+        // si debe saltarse segÃºn el intervalo
+        if (intervaloSinSpawn > 0 && rondaActual % intervaloSinSpawn == 0)
+        {
+            Debug.Log($"[Especial] Ronda {rondaActual} â†’ SALTADA por intervalo.");
+            return;
+        }
+
+        // generar enemigos especiales
+        int cantidad = Random.Range(minPorRonda, maxPorRonda + 1);
+
+        Debug.Log($"[Especial] Ronda {rondaActual} â†’ Genera {cantidad} enemigos especiales.");
+        SpawnEnemies(cantidad);
     }
 
-    void SpawnEnemies(int cantidad)
+    // --------------------------------------------------------------------
+    private void SpawnEnemies(int cantidad)
     {
-        if (enemy == null)
+        if (prefabEnemigo == null)
         {
-            Debug.LogError("Prefab de enemigo no asignado en el Inspector!");
+            Debug.LogError("[Especial] No hay prefab asignado.");
             return;
         }
 
         for (int i = 0; i < cantidad; i++)
         {
-            Vector3 spawnPos = GetValidSpawnPosition();
-            GameObject nuevoEnemigo = Instantiate(enemy, spawnPos, Quaternion.identity);
-
-            EnemyFollow ef = nuevoEnemigo.GetComponent<EnemyFollow>();
-            if (ef != null)
-                ef.Objetivo = player;
-
-            nuevoEnemigo.tag = "Enemy";
+            Vector3 pos = BuscarPosicionValida();
+            GameObject e = Instantiate(prefabEnemigo, pos, Quaternion.identity);
+            e.tag = "EnemyEspecial";
         }
     }
 
-    Vector3 GetValidSpawnPosition()
+    // --------------------------------------------------------------------
+    private Vector3 BuscarPosicionValida()
     {
-        Vector3 randomPos;
         NavMeshHit hit;
 
-        int maxIntentos = 30;
-        int intentos = 0;
-
-        do
+        for (int i = 0; i < 25; i++)
         {
-            Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
-            randomPos = new Vector3(randomCircle.x, 0, randomCircle.y) + player.position;
+            Vector2 circle = Random.insideUnitCircle * spawnRadius;
+            Vector3 candidate = transform.position + new Vector3(circle.x, 0, circle.y);
 
-            // Asegurar distancia mínima
-            if (Vector3.Distance(randomPos, player.position) < minDistance)
+            // evitar que aparezca al lado del jugador
+            if (player != null && Vector3.Distance(candidate, player.position) < minDistance)
                 continue;
 
-            // Proyectar posición sobre el NavMesh
-            if (NavMesh.SamplePosition(randomPos, out hit, maxNavMeshSampleDistance, NavMesh.AllAreas))
+            // proyectar en NavMesh
+            if (NavMesh.SamplePosition(candidate, out hit, navMeshMaxDistance, NavMesh.AllAreas))
                 return hit.position;
+        }
 
-            intentos++;
-
-        } while (intentos < maxIntentos);
-
-        // Si no se encuentra una posición válida, se usa la posición del jugador como fallback
-        Debug.LogWarning("No se encontró una posición válida en el NavMesh. Usando posición del jugador.");
-        return player.position + Vector3.forward * minDistance;
+        // fallback si nada funcionÃ³
+        return transform.position + transform.forward * 3f;
     }
 }

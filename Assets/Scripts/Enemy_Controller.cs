@@ -6,7 +6,13 @@ public class E_Controller : MonoBehaviour
     [Header("Prefab y jugador")]
     [SerializeField] private GameObject enemy;
     [SerializeField] private Transform player;
-
+    
+    /// ///////////////////////////////////////////////////////
+    
+    [SerializeField] private E_Controller2 spawnerEspecial;
+    
+    /// ///////////////////////////////////////////////////////
+    
     [Header("Configuración spawn")]
     [SerializeField] private float spawnRadius = 10f;
     [SerializeField] private float minDistance = 5f;
@@ -42,7 +48,10 @@ public class E_Controller : MonoBehaviour
         totalEnemies += enemigosExtra;
 
         SpawnEnemies(totalEnemies);
-
+        //////////////////////////////////////////////////////////////
+        if (spawnerEspecial != null)
+            spawnerEspecial.SetRonda(round);
+        //////////////////////////////////////////////////////////////
         Debug.Log($"Ronda {round} - Enemigos: {totalEnemies}");
 
         if (ScoreManager.Instance != null)
