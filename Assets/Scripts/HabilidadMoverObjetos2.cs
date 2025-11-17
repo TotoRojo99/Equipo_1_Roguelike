@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
-public class HabilidadMoverObjeto : MonoBehaviour
+public class HabilidadMoverObjeto : MonoBehaviour, IHabilidadConCooldown
 {
     private Camera cam;
     private GameObject objetoSeleccionado;

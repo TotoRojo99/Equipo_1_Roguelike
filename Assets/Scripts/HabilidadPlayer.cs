@@ -2,15 +2,21 @@ using UnityEngine;
 
 public class HabilidadPlayer : MonoBehaviour
 {
-    [Header("Habilidades de la varita")]
+    [Header("Habilidades de la varita (2 habilidades)")]
     public MonoBehaviour[] habilidadesVarita; // Deben implementar IHabilidadConCooldown
 
-    [Header("Habilidades del cetro")]
+    [Header("Habilidades del cetro (2 habilidades)")]
     public MonoBehaviour[] habilidadesCetro;  // Deben implementar IHabilidadConCooldown
 
     private IHabilidadConCooldown[] habilidadesActivas;
 
     public int ArmaElegida { get; private set; }
+
+    private void Awake()
+    {
+        // Garantizamos espacio para 2 habilidades activas
+        habilidadesActivas = new IHabilidadConCooldown[2];
+    }
 
     public void EquiparArma(int id)
     {
@@ -18,22 +24,23 @@ public class HabilidadPlayer : MonoBehaviour
 
         if (id == 0) // Varita
         {
-            habilidadesActivas = new IHabilidadConCooldown[]
-            {
-                habilidadesVarita[0] as IHabilidadConCooldown,
-                habilidadesVarita[1] as IHabilidadConCooldown
-            };
+            // INICIALIZAR EL ARRAY DEL TAMAÑO CORRECTO
+            habilidadesActivas = new IHabilidadConCooldown[habilidadesVarita.Length];
+
+            habilidadesActivas[0] = habilidadesVarita[0] as IHabilidadConCooldown;
+            habilidadesActivas[1] = habilidadesVarita[1] as IHabilidadConCooldown;
 
             ActivarSet(habilidadesVarita, habilidadesCetro);
             Debug.Log("Varita equipada");
         }
         else // Cetro
         {
-            habilidadesActivas = new IHabilidadConCooldown[]
-            {
-                habilidadesCetro[0] as IHabilidadConCooldown,
-                habilidadesCetro[1] as IHabilidadConCooldown
-            };
+            // INICIALIZAR EL ARRAY DEL TAMAÑO CORRECTO
+            habilidadesActivas = new IHabilidadConCooldown[habilidadesCetro.Length];
+
+            habilidadesActivas[0] = habilidadesCetro[0] as IHabilidadConCooldown;
+            habilidadesActivas[1] = habilidadesCetro[1] as IHabilidadConCooldown;
+            habilidadesActivas[2] = habilidadesCetro[2] as IHabilidadConCooldown;
 
             ActivarSet(habilidadesCetro, habilidadesVarita);
             Debug.Log("Cetro equipado");

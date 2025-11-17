@@ -14,6 +14,7 @@ public class UI_InGame : MonoBehaviour
     public Image habilidad1_CD;
     public Image habilidad2_CD;
 
+
     private PlayerController playerController;
     private HabilidadPlayer habilidadPlayer;
     private IHabilidadConCooldown[] habilidadesActivas;

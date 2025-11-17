@@ -3025,6 +3025,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.02, y: 0.009999998, z: 0.0049999994}
   m_Center: {x: 0, y: -0.004999999, z: -0.0024999997}
+--- !u!4 &751285043 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3696873318386801240, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
+  m_PrefabInstance: {fileID: 1705630025}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &767691480
 GameObject:
   m_ObjectHideFlags: 0
@@ -12258,7 +12263,7 @@ MonoBehaviour:
   layerEnemigos:
     serializedVersion: 2
     m_Bits: 8
-  radioAtraccion: 8
+  radioAtraccion: 10
   duracionAtraccion: 4
   cooldown: 10
   agujeroNegroParticles: {fileID: 2759499657568862857, guid: aaf017b5745e95546b7949cd3cacd723, type: 3}
@@ -12960,14 +12965,14 @@ PrefabInstance:
     - target: {fileID: 6697505968879237530, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
       propertyPath: rayo
       value: 
-      objectReference: {fileID: 1705630028}
+      objectReference: {fileID: 0}
     - target: {fileID: 6697505968879237530, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
       propertyPath: tecla
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6697505968879237530, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
       propertyPath: tiempo
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6697505968879237530, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
       propertyPath: rayoparti
@@ -13053,13 +13058,17 @@ PrefabInstance:
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].outWeight
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1662107892779755555, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5399742518892738931, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1048719091}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5169197261716763102, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 1705630040}
     - targetCorrespondingSourceObject: {fileID: 5169197261716763102, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1705630034}
@@ -13069,17 +13078,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5399742518892738931, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
   m_PrefabInstance: {fileID: 1705630025}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1705630028 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1662107892779755555, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
-  m_PrefabInstance: {fileID: 1705630025}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1421453288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b7716d39acc0f84da1c1fb8c3b7d55f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RayoLaser
 --- !u!82 &1705630034
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13188,6 +13186,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 071f6c45b26e1404ab4a4dcb5d804a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &1705630040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421453288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7716d39acc0f84da1c1fb8c3b7d55f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RayoLaser
+  origen: {fileID: 751285043}
+  destino: {fileID: 1865371801}
+  mateRayo: {fileID: 2100000, guid: aad685b05b6950a4fa921c183959650f, type: 2}
+  EnCooldownFlag: 0
+  TCooldown: 10
+  tecla: 1
 --- !u!1 &1714448393 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3112715076391099614, guid: 214c5c4e6273ad349bb4ce89eede1223, type: 3}
@@ -13515,6 +13531,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795506583}
   m_CullTransparentMesh: 1
+--- !u!4 &1865371801 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4439607359505748692, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
+  m_PrefabInstance: {fileID: 1705630025}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1902471347
 GameObject:
   m_ObjectHideFlags: 0
@@ -13825,8 +13846,9 @@ MonoBehaviour:
   - {fileID: 1902906831}
   - {fileID: 1134272763}
   habilidadesCetro:
-  - {fileID: 1705630037}
   - {fileID: 1559120148}
+  - {fileID: 1705630040}
+  - {fileID: 1705630037}
 --- !u!114 &1902906830
 MonoBehaviour:
   m_ObjectHideFlags: 0
