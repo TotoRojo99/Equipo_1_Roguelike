@@ -2,39 +2,35 @@ using UnityEngine;
 
 public class SelectorArma : MonoBehaviour
 {
-        private int varita = 0;
-        private int cetro = 1;
+    private int varita = 0;
+    private int cetro = 1;
 
-    public HabilidadPlayer jugador;
-
-    public GameObject panelSeleccion; 
+    public HabilidadPlayer jugador;   // Aquí se conecta el Player con las habilidades
+    public GameObject panelSeleccion;
 
     private void Start()
     {
         // Pausa el juego hasta elegir un arma
         Time.timeScale = 0f;
-        // Aquí podés mostrar UI de selección (botones) 
-        
     }
 
     public void SeleccionarVarita()
     {
-        jugador.EquiparArma(varita);
+        jugador.EquiparArma(varita);  // Activa las habilidades de varita
         TerminarSeleccion();
     }
 
     public void SeleccionarCetro()
     {
-        jugador.EquiparArma(cetro);
+        jugador.EquiparArma(cetro);   // Activa las habilidades del cetro
         TerminarSeleccion();
     }
 
     private void TerminarSeleccion()
     {
         if (panelSeleccion != null)
-            panelSeleccion.SetActive(false); // oculta el panel
+            panelSeleccion.SetActive(false);
 
-        Time.timeScale = 1f; // reanuda la ronda
+        Time.timeScale = 1f;
     }
-
 }

@@ -1,78 +1,56 @@
 using UnityEngine;
 
 public class HabilidadPlayer : MonoBehaviour
-
 {
-    public int ArmaElegida;
+    [Header("Habilidades de la varita")]
+    public MonoBehaviour[] habilidadesVarita; // Deben implementar IHabilidadConCooldown
 
-    public GameObject TBala;
-    /*public GameObject Derr_objeto;
-    public GameObject Derr_objeto1;
-    public GameObject Derr_objeto2;
-    public GameObject Derr_objeto3;*/
-    public GameObject Rayo;
-    public GameObject CambioSkin;
-    public GameObject Agujero;
-    public HabilidadMoverObjeto hab_MovObj;
-    //public HabilidadRetrocederposicion hab_RetroPos;
+    [Header("Habilidades del cetro")]
+    public MonoBehaviour[] habilidadesCetro;  // Deben implementar IHabilidadConCooldown
 
+    private IHabilidadConCooldown[] habilidadesActivas;
 
-    private BulletTimeController tb;
-    /*private Derrumbe_objeto der_obj;
-    private Derrumbe_objeto der_obj1;
-    private Derrumbe_objeto der_obj2;
-    private Derrumbe_objeto der_obj3;*/
-    private Cambio_Skin CSkin;
-    private RayoLaser RLaser;
-    private HabilidadAgujeroNegro HAgujero;
+    public int ArmaElegida { get; private set; }
 
-
-    private void IniciarMetodo()
+    public void EquiparArma(int id)
     {
-        RLaser = Rayo.GetComponent<RayoLaser>();
-        HAgujero = Agujero.GetComponent<HabilidadAgujeroNegro>();
-        tb = TBala.GetComponent<BulletTimeController>();
-        CSkin = CambioSkin.GetComponent<Cambio_Skin>();
-        //der_obj = Derr_objeto.GetComponent<Derrumbe_objeto>();
-        /*der_obj1 = Derr_objeto1.GetComponent<Derrumbe_objeto>();
-        der_obj2 = Derr_objeto2.GetComponent<Derrumbe_objeto>();
-        der_obj3 = Derr_objeto3.GetComponent<Derrumbe_objeto>();*/
-    }
-    public void EquiparArma(int nuevaArma)
-    {
-        ArmaElegida = nuevaArma;
-        if (nuevaArma == 0)
+        ArmaElegida = id;
+
+        if (id == 0) // Varita
         {
+            habilidadesActivas = new IHabilidadConCooldown[]
+            {
+                habilidadesVarita[0] as IHabilidadConCooldown,
+                habilidadesVarita[1] as IHabilidadConCooldown
+            };
+
+            ActivarSet(habilidadesVarita, habilidadesCetro);
             Debug.Log("Varita equipada");
-            IniciarMetodo();
-            tb.enabled = true;
-            hab_MovObj.enabled = true;
-
-            RLaser.enabled = false;
-            CSkin.enabled = false;
-            HAgujero.enabled = false;
-            /*der_obj.enabled = false;
-            der_obj1.enabled = false;
-            der_obj2.enabled = false;
-            der_obj3.enabled = false;*/
-            //hab_RetroPos.enabled = false;
         }
-
-        else if (nuevaArma == 1)
+        else // Cetro
         {
-            Debug.Log("Cetro equipado");
-            IniciarMetodo();
-            tb.enabled = false;
-            hab_MovObj.enabled = false;
+            habilidadesActivas = new IHabilidadConCooldown[]
+            {
+                habilidadesCetro[0] as IHabilidadConCooldown,
+                habilidadesCetro[1] as IHabilidadConCooldown
+            };
 
-            RLaser.enabled = true;
-            CSkin.enabled = true;
-            HAgujero.enabled = true;
-            /*der_obj.enabled = true;
-            der_obj1.enabled = true;
-            der_obj2.enabled = true;
-            der_obj3.enabled = true;*/
-            //hab_RetroPos.enabled = true;
+            ActivarSet(habilidadesCetro, habilidadesVarita);
+            Debug.Log("Cetro equipado");
         }
+    }
+
+    private void ActivarSet(MonoBehaviour[] activar, MonoBehaviour[] desactivar)
+    {
+        foreach (var h in activar)
+            if (h != null) h.enabled = true;
+
+        foreach (var h in desactivar)
+            if (h != null) h.enabled = false;
+    }
+
+    public IHabilidadConCooldown[] GetHabilidadesActivas()
+    {
+        return habilidadesActivas;
     }
 }

@@ -21,25 +21,39 @@ public class HabilidadMoverObjeto : MonoBehaviour
 
     public AudioSource audio_habilidad;
 
-
     private Dictionary<GameObject, Material> materialesOriginales = new Dictionary<GameObject, Material>();
+
+    // NUEVO PARA UI
+    private float cooldownUI = 0f;
+    public float cooldownMax = 5f;
 
     void Start()
     {
-        pj = sombrero.GetComponent<PlayerController>();
+        if (sombrero != null)
+            pj = sombrero.GetComponent<PlayerController>();
+        else
+            Debug.LogWarning("HabilidadMoverObjeto: 'sombrero' no asignado en el inspector.");
+
         cam = Camera.main;
     }
 
-    void CambiarCursor()
+    // Método que cambia cursor y resalta objetos: está declarado y es accesible
+    private void CambiarCursor()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (cam == null || Mouse.current == null) return;
+
+        Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, DisUI))
         {
             objetoactual = hit.collider.gameObject;
 
             // Guardar material original si aún no lo tenemos
-            if (!materialesOriginales.ContainsKey(objetoactual))
-                materialesOriginales[objetoactual] = objetoactual.GetComponent<Renderer>().material;
+            if (objetoactual != null && !materialesOriginales.ContainsKey(objetoactual))
+            {
+                var rend = objetoactual.GetComponent<Renderer>();
+                if (rend != null)
+                    materialesOriginales[objetoactual] = rend.material;
+            }
 
             Cursor.SetCursor(manito, Vector2.zero, CursorMode.Auto);
 
@@ -47,9 +61,15 @@ public class HabilidadMoverObjeto : MonoBehaviour
             if (objetoactual != ultimoObjeto)
             {
                 if (ultimoObjeto != null && materialesOriginales.ContainsKey(ultimoObjeto))
-                    ultimoObjeto.GetComponent<Renderer>().material = materialesOriginales[ultimoObjeto];
+                {
+                    var rendUlt = ultimoObjeto.GetComponent<Renderer>();
+                    if (rendUlt != null)
+                        rendUlt.material = materialesOriginales[ultimoObjeto];
+                }
 
-                objetoactual.GetComponent<Renderer>().material = brillo;
+                var rendAct = objetoactual.GetComponent<Renderer>();
+                if (rendAct != null)
+                    rendAct.material = brillo;
             }
 
             ultimoObjeto = objetoactual;
@@ -59,19 +79,26 @@ public class HabilidadMoverObjeto : MonoBehaviour
             // Si salimos de cualquier objeto
             if (ultimoObjeto != null && materialesOriginales.ContainsKey(ultimoObjeto))
             {
-                ultimoObjeto.GetComponent<Renderer>().material = materialesOriginales[ultimoObjeto];
-                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                var rendUlt = ultimoObjeto.GetComponent<Renderer>();
+                if (rendUlt != null)
+                    rendUlt.material = materialesOriginales[ultimoObjeto];
+
                 ultimoObjeto = null;
             }
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
     }
 
     void Update()
     {
+        // Reducimos cooldown para UI
+        if (cooldownUI > 0f)
+            cooldownUI -= Time.deltaTime;
+
         CambiarCursor();
 
         // Selección con click derecho
-        if (Mouse.current.rightButton.wasPressedThisFrame && !pj.cooldown_Mover_objeto)
+        if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame && (pj == null || !pj.cooldown_Mover_objeto))
         {
             Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
 
@@ -79,8 +106,10 @@ public class HabilidadMoverObjeto : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Lanzable") || hit.collider.CompareTag("Activo"))
                 {
-                    audio_habilidad.Play();
-                    pj.cooldown_Mover_objeto = true;
+                    if (audio_habilidad != null) audio_habilidad.Play();
+                    if (pj != null) pj.cooldown_Mover_objeto = true;
+                    cooldownUI = cooldownMax;   // UI registra cooldown
+
                     objetoSeleccionado = hit.collider.gameObject;
                     hit.collider.gameObject.tag = "Activo";
                     tiempoArrastre = 0f;
@@ -95,7 +124,7 @@ public class HabilidadMoverObjeto : MonoBehaviour
         // Movimiento y soltar automático
         if (objetoSeleccionado != null)
         {
-            Invoke("cooldown", 5f);
+            // No llamamos Invoke cada frame: si querés mantener Invoke, llamalo al activar el objeto (ya estaba en tu versión original)
             tiempoArrastre += Time.deltaTime;
 
             if (tiempoArrastre >= tiempoMaximoArrastre)
@@ -115,26 +144,32 @@ public class HabilidadMoverObjeto : MonoBehaviour
         }
 
         // Soltar con click derecho
-        if (Mouse.current.rightButton.wasReleasedThisFrame)
+        if (Mouse.current != null && Mouse.current.rightButton.wasReleasedThisFrame)
         {
             if (objetoSeleccionado != null)
             {
                 objetoSeleccionado.gameObject.tag = "Lanzable";
+                // Mantengo Invoke para restaurar cooldown original
                 Invoke("cooldown", 5f);
             }
             objetoSeleccionado = null;
         }
 
-        if (pj.vida <= 0)
+        if (pj != null && pj.vida <= 0)
         {
             objetoSeleccionado = null;
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
-            
     }
 
     private void cooldown()
     {
-        pj.cooldown_Mover_objeto = false;
+        if (pj != null)
+            pj.cooldown_Mover_objeto = false;
     }
+
+    // IMPLEMENTACIÓN UI
+    public float CooldownRestante() => cooldownUI;
+    public float CooldownMaximo() => cooldownMax;
+    public bool EnCooldown() => cooldownUI > 0f;
 }

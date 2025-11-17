@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class HabilidadAgujeroNegro : MonoBehaviour
+public class HabilidadAgujeroNegro : MonoBehaviour, IHabilidadConCooldown
 {
     [Header("Referencias")]
     [SerializeField] private Camera cam;
@@ -15,22 +15,19 @@ public class HabilidadAgujeroNegro : MonoBehaviour
     [SerializeField] private float cooldown = 10f;
     private bool enCooldown = false;
 
+    private float cooldownRestante = 0f;
+
     [Header("Partículas")]
     [SerializeField] private ParticleSystem agujeroNegroParticles;
     public AudioSource aspiradora;
 
-
-    private void Start()
+    void Update()
     {
-        
-    }
+        if (cooldownRestante > 0)
+            cooldownRestante -= Time.deltaTime;
 
-    private void Update()
-    {
-        // Detectar clic derecho
         if (Mouse.current.rightButton.wasPressedThisFrame && !enCooldown)
         {
-
             DetectarClickDerecho();
         }
     }
@@ -45,6 +42,7 @@ public class HabilidadAgujeroNegro : MonoBehaviour
             {
                 Vector3 puntoAtraccion = hit.collider.transform.position;
                 ActivarAgujeroNegro(puntoAtraccion);
+
                 IniciarCooldown();
                 aspiradora.Play();
             }
@@ -61,21 +59,18 @@ public class HabilidadAgujeroNegro : MonoBehaviour
             {
                 EnemyFollow enemy = col.GetComponent<EnemyFollow>();
                 if (enemy != null)
-                {
                     enemy.ActivarAtraccion(punto, duracionAtraccion);
-                }
             }
         }
 
         Vector3 spawnPos = punto + new Vector3(0, 1f, 0);
         Instantiate(agujeroNegroParticles, spawnPos, Quaternion.identity);
-
-        Debug.Log($"Agujero negro activado en {punto}, atrayendo enemigos por {duracionAtraccion} segundos.");
     }
 
     private void IniciarCooldown()
     {
         enCooldown = true;
+        cooldownRestante = cooldown;
         Invoke(nameof(FinalizarCooldown), cooldown);
     }
 
@@ -84,17 +79,8 @@ public class HabilidadAgujeroNegro : MonoBehaviour
         enCooldown = false;
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.magenta;
-        if (cam != null && Mouse.current != null)
-        {
-            Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerEnemigos))
-            {
-                Gizmos.DrawWireSphere(hit.point, radioAtraccion);
-            }
-        }
-    }
+    // IMPLEMENTACIÓN UI
+    public float CooldownRestante() => cooldownRestante;
+    public float CooldownMaximo() => cooldown;
+    public bool EnCooldown() => cooldownRestante > 0;
 }
