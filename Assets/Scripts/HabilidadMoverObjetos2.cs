@@ -124,7 +124,8 @@ public class HabilidadMoverObjeto : MonoBehaviour, IHabilidadConCooldown
         // Movimiento y soltar automático
         if (objetoSeleccionado != null)
         {
-            // No llamamos Invoke cada frame: si querés mantener Invoke, llamalo al activar el objeto (ya estaba en tu versión original)
+            Invoke("cooldown", 5f);
+            
             tiempoArrastre += Time.deltaTime;
 
             if (tiempoArrastre >= tiempoMaximoArrastre)
@@ -149,7 +150,7 @@ public class HabilidadMoverObjeto : MonoBehaviour, IHabilidadConCooldown
             if (objetoSeleccionado != null)
             {
                 objetoSeleccionado.gameObject.tag = "Lanzable";
-                // Mantengo Invoke para restaurar cooldown original
+                
                 Invoke("cooldown", 5f);
             }
             objetoSeleccionado = null;
