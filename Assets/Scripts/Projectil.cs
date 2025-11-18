@@ -1,14 +1,12 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     public float lifetime = 5f;
-    public GameObject explosionEffect;
-    public float areaDuration = 2f;
-    public float areaRadius = 2f;
-    public float areaDamage = 1f;
 
-    private bool hasCollided = false;
+    [Header("Prefabs")]
+    public GameObject explosionEffect;
+    public GameObject areaDeDa√±oPrefab; // ‚Üê PREFAB EXTERNO
 
     void Start()
     {
@@ -17,33 +15,22 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (hasCollided) return;
-
-        // Solo activar si golpea el objeto llamado "Piso"
+        // Evitar m√∫ltiples colisiones
         if (!collision.gameObject.name.Equals("Piso")) return;
-
-        hasCollided = true;
 
         // Efecto visual de impacto
         if (explosionEffect != null)
             Instantiate(explosionEffect, transform.position, Quaternion.identity);
 
-        // Crear ·rea de daÒo
-        GameObject area = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        area.name = "AreaDeDaÒo";
-        area.transform.position = transform.position;
-        area.transform.localScale = new Vector3(areaRadius * 2, 0.1f, areaRadius * 2);
-
-        area.GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0.5f);
-
-        Destroy(area.GetComponent<Collider>()); // remover collider del cilindro original
-        SphereCollider sc = area.AddComponent<SphereCollider>();
-        sc.isTrigger = true;
-        sc.radius = areaRadius;
-
-        AreaDeDaÒo ad = area.AddComponent<AreaDeDaÒo>();
-        ad.duration = areaDuration;
-        ad.damageAmount = areaDamage;
+        // Crear √°rea de da√±o desde PREFAB
+        if (areaDeDa√±oPrefab != null)
+        {
+            Instantiate(areaDeDa√±oPrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("No asignaste el prefab de AreaDeDa√±o en el Projectile.");
+        }
 
         Destroy(gameObject);
     }

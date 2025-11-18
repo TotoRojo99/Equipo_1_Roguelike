@@ -4,22 +4,29 @@ public class AreaDeDaño : MonoBehaviour
 {
     public float duration = 2f;
     public float damageAmount = 1f;
+    public float tickRate = 1f; // daño cada X segundos
 
-    void Start()
+    private float nextTick = 0f;
+
+    private void Start()
     {
         Destroy(gameObject, duration);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player")) return;
+
+        if (Time.time >= nextTick)
         {
-            PlayerController player = other.GetComponent<PlayerController>();
-            if (player != null)
+            PlayerController p = other.GetComponent<PlayerController>();
+            if (p != null)
             {
-                player.vida -= (int)damageAmount;
-                Debug.Log($"Player recibió {damageAmount} de daño. Vida restante: {player.vida}");
+                p.PerderVida();
+                Debug.Log("[AREA] Daño aplicado.");
             }
+
+            nextTick = Time.time + tickRate;
         }
     }
 }
