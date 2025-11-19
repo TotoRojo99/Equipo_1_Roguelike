@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Enemigo2 : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Enemigo2 : MonoBehaviour
 
     [Header("Disparo")]
     [SerializeField] private GameObject proyectilPrefab;
+    [SerializeField] private float esperaDisparo = 1f; // <-- NUEVO
 
     [Header("Fuerza dinámica")]
     [SerializeField] private float fuerzaMin = 8f;
@@ -69,28 +71,19 @@ public class Enemigo2 : MonoBehaviour
         // ------------------------------
         if (huyendo)
         {
-            // Dirección contraria al jugador
             Vector3 away = (transform.position - player.position).normalized;
             away.y = 0;
 
-            // Mover enemigo
             transform.position += away * velocidadHuida * Time.deltaTime;
 
-            // Animación opcional
             if (animator != null)
                 animator.SetBool("Huir", true);
 
-            // No atacar mientras huye
             return;
         }
 
-        // Desactivar animación de huida
         if (animator != null)
             animator.SetBool("Huir", false);
-
-        // ---------------------------------------------------
-        //       ATAQUE NORMAL
-        // ---------------------------------------------------
 
         // Mirar al jugador
         Vector3 mirar = player.position;
@@ -105,14 +98,23 @@ public class Enemigo2 : MonoBehaviour
             if (animator != null)
                 animator.SetTrigger("Ataque");
 
-            Disparar();
+            Disparar(); // <-- ahora llama a la corutina
             cooldown = tiempoEntreDisparos;
         }
     }
 
+    // --- Ahora Disparar inicia la corutina ---
     void Disparar()
     {
-        if (proyectilPrefab == null || player == null) return;
+        StartCoroutine(DispararConEspera());
+    }
+
+    // --- CORUTINA QUE ESPERA Y LUEGO DISPARA ---
+    private IEnumerator DispararConEspera()
+    {
+        yield return new WaitForSeconds(esperaDisparo);
+
+        if (proyectilPrefab == null || player == null) yield break;
 
         GameObject botella = Instantiate(
             proyectilPrefab,
@@ -127,10 +129,9 @@ public class Enemigo2 : MonoBehaviour
         if (!rb)
         {
             Debug.LogError("El proyectil necesita un Rigidbody.");
-            return;
+            yield break;
         }
 
-        // Evitar colisión inmediata
         if (colProyectil != null && colEnemigo != null)
         {
             Physics.IgnoreCollision(colProyectil, colEnemigo);

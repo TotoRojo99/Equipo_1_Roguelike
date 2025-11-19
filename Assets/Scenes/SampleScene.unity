@@ -7688,7 +7688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f896002f74fa10a4fac267e36d92eefc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Controller2
-  prefabEnemigo: {fileID: 4319627416144684036, guid: b9a19f98bc805064eac77122e3410ae7, type: 3}
+  prefabEnemigo: {fileID: 9126126140856803415, guid: 65fd47e8192afbe4ba6bf5e521b92360, type: 3}
   player: {fileID: 1902906825}
   spawnRadius: 10
   minDistance: 1
