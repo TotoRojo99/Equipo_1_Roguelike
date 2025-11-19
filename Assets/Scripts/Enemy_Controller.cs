@@ -13,7 +13,7 @@ public class E_Controller : MonoBehaviour
     [SerializeField] private float maxNavMeshSampleDistance = 3f; // radio de búsqueda para NavMesh
 
     [Header("Rondas")]
-    [SerializeField] private int round = 0;
+    [SerializeField] public int round = 0;
     private int totalEnemies = 0;
 
     void Start()
@@ -47,6 +47,9 @@ public class E_Controller : MonoBehaviour
 
         if (ScoreManager.Instance != null)
             ScoreManager.Instance.AddRoundPoints(round);
+
+        if (ControladorDatosJuego.Instance != null)
+            ControladorDatosJuego.Instance.rondaAlcanzada = round;
     }
 
     void SpawnEnemies(int cantidad)

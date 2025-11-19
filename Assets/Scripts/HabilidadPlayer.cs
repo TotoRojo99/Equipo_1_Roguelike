@@ -12,14 +12,18 @@ public class HabilidadPlayer : MonoBehaviour
 
     public int ArmaElegida { get; private set; }
 
+
     private void Awake()
     {
         // Garantizamos espacio para 2 habilidades activas
         habilidadesActivas = new IHabilidadConCooldown[2];
     }
 
+
+
     public void EquiparArma(int id)
     {
+        
         ArmaElegida = id;
 
         if (id == 0) // Varita
@@ -45,6 +49,9 @@ public class HabilidadPlayer : MonoBehaviour
             ActivarSet(habilidadesCetro, habilidadesVarita);
             Debug.Log("Cetro equipado");
         }
+        ControladorDatosJuego.Instance.armaElegida = id;
+        
+        //ControladorDatosJuego.Instance.tiempoJugado = tiempoDeJuego;
     }
 
     private void ActivarSet(MonoBehaviour[] activar, MonoBehaviour[] desactivar)

@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5.0f;        //Definimos la velocidad del jugador
     [SerializeField] private float gravity = -9.81f;    //Definimos la gravedad
 
+    public float tiempoDeJuego = 0f;                    //Tiempo que lleva el jugador en el juego
+    public bool juegoActivo = true;                     //Verificamos si el juego está activo
+
     public bool cooldown_Derrumbar = false;
     public bool cooldown_Retroceder = false;
     public bool cooldown_Mover_objeto = false;
@@ -29,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
+        ReanudarJuego(); //Al iniciar el juego, reanudamos el juego
         habilitado = true; //Al iniciar el juego, el jugador está habilitado
         controller = GetComponent<CharacterController>(); //Instanciamos la referencia al CharacterController
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
@@ -48,8 +51,10 @@ public class PlayerController : MonoBehaviour
         MoveInput = context.ReadValue<Vector2>(); //Leemos la entrada de movimiento
     }
     void Update()
-    {
-       if(!habilitado) return; //Si el jugador no está habilitado, no hacemos nada
+    {   
+        
+        if (!habilitado) return; //Si el jugador no está habilitado, no hacemos nada
+        Iniciar_Tiempo(); //Iniciamos el tiempo de juego
 
         Vector3 move = new Vector3(MoveInput.x, 0, MoveInput.y); //Creamos un vector3 con la entrada de movimiento
             controller.Move(move * speed * Time.deltaTime); //Movemos al jugador
@@ -59,7 +64,23 @@ public class PlayerController : MonoBehaviour
         
         
     }
+    private void Iniciar_Tiempo()
+    {
+        if (juegoActivo == true)
+        {
+            tiempoDeJuego += Time.deltaTime;
+        }
+    }
 
+    public void PausarJuego()
+    {
+        juegoActivo = false;
+    }
+
+    public void ReanudarJuego()
+    {
+        juegoActivo = true;
+    }
     private void OnCollisionEnter(Collision collision) //Método para manejar las colisiones
     {
         if (golpeRecibido) return; //Evita múltiples llamadas
@@ -90,10 +111,12 @@ public class PlayerController : MonoBehaviour
     }
     private void morir() //Método para morir
     {
-
+        PausarJuego(); //Pausamos el juego
         SceneManager.LoadScene("Menu_Game_Over");
         Destroy(gameObject); //Destruimos el jugador
-        Debug.Log("Has muerto"); //Mostramos un mensaje en la consola
+        Debug.Log("Has muerto"); //Mostramos un mensaje en la 
+        if (ControladorDatosJuego.Instance != null)
+        { ControladorDatosJuego.Instance.tiempoJugado = tiempoDeJuego; }
     }
     private IEnumerator EsperarYContinuar()
     {

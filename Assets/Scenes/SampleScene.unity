@@ -970,7 +970,7 @@ GameObject:
   - component: {fileID: 195874207}
   m_Layer: 0
   m_Name: Enemy_Controller
-  m_TagString: Untagged
+  m_TagString: Enemy_Controller
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9971,6 +9971,68 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 624726147}
   m_SourcePrefab: {fileID: 100100000, guid: 4a4e69fefecf4c24c8244db47a3dbd2f, type: 3}
+--- !u!1 &1246427312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1246427314}
+  - component: {fileID: 1246427313}
+  - component: {fileID: 1246427315}
+  m_Layer: 0
+  m_Name: ControladorDatosJuego
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1246427313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246427312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7195144410f56b54fa83ac71f50618d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  Round: {fileID: 195874206}
+  Puntaje: {fileID: 1313524626}
+  Tiempo_Arma: {fileID: 1902906821}
+  ArchivoDeGuardado: 
+--- !u!4 &1246427314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246427312}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.65218, y: 9.10608, z: -34.0437}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1246427315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246427312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e8c46daea0633478a4fdc63d20dcdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReintentosManager
+  vecesintentadas: 0
 --- !u!1 &1267070315 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a4e69fefecf4c24c8244db47a3dbd2f, type: 3}
@@ -10477,7 +10539,7 @@ GameObject:
   - component: {fileID: 1313524627}
   m_Layer: 0
   m_Name: ScoreManager
-  m_TagString: Untagged
+  m_TagString: ScoreManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13854,6 +13916,7 @@ MonoBehaviour:
   - {fileID: 1559120148}
   - {fileID: 1705630040}
   - {fileID: 1705630037}
+  tiempoDeJuego: 0
 --- !u!114 &1902906830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15014,6 +15077,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1246427314}
   - {fileID: 330585546}
   - {fileID: 1504216639}
   - {fileID: 1559120147}

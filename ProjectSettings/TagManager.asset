@@ -10,6 +10,8 @@ TagManager:
   - Derrumbable
   - Activo
   - Rayito
+  - ScoreManager
+  - Enemy_Controller
   layers:
   - Default
   - TransparentFX
