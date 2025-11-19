@@ -156,7 +156,17 @@ public class Enemigo2 : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("P1"))
         {
+            // ➜ SUMAR PUNTOS
+            if (ScoreManager.Instance != null)
+                ScoreManager.Instance.AddEnemyKill();
+
+            // (opcional) Notificar al ComboManager igual que el otro enemigo
+            if (ComboManager.Instance != null)
+                ComboManager.Instance.RegistrarKill();
+
+            // ➜ DESPUÉS destruir al enemigo
             Destroy(gameObject);
         }
     }
+
 }
