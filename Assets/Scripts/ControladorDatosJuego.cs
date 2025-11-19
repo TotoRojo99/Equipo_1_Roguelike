@@ -46,7 +46,10 @@ public class ControladorDatosJuego : MonoBehaviour
             RondaAlcanzada = rondaAlcanzada,
             PuntuacionTotal = ScoreManager.Instance.currentScore,
             ArmaElegida = armaElegida,
-          };
+            Cantidad_Intentos = ReintentosManager.Instance.vecesintentadas,
+            Nombre_Jugador = ScoreManager.Instance.currentPlayerName
+            
+        }; 
 
         string cadenaJSON = JsonUtility.ToJson(nuevosDatos);
         File.AppendAllText(ArchivoDeGuardado, cadenaJSON + "\n---\n");
@@ -54,7 +57,7 @@ public class ControladorDatosJuego : MonoBehaviour
         Debug.Log("Datos guardados en: " + ArchivoDeGuardado);
     }
 
-    public void GuardarUsuario()
+/*    public void GuardarUsuario()
     {
         DatosJuego nuevosUsuario = new DatosJuego
         {
@@ -69,7 +72,7 @@ public class ControladorDatosJuego : MonoBehaviour
 
         Debug.Log("Usuario guardado en: " + ArchivoDeGuardado);
     }
-
+*/
     private void CargarDatos()
     {
         if (!File.Exists(ArchivoDeGuardado))

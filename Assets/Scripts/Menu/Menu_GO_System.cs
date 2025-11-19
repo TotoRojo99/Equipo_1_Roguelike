@@ -30,20 +30,26 @@ public class Menu_GO_System : MonoBehaviour
     public void volver_menu()
     {
         ControladorDatosJuego.Instance.GuardarDatos();
-        ControladorDatosJuego.Instance.GuardarUsuario();
+        //ControladorDatosJuego.Instance.GuardarUsuario();
         GuardarPuntajeConNombre();        
         StartCoroutine(PlaySoundAndChangeScene("Menu_inicial"));
     }
 
     public void reintentar()
     {
-        ReintentosManager.Instance.SumarIntento(); // Llamamos al método para sumar un intento
+        Invoke("GuardarDatos", 0.1f);
 
-        ControladorDatosJuego.Instance.GuardarDatos();
+        ReintentosManager.Instance.SumarIntento(); // Llamamos al método para sumar un intento
+       
         GuardarPuntajeConNombre();
         StartCoroutine(PlaySoundAndChangeScene("SampleScene"));
     }
 
+    void GuardarDatos()
+    {
+        Debug.Log("Nombre: " +   ScoreManager.Instance.currentPlayerName);
+        ControladorDatosJuego.Instance.GuardarDatos();
+    }
     public void salir()
     {
         GuardarPuntajeConNombre();
