@@ -13040,7 +13040,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6697505968879237530, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
       propertyPath: tiempo
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6697505968879237530, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
       propertyPath: rayoparti
@@ -13270,7 +13270,7 @@ MonoBehaviour:
   destino: {fileID: 1865371801}
   mateRayo: {fileID: 2100000, guid: aad685b05b6950a4fa921c183959650f, type: 2}
   EnCooldownFlag: 0
-  TCooldown: 10
+  TCooldown: 3
   tecla: 1
 --- !u!1 &1714448393 stripped
 GameObject:
