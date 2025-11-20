@@ -29,6 +29,7 @@ public class EnemigoZonaTrigger : MonoBehaviour
         {
             int index = Random.Range(0, animacionesAtaque.Length);
             string animSeleccionada = animacionesAtaque[index];
+            Debug.Log("Numero Index: " + animSeleccionada);
 
             animator.Play(animSeleccionada);
 

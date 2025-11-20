@@ -268,10 +268,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   animator: {fileID: 3486760339912372819}
   animacionesAtaque:
-  - Armature|Ataque G
-  - Armature|Ataque R
-  - Armature|Ataque L
-  - Armature|Ataque X
+  - Armature|Golpe G
+  - Armature|Golpe R
+  - Armature|Golpe L
+  - Armature|Golpe X
   tagJugador: Player
   tiempoEntreAtaques: 2
 --- !u!135 &3025846022805504459
@@ -293,7 +293,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 7
+  m_Radius: 6
   m_Center: {x: 0, y: 2, z: 0}
 --- !u!114 &6276992792187004738
 MonoBehaviour:
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 3713534049599977855}
   m_Layer: 0
   m_Name: Bone.008_end
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -344,7 +344,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0.014342195, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8932987522664867861}
   m_Father: {fileID: 8213794579552283498}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &961878768141059878
@@ -407,7 +408,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0.014342206, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8402354369336120318}
   m_Father: {fileID: 3239338402913446389}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3116436413310855016
@@ -511,6 +513,112 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000000007450581, y: -0.00021251338, z: 0.015230486}
     m_Extent: {x: 0.0011845472, y: 0.0011978432, z: 0.001044191}
   m_DirtyAABB: 0
+--- !u!1 &3510169394397361103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8402354369336120318}
+  - component: {fileID: 1247794308734060992}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8402354369336120318
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3510169394397361103}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7069569, y: -0.014560588, z: -0.014560712, w: 0.7069568}
+  m_LocalPosition: {x: -0.0047, y: 0.0022, z: -0.0002}
+  m_LocalScale: {x: 0.020000003, y: 0.020000007, z: 0.020000001}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8721828604370836869}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1247794308734060992
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3510169394397361103}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.84204865, y: 0.36309454, z: 1}
+  m_Center: {x: 0.20139444, y: 0.041788474, z: 0.000000005784539}
+--- !u!1 &4518875417509918589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8932987522664867861}
+  - component: {fileID: 53241007607817763}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8932987522664867861
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4518875417509918589}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7067635, y: 0.022033283, z: 0.02203331, w: 0.7067633}
+  m_LocalPosition: {x: -0.0028, y: 0.0026, z: 0.0006}
+  m_LocalScale: {x: 0.02, y: 0.020000003, z: 0.020000005}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3713534049599977855}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &53241007607817763
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4518875417509918589}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.81546533, y: 0.19274473, z: 1}
+  m_Center: {x: 0.09226732, y: -0.030749625, z: -0.0000000058175003}
 --- !u!1 &4731408678209902709
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,7 +727,7 @@ GameObject:
   - component: {fileID: 1982333184979120012}
   m_Layer: 0
   m_Name: COETES
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
