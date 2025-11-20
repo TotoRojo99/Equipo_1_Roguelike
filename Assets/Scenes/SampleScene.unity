@@ -987,7 +987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f399c616dc0b817439c4d505027e3866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Controller
-  enemy: {fileID: 2860773731343372271, guid: 94a8be0f35be2794fad0c18bc7333715, type: 3}
+  enemy: {fileID: 816118552587487296, guid: eb6570c5ccbd2854592d54e17713cfd5, type: 3}
   player: {fileID: 1902906825}
   spawnRadius: 20
   minDistance: 7
@@ -10001,9 +10001,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7195144410f56b54fa83ac71f50618d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  Round: {fileID: 195874206}
-  Puntaje: {fileID: 1313524626}
-  Tiempo_Arma: {fileID: 1902906821}
+  rondaAlcanzada: 0
+  puntuacionTotal: 0
+  tiempoJugado: 0
+  armaElegida: 0
   ArchivoDeGuardado: 
 --- !u!4 &1246427314
 Transform:
@@ -13916,7 +13917,6 @@ MonoBehaviour:
   - {fileID: 1559120148}
   - {fileID: 1705630040}
   - {fileID: 1705630037}
-  tiempoDeJuego: 0
 --- !u!114 &1902906830
 MonoBehaviour:
   m_ObjectHideFlags: 0
