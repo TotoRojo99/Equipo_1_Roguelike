@@ -266,9 +266,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c38841cd2698324db0eed29ce430e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  animator: {fileID: 0}
+  animator: {fileID: 3486760339912372819}
   animacionesAtaque:
-  - rig|Ataque R, rig|Ataque G, rig|Ataque L, rig|Ataque X
+  - rig|Ataque R
+  - rig|Ataque G
+  - rig|Ataque L
+  - rig|Ataque X
   tagJugador: Player
   tiempoEntreAtaques: 2
 --- !u!135 &3025846022805504459
@@ -310,8 +313,8 @@ MonoBehaviour:
   Velocidad: 3.5
   EnRango: 10
   velocidadAtraccion: 8
-  posEsqueleto: {fileID: 0}
-  esqueleto: {fileID: 0}
+  posEsqueleto: {fileID: 5169197261716763102, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
+  esqueleto: {fileID: 1128078038460493500, guid: 14325bb64668b6342a51a13a17b38efb, type: 3}
   muerte_audio: {fileID: -243729910275811513}
 --- !u!1 &914825584676736566
 GameObject:
