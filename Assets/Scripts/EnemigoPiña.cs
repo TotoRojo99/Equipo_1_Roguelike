@@ -35,7 +35,7 @@ public class EnemigoPiña : MonoBehaviour
     private void Start()
     {
 
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -81,13 +81,13 @@ public class EnemigoPiña : MonoBehaviour
                     Time.deltaTime * 5f
                 );
             }
-
+            Debug.Log("ANIMATOR TRALALERO: " + animator);
             if (animator != null)
                 animator.SetBool("Caminar", true);
         }
         else
         {
-            if (animator != null)
+            if (animator == null)
                 animator.SetBool("Caminar", false);
         }
     }
