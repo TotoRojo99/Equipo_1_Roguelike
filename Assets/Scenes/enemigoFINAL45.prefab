@@ -17,9 +17,10 @@ GameObject:
   - component: {fileID: 2739611082925637940}
   - component: {fileID: 4718742330554707741}
   - component: {fileID: 3025846022805504459}
+  - component: {fileID: 6276992792187004738}
   m_Layer: 0
   m_Name: enemigoFINAL45
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -220,7 +221,7 @@ Animator:
   m_GameObject: {fileID: 816118552587487296}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dd7812f7db756fe489fe38a9c5997c16, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -291,6 +292,27 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6276992792187004738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816118552587487296}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65ef1dcd1a29bc94aaa9e556a036532f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyFollow
+  Objetivo: {fileID: 0}
+  particula_sangre: {fileID: 1962953232784315439, guid: b22f5fab132fc8f4a8f3e1f46c929bc6, type: 3}
+  particula_sangre_f: {fileID: 641071966675143974, guid: d448e494b1229064dbfda4b79bdcc92b, type: 3}
+  Velocidad: 3.5
+  EnRango: 10
+  velocidadAtraccion: 8
+  posEsqueleto: {fileID: 0}
+  esqueleto: {fileID: 0}
+  muerte_audio: {fileID: -243729910275811513}
 --- !u!1 &914825584676736566
 GameObject:
   m_ObjectHideFlags: 0

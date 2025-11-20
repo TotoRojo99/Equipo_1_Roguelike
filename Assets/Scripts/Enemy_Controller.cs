@@ -65,7 +65,7 @@ public class E_Controller : MonoBehaviour
             Vector3 spawnPos = GetValidSpawnPosition();
             GameObject nuevoEnemigo = Instantiate(enemy, spawnPos, Quaternion.identity);
 
-            EnemyFollow ef = nuevoEnemigo.GetComponent<EnemyFollow>();
+            EnemigoPiña ef = nuevoEnemigo.GetComponent<EnemigoPiña>();
             if (ef != null)
                 ef.Objetivo = player;
 

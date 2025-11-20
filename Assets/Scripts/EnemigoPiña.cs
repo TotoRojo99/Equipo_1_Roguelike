@@ -71,7 +71,7 @@ public class EnemigoPiña : MonoBehaviour
 
                 // convertir a Euler, sumar 180° en Y, volver a Quaternion
                 Vector3 euler = rotacionHaciaJugador.eulerAngles;
-                euler.y += 180f;
+                euler.y += 0f;
                 Quaternion rotacionCorregida = Quaternion.Euler(euler);
 
                 // suavizar la rotación hacia la rotación corregida
