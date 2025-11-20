@@ -6,7 +6,7 @@ public class E_Controller : MonoBehaviour
     [Header("Prefab y jugador")]
     [SerializeField] private GameObject enemy;
     [SerializeField] private Transform player;
-
+    [SerializeField] private float offsetY = 2f;
     [Header("Configuración spawn")]
     [SerializeField] private float spawnRadius = 10f;
     [SerializeField] private float minDistance = 5f;
@@ -52,6 +52,8 @@ public class E_Controller : MonoBehaviour
             ControladorDatosJuego.Instance.rondaAlcanzada = round;
     }
 
+    
+
     void SpawnEnemies(int cantidad)
     {
         if (enemy == null)
@@ -63,6 +65,10 @@ public class E_Controller : MonoBehaviour
         for (int i = 0; i < cantidad; i++)
         {
             Vector3 spawnPos = GetValidSpawnPosition();
+
+            // AUMENTAR LA POSICIÓN EN Y
+            spawnPos.y += offsetY;
+
             GameObject nuevoEnemigo = Instantiate(enemy, spawnPos, Quaternion.identity);
 
             EnemyFollow ef = nuevoEnemigo.GetComponent<EnemyFollow>();
@@ -72,6 +78,7 @@ public class E_Controller : MonoBehaviour
             nuevoEnemigo.tag = "Enemy";
         }
     }
+
 
     Vector3 GetValidSpawnPosition()
     {
