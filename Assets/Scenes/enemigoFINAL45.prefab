@@ -268,8 +268,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   animator: {fileID: 3486760339912372819}
   animacionesAtaque:
-  - Armature|Ataque R
   - Armature|Ataque G
+  - Armature|Ataque R
   - Armature|Ataque L
   - Armature|Ataque X
   tagJugador: Player
@@ -293,8 +293,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 7
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!114 &6276992792187004738
 MonoBehaviour:
   m_ObjectHideFlags: 0
