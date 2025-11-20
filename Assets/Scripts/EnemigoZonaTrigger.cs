@@ -9,10 +9,10 @@ public class EnemigoZonaTrigger : MonoBehaviour
     [Header("Animaciones de Ataque")]
     public string[] animacionesAtaque =
     {
-        "rig|Ataque R",
-        "rig|Ataque G",
-        "rig|Ataque L",
-        "rig|Ataque X"
+        "Armature|Golpe G",
+        "Armature|Golpe L",
+        "Armature|Golpe R",
+        "Armature|Golpe X"
     };
 
     [Header("Opciones")]

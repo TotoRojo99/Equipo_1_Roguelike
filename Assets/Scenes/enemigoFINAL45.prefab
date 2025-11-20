@@ -228,7 +228,7 @@ MonoBehaviour:
   particula_sangre_f: {fileID: 641071966675143974, guid: d448e494b1229064dbfda4b79bdcc92b, type: 3}
   modeloVisual: {fileID: 0}
   Velocidad: 3.5
-  EnRango: 10
+  EnRango: 200
   velocidadAtraccion: 8
   posEsqueleto: {fileID: 5169197261716763102, guid: d71222f5a1b315646b91d3e0620059ff, type: 3}
   esqueleto: {fileID: 1128078038460493500, guid: 14325bb64668b6342a51a13a17b38efb, type: 3}
@@ -242,7 +242,7 @@ Animator:
   m_GameObject: {fileID: 816118552587487296}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dd7812f7db756fe489fe38a9c5997c16, type: 2}
+  m_Controller: {fileID: 9100000, guid: 12dbc15c6a4d14648a66e93931631816, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -268,10 +268,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   animator: {fileID: 3486760339912372819}
   animacionesAtaque:
-  - rig|Ataque R
-  - rig|Ataque G
-  - rig|Ataque L
-  - rig|Ataque X
+  - Armature|Ataque R
+  - Armature|Ataque G
+  - Armature|Ataque L
+  - Armature|Ataque X
   tagJugador: Player
   tiempoEntreAtaques: 2
 --- !u!135 &3025846022805504459
@@ -289,11 +289,11 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6276992792187004738
 MonoBehaviour:
