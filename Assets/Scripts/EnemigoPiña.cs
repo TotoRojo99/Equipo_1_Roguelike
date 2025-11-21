@@ -27,6 +27,8 @@ public class EnemigoPiña : MonoBehaviour
 
     private Animator animator;
 
+    public AudioSource audioCorrer;
+    public float minVelocidadParaSonar = 0.1f;
     public void AsignarCambioSkin(Cambio_Skin cambio)
     {
         cambioSkin = cambio;
@@ -89,6 +91,13 @@ public class EnemigoPiña : MonoBehaviour
         {
             if (animator != null)
                 animator.SetBool("Armature|correr", false);
+        }
+        if (animator != null)
+        {
+            animator.SetBool("Armature|correr", true);
+
+            if (!audioCorrer.isPlaying)
+                audioCorrer.Play();
         }
     }
 

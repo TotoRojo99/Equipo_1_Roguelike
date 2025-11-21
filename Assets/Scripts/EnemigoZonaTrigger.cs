@@ -1,8 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
+
 public class EnemigoZonaTrigger : MonoBehaviour
 {
+    public AudioSource audioAtaque;
+    public AudioClip[] sonidosAtaque;
+
     [Header("Referencias")]
     public Animator animator;
 
@@ -27,11 +31,16 @@ public class EnemigoZonaTrigger : MonoBehaviour
 
         if (other.CompareTag(tagJugador))
         {
-            int index = Random.Range(0, animacionesAtaque.Length);
-            string animSeleccionada = animacionesAtaque[index];
-            Debug.Log("Numero Index: " + animSeleccionada);
+            int indexAnim = Random.Range(0, animacionesAtaque.Length);
+            string anim = animacionesAtaque[indexAnim];
+            animator.Play(anim);
 
-            animator.Play(animSeleccionada);
+            if (audioAtaque != null && sonidosAtaque.Length > 0)
+            {
+                int indexSonido = Random.Range(0, sonidosAtaque.Length);
+                audioAtaque.clip = sonidosAtaque[indexSonido];
+                audioAtaque.Play();
+            }
 
             puedeAtacar = false;
             Invoke(nameof(ReactivarAtaque), tiempoEntreAtaques);

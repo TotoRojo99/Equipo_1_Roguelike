@@ -30,8 +30,12 @@ public class PlayerController : MonoBehaviour
     public bool habilitado;                             //Verificamos si el jugador está habilitado para moverse
     private Dictionary<Renderer, Color[]> coloresOriginales = new Dictionary<Renderer, Color[]>();
 
+    public AudioSource Movimientopersonaje;
+    public float minSpeedToPlay = 0.1f; // Velocidad mínima para que suene
+
     void Start()
     {
+        Movimientopersonaje.Stop();
         ReanudarJuego(); //Al iniciar el juego, reanudamos el juego
         habilitado = true; //Al iniciar el juego, el jugador está habilitado
         controller = GetComponent<CharacterController>(); //Instanciamos la referencia al CharacterController
@@ -61,8 +65,18 @@ public class PlayerController : MonoBehaviour
 
             velocity.y += gravity * Time.deltaTime; //Aplicamos la gravedad 
             controller.Move(velocity * Time.deltaTime); //Movemos al jugador con la gravedad
-        
-        
+
+        if (move.magnitude > minSpeedToPlay)
+        {
+            Debug.Log("Velocidad del jugador: " );
+            if (!Movimientopersonaje.isPlaying)
+                Movimientopersonaje.Play();
+        }
+        else
+        {
+            if (Movimientopersonaje.isPlaying)
+                Movimientopersonaje.Stop();
+        }
     }
     private void Iniciar_Tiempo()
     {
@@ -75,11 +89,15 @@ public class PlayerController : MonoBehaviour
     public void PausarJuego()
     {
         juegoActivo = false;
+
     }
 
     public void ReanudarJuego()
     {
+
         juegoActivo = true;
+
+
     }
     private void OnCollisionEnter(Collision collision) //Método para manejar las colisiones
     {
