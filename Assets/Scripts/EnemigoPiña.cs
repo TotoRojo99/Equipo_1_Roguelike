@@ -53,37 +53,16 @@ public class EnemigoPiña : MonoBehaviour
         float distancia = Vector3.Distance(transform.position, Objetivo.position);
 
         if (distancia <= EnRango)
-        {
-            // Movimiento hacia el jugador
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                Objetivo.position,
-                Velocidad * Time.deltaTime
-            );
+        { // Moverse hacia el jugador
+            transform.position = Vector3.MoveTowards(transform.position, Objetivo.position, Velocidad * Time.deltaTime);
 
-            // Rotación hacia el jugador
-            // Rotación hacia el jugador (con +180° en Y usando eulerAngles)
+            // Rotar hacia el jugador
             Vector3 direccion = (Objetivo.position - transform.position).normalized;
             direccion.y = 0;
-
             if (direccion != Vector3.zero)
-            {
-                // rotación base hacia el jugador
-                Quaternion rotacionHaciaJugador = Quaternion.LookRotation(direccion);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direccion), Time.deltaTime * 5f);
 
-                // convertir a Euler, sumar 180° en Y, volver a Quaternion
-                Vector3 euler = rotacionHaciaJugador.eulerAngles;
-                euler.y += 0f;
-                Quaternion rotacionCorregida = Quaternion.Euler(euler);
-
-                // suavizar la rotación hacia la rotación corregida
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    rotacionCorregida,
-                    Time.deltaTime * 5f
-                );
-            }
-            Debug.Log("ANIMATOR TRALALERO: " + animator);
+            
             if (animator != null)
                 animator.SetBool("Armature|correr", true);
         }
@@ -127,9 +106,18 @@ public class EnemigoPiña : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("P1") || collision.gameObject.CompareTag("Activo"))
+        Debug.Log("¡¡ATENCION ENEMIGO PIÑA!!");
+        Debug.Log("Colisioné con: " + collision.gameObject.name +
+              " TAG=" + collision.gameObject.tag);
+
+        if (collision.gameObject.CompareTag("Lanzable"))
+        {
+            return;
+        }
+        else if (collision.gameObject.CompareTag("P1") || collision.gameObject.CompareTag("Activo"))
         {
             morir();
+            Debug.Log("Enemigo Piña murió al colisionar con jugador o activo.");
         }
     }
 
@@ -169,4 +157,5 @@ public class EnemigoPiña : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, EnRango);
     }
+
 }

@@ -111,6 +111,7 @@ public class HabilidadMoverObjeto : MonoBehaviour, IHabilidadConCooldown
                     cooldownUI = cooldownMax;   // UI registra cooldown
 
                     objetoSeleccionado = hit.collider.gameObject;
+
                     hit.collider.gameObject.tag = "Activo";
                     tiempoArrastre = 0f;
 
@@ -131,6 +132,7 @@ public class HabilidadMoverObjeto : MonoBehaviour, IHabilidadConCooldown
             if (tiempoArrastre >= tiempoMaximoArrastre)
             {
                 objetoSeleccionado.gameObject.tag = "Lanzable";
+                
                 objetoSeleccionado = null;
                 return;
             }

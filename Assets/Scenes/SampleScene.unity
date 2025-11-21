@@ -988,6 +988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::E_Controller
   enemy: {fileID: 816118552587487296, guid: eb6570c5ccbd2854592d54e17713cfd5, type: 3}
+  cientifico: {fileID: 2860773731343372271, guid: 94a8be0f35be2794fad0c18bc7333715, type: 3}
   player: {fileID: 1902906825}
   spawnRadius: 20
   minDistance: 7

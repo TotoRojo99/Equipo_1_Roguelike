@@ -27,6 +27,8 @@ public class EnemigoZonaTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
+
         if (!puedeAtacar) return;
 
         if (other.CompareTag(tagJugador))

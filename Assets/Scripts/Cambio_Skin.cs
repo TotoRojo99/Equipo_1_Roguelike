@@ -16,6 +16,7 @@ public class Cambio_Skin : MonoBehaviour
     public AudioSource sonidorayo;
 
     private EnemyFollow Enemigo;
+    private EnemigoPiña EnemyPiña;
     private GameObject EsqueletoInstanciado;
     private MeshRenderer meshRenderer;
     private MeshCollider meshCollider;
@@ -68,12 +69,19 @@ public class Cambio_Skin : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        
+
         if (collision.gameObject.CompareTag("Enemy"))
         {
- 
+            if (collision.GetComponent<EnemyFollow>())
+            {
                 Enemigo = collision.GetComponent<EnemyFollow>();
-                PosicionEsqueleto = collision.transform.position;
+            }
+            else if (collision.GetComponent<EnemigoPiña>())
+            {
+                EnemyPiña = collision.GetComponent<EnemigoPiña>();
+            }
+
+            PosicionEsqueleto = collision.transform.position;
             RotacionEsqueleto = collision.transform.rotation;
             Vector3 euler = RotacionEsqueleto.eulerAngles;
             euler.y += 180f; // restamos 80° en Y
@@ -86,6 +94,8 @@ public class Cambio_Skin : MonoBehaviour
         }
 
     }
+
+    
 
     private void OnTriggerExit(Collider collision)
     {
@@ -101,6 +111,11 @@ public class Cambio_Skin : MonoBehaviour
             Enemigo.AsignarCambioSkin(this);
             Enemigo.morirRayito();
             
+        }
+        if (EnemyPiña != null)
+        {
+            EnemyPiña.AsignarCambioSkin(this);
+            EnemyPiña.morirRayito();
         }
     }
 }

@@ -5,7 +5,9 @@ public class E_Controller : MonoBehaviour
 {
     [Header("Prefab y jugador")]
     [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject cientifico;
     [SerializeField] private Transform player;
+    private GameObject EnemigoInstancia;
 
     [Header("Configuración spawn")]
     [SerializeField] private float spawnRadius = 10f;
@@ -52,6 +54,19 @@ public class E_Controller : MonoBehaviour
             ControladorDatosJuego.Instance.rondaAlcanzada = round;
     }
 
+    void SelectEnemigoRamdom()
+    {
+        int tipoEnemigo = Random.Range(0, 2); // 0 o 1
+        if (tipoEnemigo == 0)
+        {
+            EnemigoInstancia = enemy;
+        }
+        else
+        {
+            EnemigoInstancia = cientifico;
+        }
+    }
+
     void SpawnEnemies(int cantidad)
     {
         if (enemy == null)
@@ -62,14 +77,25 @@ public class E_Controller : MonoBehaviour
 
         for (int i = 0; i < cantidad; i++)
         {
+            SelectEnemigoRamdom();
             Vector3 spawnPos = GetValidSpawnPosition();
-            GameObject nuevoEnemigo = Instantiate(enemy, spawnPos, Quaternion.identity);
+            GameObject nuevoEnemigo = Instantiate(EnemigoInstancia, spawnPos, Quaternion.identity);
 
-            EnemigoPiña ef = nuevoEnemigo.GetComponent<EnemigoPiña>();
-            if (ef != null)
+            if (EnemigoInstancia == enemy) 
+            { 
+                EnemigoPiña ef = nuevoEnemigo.GetComponent<EnemigoPiña>();
+                if (ef != null)
                 ef.Objetivo = player;
-
+            }
+            else if (EnemigoInstancia == cientifico)
+            {
+                EnemyFollow ce = nuevoEnemigo.GetComponent<EnemyFollow>();
+                if (ce != null)
+                ce.Objetivo = player;
+            }
             nuevoEnemigo.tag = "Enemy";
+            
+        
         }
     }
 

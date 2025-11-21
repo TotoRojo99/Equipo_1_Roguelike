@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float tiempoDeJuego = 0f;                    //Tiempo que lleva el jugador en el juego
     public bool juegoActivo = true;                     //Verificamos si el juego está activo
 
+    public bool Inmunidad = false;                         //Jugador con inmunidad para evitar multiples golpes
     public bool cooldown_Derrumbar = false;
     public bool cooldown_Retroceder = false;
     public bool cooldown_Mover_objeto = false;
@@ -106,7 +107,7 @@ public class PlayerController : MonoBehaviour
         {
             PerderVida(); //Llamamos al método para perder vida
             golpeRecibido = true; //Marcamos que ha recibido un golpe
-            Invoke("ResetGolpe", 0.1f); //Reiniciamos el flag después de un pequeño delay
+            Invoke("ResetGolpe", 1f); //Reiniciamos el flag después de un pequeño delay
         }
     }
     private void ResetGolpe()
