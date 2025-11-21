@@ -22,6 +22,7 @@ public class E_Controller : MonoBehaviour
 
     void Start()
     {
+        Invoke(nameof(NuevaRonda), 0.1f);
         NuevaRonda();
         ScoreManager.Instance.ResetScore();
     }
@@ -43,6 +44,8 @@ public class E_Controller : MonoBehaviour
 
         Debug.Log(player.position + " ¡¡¡NUEVA RONDA!!!");
 
+        OnNuevaRonda?.Invoke(round);
+
         // Cantidad de enemigos extra según ronda
         int enemigosExtra = (round <= 10) ? Random.Range(1, 3) : Random.Range(3, 5);
         totalEnemies += enemigosExtra;
@@ -57,8 +60,7 @@ public class E_Controller : MonoBehaviour
         if (ControladorDatosJuego.Instance != null)
             ControladorDatosJuego.Instance.rondaAlcanzada = round;
 
-        // 🔥 Notificar a los sistemas que escuchan nuevas rondas (como el MenuDeMejoras)
-        OnNuevaRonda?.Invoke(round);
+     
     }
 
 
