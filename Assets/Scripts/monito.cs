@@ -16,6 +16,8 @@ public class EnemyFollow : MonoBehaviour
     private Vector3 puntoAtraccion;
     private float tiempoAtraccionRestante = 0f;
 
+
+
     public GameObject posEsqueleto;
     public GameObject esqueleto;
 

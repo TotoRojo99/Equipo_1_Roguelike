@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
     {
         golpeRecibido = false;
     }
-    private void PerderVida() //Método para perder vida
+    public void PerderVida() //Método para perder vida
     {
         vida = vida - 1; //Restamos 1 a la vida
         StartCoroutine(EfectoColorRojo());
