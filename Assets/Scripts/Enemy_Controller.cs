@@ -56,12 +56,12 @@ public class E_Controller : MonoBehaviour
 
     void SelectEnemigoRamdom()
     {
-        int tipoEnemigo = Random.Range(0, 2); // 0 o 1
-        if (tipoEnemigo == 0)
+        int tipoEnemigo = Random.Range(0, 6); // 0 o 1
+        if (tipoEnemigo >= 2)
         {
             EnemigoInstancia = enemy;
         }
-        else
+        else if (tipoEnemigo < 2)
         {
             EnemigoInstancia = cientifico;
         }

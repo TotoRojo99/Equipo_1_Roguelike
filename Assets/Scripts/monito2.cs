@@ -96,10 +96,10 @@ public class Enemigo2 : MonoBehaviour
 
         float distancia = Vector3.Distance(transform.position, Objetivo.position);
 
-        // ------------------------------
+        ///* ------------------------------
         //      SISTEMA DE HUIDA
         // ------------------------------
-        if (!huyendo && distancia < distanciaHuida)
+        /*if (!huyendo && distancia < distanciaHuida)
             huyendo = true;
         else if (huyendo && distancia > distanciaSegura)
             huyendo = false;
@@ -120,7 +120,7 @@ public class Enemigo2 : MonoBehaviour
         {
             if (animator != null)
                 animator.SetBool("Huir", false);
-        }
+        }*/
 
         // ------------------------------
         //     PERSEGUIR AL JUGADOR

@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
         if (move.magnitude > minSpeedToPlay)
         {
-            Debug.Log("Velocidad del jugador: " );
+            
             if (!Movimientopersonaje.isPlaying)
                 Movimientopersonaje.Play();
         }

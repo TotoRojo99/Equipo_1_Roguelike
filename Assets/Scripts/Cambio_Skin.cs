@@ -15,7 +15,7 @@ public class Cambio_Skin : MonoBehaviour
     public ParticleSystem rayoparti;
     public AudioSource sonidorayo;
 
-    private EnemyFollow Enemigo;
+    private Enemigo2 Enemigo;
     private EnemigoPiña EnemyPiña;
     private GameObject EsqueletoInstanciado;
     private MeshRenderer meshRenderer;
@@ -72,9 +72,9 @@ public class Cambio_Skin : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (collision.GetComponent<EnemyFollow>())
+            if (collision.GetComponent<Enemigo2>())
             {
-                Enemigo = collision.GetComponent<EnemyFollow>();
+                Enemigo = collision.GetComponent<Enemigo2>();
             }
             else if (collision.GetComponent<EnemigoPiña>())
             {

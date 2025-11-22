@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 677cd3262548f824c8342722eddd6a08, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f6149fdc300c7bd479a5273f52c14553, type: 2}
     - target: {fileID: 919132149155446097, guid: 677cd3262548f824c8342722eddd6a08, type: 3}
       propertyPath: m_Name
       value: Posion
@@ -88,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   lifetime: 5
-  explosionEffect: {fileID: 0}
+  explosionEffect: {fileID: 552651977790986824, guid: 1ee9a426d97e4ec40a877a4ee0696ddd, type: 3}
   "areaDeDa\xF1oPrefab": {fileID: 1894173676090748849, guid: 378a446801d274a43b64aed71fefa1a0, type: 3}
 --- !u!54 &3301321933074852636
 Rigidbody:

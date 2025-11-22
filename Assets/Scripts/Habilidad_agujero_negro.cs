@@ -57,7 +57,7 @@ public class HabilidadAgujeroNegro : MonoBehaviour, IHabilidadConCooldown
         {
             if (col.CompareTag("Enemy"))
             {
-                EnemyFollow enemy = col.GetComponent<EnemyFollow>();
+                Enemigo2 enemy = col.GetComponent<Enemigo2>();
                 EnemigoPiña enemigoPiña = col.GetComponent<EnemigoPiña>();
                 if (enemy != null)
                     enemy.ActivarAtraccion(punto, duracionAtraccion);

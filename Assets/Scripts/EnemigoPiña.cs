@@ -106,10 +106,7 @@ public class EnemigoPiña : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("¡¡ATENCION ENEMIGO PIÑA!!");
-        Debug.Log("Colisioné con: " + collision.gameObject.name +
-              " TAG=" + collision.gameObject.tag);
-
+        
         if (collision.gameObject.CompareTag("Lanzable"))
         {
             return;
