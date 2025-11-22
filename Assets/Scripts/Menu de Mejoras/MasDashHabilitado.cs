@@ -46,7 +46,7 @@ public class ActivarMasDash : MonoBehaviour
         botonActivar.onClick.AddListener(ActivarDash);
     }
 
-    private void ActivarDash()
+    public void ActivarDash()
     {
         // Buscar al jugador
         GameObject player = GameObject.Find(nombreJugador);
