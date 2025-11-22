@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class E_Controller : MonoBehaviour
 {
-    // Evento que será escuchado por MenuDeMejorasController
+    // Evento para que otros scripts puedan escuchar la ronda
     public static System.Action<int> OnNuevaRonda;
 
     [Header("Prefab y jugador")]
@@ -16,21 +16,22 @@ public class E_Controller : MonoBehaviour
     [SerializeField] private float maxNavMeshSampleDistance = 3f;
 
     [Header("Rondas")]
-    [SerializeField] public int round = 0;
+    [SerializeField] private int round = 0;
     private int totalEnemies = 0;
+
+    [Header("Referencia al menú de mejoras")]
+    [SerializeField] private MenuDeMejorasController controlMejoras;
 
 
     void Start()
     {
-        Invoke(nameof(NuevaRonda), 0.1f);
-        NuevaRonda();
         ScoreManager.Instance.ResetScore();
+        NuevaRonda();
     }
 
 
     void Update()
     {
-        // Si no hay enemigos vivos, iniciar nueva ronda
         if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
             NuevaRonda();
@@ -42,25 +43,30 @@ public class E_Controller : MonoBehaviour
     {
         round++;
 
-        Debug.Log(player.position + " ¡¡¡NUEVA RONDA!!!");
+        Debug.Log($"[E_Controller] NUEVA RONDA {round}");
 
+        // Notificar por referencia directa (si existe)
+        if (controlMejoras != null)
+        {
+            controlMejoras.NuevaRonda(round);
+            Debug.Log($"[E_Controller] Notificando por referencia directa al menú.");
+        }
+
+        // Disparar evento (compatibilidad)
         OnNuevaRonda?.Invoke(round);
 
-        // Cantidad de enemigos extra según ronda
+        // Calcular enemigos a spawnear
         int enemigosExtra = (round <= 10) ? Random.Range(1, 3) : Random.Range(3, 5);
         totalEnemies += enemigosExtra;
 
         SpawnEnemies(totalEnemies);
 
-        Debug.Log($"Ronda {round} - Enemigos: {totalEnemies}");
+        Debug.Log($"[E_Controller] Ronda {round} - Enemigos: {totalEnemies}");
 
-        if (ScoreManager.Instance != null)
-            ScoreManager.Instance.AddRoundPoints(round);
+        ScoreManager.Instance?.AddRoundPoints(round);
 
         if (ControladorDatosJuego.Instance != null)
             ControladorDatosJuego.Instance.rondaAlcanzada = round;
-
-     
     }
 
 
@@ -68,20 +74,20 @@ public class E_Controller : MonoBehaviour
     {
         if (enemy == null)
         {
-            Debug.LogError("Prefab de enemigo no asignado en el Inspector!");
+            Debug.LogError("Prefab enemigo no asignado!");
             return;
         }
 
         for (int i = 0; i < cantidad; i++)
         {
             Vector3 spawnPos = GetValidSpawnPosition();
-            GameObject nuevoEnemigo = Instantiate(enemy, spawnPos, Quaternion.identity);
+            GameObject nuevo = Instantiate(enemy, spawnPos, Quaternion.identity);
 
-            EnemyFollow ef = nuevoEnemigo.GetComponent<EnemyFollow>();
+            EnemyFollow ef = nuevo.GetComponent<EnemyFollow>();
             if (ef != null)
                 ef.Objetivo = player;
 
-            nuevoEnemigo.tag = "Enemy";
+            nuevo.tag = "Enemy";
         }
     }
 
@@ -91,28 +97,22 @@ public class E_Controller : MonoBehaviour
         Vector3 randomPos;
         NavMeshHit hit;
 
-        int maxIntentos = 30;
-        int intentos = 0;
-
-        do
+        for (int i = 0; i < 30; i++)
         {
-            Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
-            randomPos = new Vector3(randomCircle.x, 0, randomCircle.y) + player.position;
+            Vector2 circle = Random.insideUnitCircle * spawnRadius;
+            randomPos = player.position + new Vector3(circle.x, 0, circle.y);
 
-            // Evitar spawnear demasiado cerca
             if (Vector3.Distance(randomPos, player.position) < minDistance)
                 continue;
 
-            // Validar con el NavMesh
             if (NavMesh.SamplePosition(randomPos, out hit, maxNavMeshSampleDistance, NavMesh.AllAreas))
                 return hit.position;
+        }
 
-            intentos++;
-
-        } while (intentos < maxIntentos);
-
-        // Fallback
-        Debug.LogWarning("No se encontró una posición válida en el NavMesh. Usando posición del jugador.");
+        Debug.LogWarning("Spawn fallback.");
         return player.position + Vector3.forward * minDistance;
     }
+
+
+    public int RondaActual => round;
 }

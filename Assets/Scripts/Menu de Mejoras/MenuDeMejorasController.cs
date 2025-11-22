@@ -22,9 +22,9 @@ public class MenuDeMejorasController : MonoBehaviour
     private readonly List<GameObject> tarjetasMostradas = new List<GameObject>();
 
 
-    // ✔ CORRECCIÓN: suscribirse bien al evento
     private void OnEnable()
     {
+        // Escuchar evento (compatibilidad)
         E_Controller.OnNuevaRonda += NuevaRonda;
     }
 
@@ -43,11 +43,10 @@ public class MenuDeMejorasController : MonoBehaviour
     }
 
 
-    // ✔ Este método ahora sí recibirá la ronda gracias al evento del Enemy_Controller
     public void NuevaRonda(int numeroRonda)
     {
         rondaActual = numeroRonda;
-        Debug.Log($"[MenuDeMejorasController] Nueva ronda: {rondaActual}");
+        Debug.Log($"[MenuDeMejorasController] Nueva ronda recibida: {rondaActual}");
 
         if (rondaActual % cadaCuantasRondas == 0 && !menuActivo)
         {
@@ -60,7 +59,7 @@ public class MenuDeMejorasController : MonoBehaviour
     {
         if (canvasMenuMejoras == null)
         {
-            Debug.LogError("[MenuDeMejorasController] No se asignó el canvasMenuMejoras.");
+            Debug.LogError("[MenuDeMejorasController] Canvas del menú NO asignado.");
             return;
         }
 
@@ -74,7 +73,7 @@ public class MenuDeMejorasController : MonoBehaviour
 
         GenerarTarjetasAleatorias();
 
-        Debug.Log("[MenuDeMejorasController] Menú de mejoras activado.");
+        Debug.Log("[MenuDeMejorasController] Menú de mejoras ACTIVADO.");
     }
 
 
@@ -89,21 +88,21 @@ public class MenuDeMejorasController : MonoBehaviour
 
         if (todasLasTarjetas == null || todasLasTarjetas.Count == 0)
         {
-            Debug.LogWarning("[MenuDeMejorasController] No hay tarjetas disponibles.");
+            Debug.LogWarning("[MenuDeMejorasController] No hay tarjetas configuradas.");
             return;
         }
 
-        List<GameObject> seleccionadas = new List<GameObject>(todasLasTarjetas);
-        int cantidad = Mathf.Min(cantidadTarjetasAMostrar, seleccionadas.Count);
+        List<GameObject> disponibles = new List<GameObject>(todasLasTarjetas);
+        int cantidad = Mathf.Min(cantidadTarjetasAMostrar, disponibles.Count);
 
         for (int i = 0; i < cantidad; i++)
         {
-            int index = Random.Range(0, seleccionadas.Count);
-            GameObject tarjetaPrefab = seleccionadas[index];
-            seleccionadas.RemoveAt(index);
+            int index = Random.Range(0, disponibles.Count);
+            GameObject tarjetaPrefab = disponibles[index];
+            disponibles.RemoveAt(index);
 
-            GameObject nuevaTarjeta = Instantiate(tarjetaPrefab, contenedorTarjetas);
-            tarjetasMostradas.Add(nuevaTarjeta);
+            GameObject nueva = Instantiate(tarjetaPrefab, contenedorTarjetas);
+            tarjetasMostradas.Add(nueva);
         }
 
         Debug.Log($"[MenuDeMejorasController] {tarjetasMostradas.Count} tarjetas generadas.");
